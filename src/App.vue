@@ -1,16 +1,18 @@
 <template>
   <div class="wrapper">
-    <Home></Home>
+    <Signup />
   </div>
 </template>
 
 <script>
-import Home from "./components/Home.vue";
+import Signup from "./views/Signup.vue";
 export default {
   components: {
-    Home,
+    Signup,
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>
