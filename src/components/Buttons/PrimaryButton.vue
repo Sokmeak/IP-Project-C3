@@ -28,7 +28,7 @@ export default {
   padding: 1rem ;
   border-radius: 0.4rem;
   font-family: "Roboto", serif;
-  font-size: 20px;
+  font-size: 18px;  
 
   font-weight: 400;
 

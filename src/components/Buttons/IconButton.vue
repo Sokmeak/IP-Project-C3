@@ -20,13 +20,15 @@ img {
 }
 .button-google {
   border: 1px solid #af47d2;
-  padding: 0.4rem ;
+  padding: 0.4rem;
   border-radius: 0.5rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-size: 20px;
+
+  font-family: "Roboto", serif;
+  font-size: 18px;
 }
 </style>

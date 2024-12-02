@@ -49,7 +49,7 @@
 
           <div class="more-option">
             <span>Have an account? </span>
-            <span style="color: blue">Login</span>
+            <span class="loginOption">Login</span>
           </div>
           <div class="back">
             <i class="fa-solid fa-arrow-left"></i>
@@ -103,8 +103,10 @@ export default {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
-
-  color: blue;
+  color: #af47d2;
+}
+.back a {
+  color: #af47d2;
 }
 .basic-info {
   display: flex;
@@ -133,6 +135,10 @@ export default {
   justify-content: center;
   gap: 1rem;
 }
+.more-option .loginOption {
+  font-weight: bold;
+  color: #af47d2;
+}
 
 .signupDetails {
   /* margin-top: 1.5rem; */
@@ -146,10 +152,9 @@ export default {
 .signupForm-wrapper img {
   width: 40rem;
 }
-.signupPage{
+.signupPage {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 </style>
