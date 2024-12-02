@@ -1,5 +1,7 @@
 <template>
+
   <h1>Hello to Home page for Angkor Apparel's Shop Project</h1>
+
 </template>
 
 <script>
