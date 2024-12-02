@@ -1,12 +1,16 @@
 <template>
-  <DefaultBranch />
+  <div class="loginForm">
+    <DefaultBrand />
+
+  </div>
+  
 </template>
 <script>
-import DefaultBranch from "@/components/Brands/DefaultBrand.vue";
+import DefaultBrand from "@/components/Brands/DefaultBrand.vue";
 
 export default {
   components: {
-    DefaultBranch,
+    DefaultBrand,
   },
 };
 </script>
