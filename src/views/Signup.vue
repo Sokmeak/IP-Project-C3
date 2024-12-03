@@ -96,9 +96,7 @@ export default {
   setup() {
     const myStore = useStore();
 
-    // const toggleRegister = () => {
-    //   isRegister.value = !isRegister.value; // Update the shared state
-    // };
+ 
 
     return {
       myStore,
@@ -136,6 +134,7 @@ export default {
 
       // update store here
       this.myStore.isRegister = true;
+      // check the validation here
 
       const isValid = true;
 

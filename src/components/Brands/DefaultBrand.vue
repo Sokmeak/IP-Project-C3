@@ -2,8 +2,8 @@
   <div class="default-brand">
     <img src="../../../public/images/defaultLogo.png" alt="aa-logo" />
     <div class="brand-name">
-      <span :style="{color: fontColor1}">Angkor </span>
-      <span :style="{color: fontColor2}">Apparel</span>
+      <span :style="{ color: fontColor1 }">Angkor </span>
+      <span :style="{ color: fontColor2 }">Apparel</span>
 
       <!-- <span style="color: #ffdb00">{{ fontColor1 }}</span> -->
     </div>

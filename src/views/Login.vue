@@ -101,16 +101,7 @@ export default {
       passwordFieldType: "password",
     };
   },
-  // created() {
-  //   const router = useRouter();
-  //   // Check for existing session cookies
-  //   const savedEmail = Cookies.get("email");
-  //   const savedPassword = Cookies.get("password");
-
-  //   if (savedEmail && savedPassword) {
-  //     // Redirect to home page if cookies are valid
-  //     router.redirect("/home");
-  //   }
+ 
   // },
   methods: {
     togglePasswordVisibility() {
@@ -118,52 +109,7 @@ export default {
         this.passwordFieldType === "password" ? "text" : "password";
     },
 
-    // handleLogin() {
-    //   // use the data from the database in stead
-    //   const email = this.user.email; // Example bound value
-    //   const password = this.user.password; // Example bound value
-
-    //   if (email === "saroussokmeak721@gmail.com" && password === "123456") {
-    //     console.log("Correct info");
-    //     this.$router.push("/home"); //Redirect to home
-    //     Cookies.set("email", this.user.email, { expires: 1 });
-    //     Cookies.set("password", this.user.password, { expires: 1 });
-    //   }
-
-    // if (this.rememberMe) {
-    //   // Save email and password in cookies with a 3-day expiration
-    //   // save
-    //   Cookies.set("email", this.user.email, { expires: 1 });
-    //   Cookies.set("password", this.user.password, { expires: 1 });
-    // }
-
-    //       logout() {
-    // // Remove cookies for email and password
-    // Cookies.remove("email");
-    // Cookies.remove("password");
-
-    // console.log("User has been logged out. Cookies cleared.");
-
-    // // Optionally redirect to the login page
-    // const router = useRouter();
-    // router.push("/login");
-    //}
-    // else {
-
-    // clear the user credecials  after they logout if the use didn't check remember me
-    // otherwise we save them with 1 day expire
-
-    // can i remove after
-    // Cookies.remove("email");
-    // Cookies.remove("password");
-    // }
-    //   else {
-    //     alert("Invalid credentials");
-    //   }
-
-    //   // Redirect to home page after login
-    // },
-
+    
     handleLogin() {
       const email = this.user.email;
       const password = this.user.password;
