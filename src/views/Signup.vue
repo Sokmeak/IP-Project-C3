@@ -1,6 +1,6 @@
 <template>
   <div class="signupPage">
-    <div class="signupForm-container">
+    <form class="signupForm-container" @submit.prevent="handleSignUp">
       <DefaultBranch />
       <div class="signupForm-wrapper">
         <img src="../../public/images/OAuth/temple1.png" alt="temple" />
@@ -11,29 +11,52 @@
           </div>
 
           <div class="basic-info">
-            <div class="name-field">
-              <span>Name</span>
-              <InputField type="text" place-holder="John Smith"></InputField>
+            <div class="email-field">
+              <label for="email">Email</label>
+              <InputField
+                id=" email"
+                type="email"
+                v-model="userSignUP.email"
+                required
+                place-holder="johnsmith123@gmail.com"
+              ></InputField>
               <!-- input -->
             </div>
             <div class="username-field">
-              <span>Username</span>
+              <label for="username">Username</label>
               <!-- input -->
-              <InputField type="text" place-holder="John"></InputField>
+              <InputField
+                id="username"
+                type="text"
+                v-model="userSignUP.username"
+                place-holder="John"
+                required
+              ></InputField>
             </div>
           </div>
           <div class="password">
-            <span>Password</span>
+            <label for="password">Password</label>
 
             <!-- input -->
-            <InputField
-              type="password"
-              place-holder="6+ characters"
-            ></InputField>
+            <div class="password-wrapper">
+              <InputField
+                id="password"
+                :type="passwordFieldType"
+                place-holder="6+ characters"
+                v-model="userSignUP.password"
+              />
+              <i
+                class="fa"
+                :class="
+                  passwordFieldType === 'password' ? 'fa-eye' : 'fa-eye-slash'
+                "
+                @click="togglePasswordVisibility"
+              ></i>
+            </div>
           </div>
 
           <!-- button -primary -->
-          <PrimaryButton content="Signup" @click="handleSignUp"></PrimaryButton>
+          <PrimaryButton type="submit " content="Signup"></PrimaryButton>
 
           <div class="divider">
             <hr />
@@ -53,11 +76,12 @@
           </div>
           <div class="back">
             <i class="fa-solid fa-arrow-left"></i>
+            <!-- back to the landing page -->
             <a href="#">Back</a>
           </div>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 <script>
@@ -65,13 +89,64 @@ import DefaultBranch from "@/components/Brands/DefaultBrand.vue";
 import InputField from "@/components/InputField.vue";
 import IconButton from "@/components/Buttons/IconButton.vue";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
+import { useStore } from "@/stores/user"; // Adjust the path as needed
+// use database to store data
 
 export default {
+  setup() {
+    const myStore = useStore();
+
+    // const toggleRegister = () => {
+    //   isRegister.value = !isRegister.value; // Update the shared state
+    // };
+
+    return {
+      myStore,
+    };
+  },
   components: {
     DefaultBranch,
     InputField,
     PrimaryButton,
     IconButton,
+  },
+
+  data() {
+    return {
+      userSignUP: {
+        username: "",
+        email: "",
+        password: "",
+      },
+      passwordFieldType: "password",
+    };
+  },
+  methods: {
+    togglePasswordVisibility() {
+      this.passwordFieldType =
+        this.passwordFieldType === "password" ? "text" : "password";
+    },
+
+    handleSignUp() {
+      const email = this.userSignUP.email;
+      const username = this.userSignUP.username;
+      const password = this.userSignUP.password;
+
+      //  store them in databse
+
+      // update store here
+      this.myStore.isRegister = true;
+
+      const isValid = true;
+
+      console.log(this.userSignUP);
+
+      if (isValid) {
+        this.$router.push("/login");
+      } else {
+        this.$router.redirect();
+      }
+    },
   },
 };
 </script>
@@ -142,7 +217,7 @@ export default {
 
 .signupDetails {
   /* margin-top: 1.5rem; */
-  padding-left: 3rem;
+  padding: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -151,10 +226,30 @@ export default {
 }
 .signupForm-wrapper img {
   width: 40rem;
+  height: 40rem;
 }
 .signupPage {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.password-wrapper i {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #af47d2;
+  font-size: 1.2rem;
+}
+.password-wrapper i:hover {
+  color: #7a2eb5;
+}
 </style>
+
+<!-- get user input and store them in database -->
+
+<!-- after save with valid info navigate to the login page**d -->
