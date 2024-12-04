@@ -1,10 +1,15 @@
 <template>
-  <RouterView />
+  <div id="app">
+    <RouterView />
+  </div>
 </template>
 
 <script>
-import { RouterView } from "vue-router";
-export default {};
+export default {
+  name: "App",
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+/* Optional: Global styles */
+</style>

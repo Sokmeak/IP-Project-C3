@@ -1,29 +1,25 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "@/views/Home.vue"; // your home page component
-import Login from "@/views/Login.vue"; // your login page component
-import Signup from "@/views/Signup.vue"; // your signup page component
+import LandingPage from "@/views/LandingPage.vue"; // Import LandingPage component
+import Login from "@/views/Login.vue"; // Login page component
+import Signup from "@/views/Signup.vue"; // Signup page component
+import Home from "@/views/Home.vue"; // Home page component
 import Cookies from "js-cookie";
 
-// Define your authentication check function
+// Authentication check function
 export function isAuthenticated() {
   const savedEmail = Cookies.get("email");
   const savedPassword = Cookies.get("password");
-  const sessionEmail = sessionStorage.getItem("email"); // Temporary session storage
+  const sessionEmail = sessionStorage.getItem("email");
   const sessionPassword = sessionStorage.getItem("password");
-  let status = false;
-
-  if ((savedEmail && savedPassword) || (sessionEmail && sessionPassword)) {
-    status = true;
-  }
-
-  return status;
+  return (savedEmail && savedPassword) || (sessionEmail && sessionPassword);
 }
 
 // Define routes
 const routes = [
   {
     path: "/",
-    redirect: "/home", // Redirect root to /home
+    name: "LandingPage",
+    component: LandingPage, // Default to LandingPage
   },
   {
     path: "/login",
@@ -31,9 +27,9 @@ const routes = [
     component: Login,
     beforeEnter: (to, from, next) => {
       if (isAuthenticated()) {
-        next("/home"); // redirect to home if authenticated
+        next("/home"); // Redirect to home if authenticated
       } else {
-        next(); // proceed to the login page
+        next(); // Proceed to login
       }
     },
   },
@@ -45,7 +41,7 @@ const routes = [
       import("@/stores/user").then(({ useStore }) => {
         const store = useStore();
         if (store.isRegister) {
-          next("/login"); // Redirect to login if registration is complete
+          next("/login"); // Redirect to login if already registered
         } else {
           next(); // Allow accessing the signup page
         }
@@ -59,12 +55,10 @@ const routes = [
     beforeEnter: (to, from, next) => {
       import("@/stores/user").then(({ useStore }) => {
         const store = useStore();
-        const test = isAuthenticated();
         const isRegistered = store.isRegister;
-
         if (!isRegistered) {
           next("/signup"); // Redirect to signup if not registered
-        } else if (!test) {
+        } else if (!isAuthenticated()) {
           next("/login"); // Redirect to login if not authenticated
         } else {
           next(); // Proceed to home
@@ -74,10 +68,10 @@ const routes = [
   },
 ];
 
-// Create the router instance
+// Create and export the router
 const router = createRouter({
-  history: createWebHistory(), // HTML5 History mode
-  routes, // Array of routes
+  history: createWebHistory(),
+  routes,
 });
 
 export default router;
