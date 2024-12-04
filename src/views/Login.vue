@@ -64,9 +64,9 @@
 
           <PrimaryButton type="submit" content="Login"></PrimaryButton>
 
-          <div class="back">
+          <div class="back" @click="goBackToSignUp">
             <i class="fa-solid fa-arrow-left"></i>
-            <a href="#">Back</a>
+            <span>Back</span>
           </div>
         </div>
       </div>
@@ -82,8 +82,16 @@ import DefaultBranch from "@/components/Brands/DefaultBrand.vue";
 import InputField from "@/components/InputField.vue";
 import IconButton from "@/components/Buttons/IconButton.vue";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
+import { useStore } from "@/stores/user";
 
 export default {
+  setup() {
+    const myStore = useStore();
+
+    return {
+      myStore,
+    };
+  },
   components: {
     DefaultBranch,
     InputField,
@@ -101,7 +109,7 @@ export default {
       passwordFieldType: "password",
     };
   },
- 
+
   // },
   methods: {
     togglePasswordVisibility() {
@@ -109,30 +117,58 @@ export default {
         this.passwordFieldType === "password" ? "text" : "password";
     },
 
-    
     handleLogin() {
-      const email = this.user.email;
-      const password = this.user.password;
+      const email = this.user.email.trim();
+      const password = this.user.password.trim();
 
-      // Simulate checking credentials (replace with actual database/API logic)
-      if (email === "saroussokmeak721@gmail.com" && password === "123456") {
-        console.log("Correct info");
+      // Retrieve users from local storage
+      const users = JSON.parse(localStorage.getItem("users")) || []; // Ensure users is an array
+      console.log(users);
+
+      // Find the user with matching email and password
+
+      const validUserInfo = users.find(
+        (user) =>
+          String(user.email) === email && String(user.password) === password
+      );
+
+      console.log(validUserInfo);
+
+      // Simulate checking credentials (replace with actual logic)
+      if (validUserInfo) {
+        console.log("Login successful!");
+        this.myStore.isRegister = true;
+
+        Swal.fire({
+          title: "Success!",
+          text: "Login successful!",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
 
         // If "Remember Me" is checked, store credentials in cookies
         if (this.rememberMe) {
-          Cookies.set("email", email, { expires: 3 }); // Expire in 3 days
-          Cookies.set("password", password, { expires: 3 }); // Expire in 3 days
+          Cookies.set("email", email, { expires: 7 }); // Expire in 7 days
+          Cookies.set("password", password, { expires: 7 }); // Expire in 7 days
         } else {
-          // Otherwise, use session storage for temporary storage
-          sessionStorage.setItem("email", email);
-          sessionStorage.setItem("password", password);
+          sessionStorage.setItem("loggedInUser", JSON.stringify(this.user));
         }
 
         // Redirect to home page
         this.$router.push("/home");
       } else {
-        alert("Invalid credentials");
+        Swal.fire({
+          title: "Error!",
+          text: "Invalid email or password. Please try again.",
+          icon: "error",
+          confirmButtonText: "Retry",
+        });
       }
+    },
+    goBackToSignUp() {
+      console.log("go back.....");
+       this.myStore.isRegister = false;
+      this.$router.push("/signup");
     },
 
     handleLoginWithGoogle() {
@@ -141,6 +177,39 @@ export default {
     forgotPass() {
       console.log("Someone forgot him/her password!");
     },
+  },
+  mounted() {
+    // Check if user credentials exist in cookies
+    const savedEmail = Cookies.get("email");
+    const savedPassword = Cookies.get("password");
+
+    if (savedEmail && savedPassword) {
+      // Simulate automatic login
+      this.user.email = savedEmail;
+      this.user.password = savedPassword;
+      this.autoLogin();
+    }
+  },
+  autoLogin() {
+    // automatically login using stored credentials
+
+    console.log("Auto-login successfully!");
+
+    Swal.fire({
+      title: "Welcome Back!",
+      text: "You are logged in automatically.",
+      icon: "success",
+      confirmButtonText: "OK",
+    });
+
+    // Redirect to home page.
+    this.$router.push("/home");
+  },
+  handleLoginWithGoogle() {
+    alert("Login with google clicked...");
+  },
+  forgotPass() {
+    alert("Forgot password clicked...");
   },
 };
 </script>
@@ -174,6 +243,7 @@ export default {
   flex-direction: row;
   gap: 0.5rem;
   color: #af47d2;
+  cursor: pointer;
 }
 .rememberme {
   display: flex;
