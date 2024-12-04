@@ -1,14 +1,3 @@
-<!-- <template>
-  <RouterView />
-</template>
-
-<script>
-import { RouterView } from "vue-router";
-export default {};
-</script> -->
-
-<!-- <style scoped></style> -->
-
 <template>
   <!-- Show the PageLoader if loading is not complete -->
   <PageLoader v-if="!isLoaded" />
