@@ -65,7 +65,7 @@
           <PrimaryButton type="submit" content="Login"></PrimaryButton>
 
           <div class="back">
-            <i class="fa-solid fa-arrow-left"></i>
+            <i class="fa-solid fa-angle-left"></i>
             <a href="#">Back</a>
           </div>
         </div>
