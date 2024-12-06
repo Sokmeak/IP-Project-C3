@@ -1,12 +1,15 @@
 <template>
+
   <!-- Show the PageLoader if loading is not complete -->
   <PageLoader v-if="!isLoaded" />
+
 
   <!-- Show the HomePage after loading is complete -->
   <template v-else> <RouterView /></template>
 </template>
 
 <script>
+
 import PageLoader from "./components/PageLoader.vue";
 
 import { RouterView } from "vue-router";
@@ -41,6 +44,16 @@ export default {
     this.$router.afterEach(() => {
       this.finishLoading(); // End loader when navigation completes
     });
+
+
+
+
+export default {
+  components: {
+
+    ServiceSection,
+    Footer,
+
   },
 };
 </script>
