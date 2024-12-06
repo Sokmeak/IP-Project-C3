@@ -72,7 +72,7 @@
 
           <div class="more-option">
             <span>Have an account? </span>
-            <span class="loginOption">Login</span>
+            <span class="loginOption" @click="goToLogin">Login</span>
           </div>
           <div class="back">  
             <i class="fa-solid fa-angle-left"></i>
@@ -95,8 +95,6 @@ import { useStore } from "@/stores/user"; // Adjust the path as needed
 export default {
   setup() {
     const myStore = useStore();
-
- 
 
     return {
       myStore,
@@ -124,27 +122,108 @@ export default {
       this.passwordFieldType =
         this.passwordFieldType === "password" ? "text" : "password";
     },
+    goToLogin() {
+      console.log("Go to login.....");
+      // check if not exist?
+      this.myStore.isRegister = true;
+      this.$router.push("/login");
+    },
 
     handleSignUp() {
-      const email = this.userSignUP.email;
-      const username = this.userSignUP.username;
-      const password = this.userSignUP.password;
+      // get and remove whitespace
+      const email = this.userSignUP.email.trim();
+      const username = this.userSignUP.username.trim();
+      const password = this.userSignUP.password.trim();
+
+      let isValidSignUp = false;
+
+      // Validation for email, username, and password
+      if (!email || !username || !password) {
+        Swal.fire({
+          title: "Error!",
+          text: "All fields are required.",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        return;
+      }
+
+      if (email && username && password) {
+        // retrieve the existing users from local storage
+        const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+        // check if the user has registered
+        if (existingUsers.some((user) => user.email === email)) {
+          alert("Email is already registered!");
+          this.myStore.isRegister = true;
+          this.$router.push("/login");
+          return;
+        }
+
+        // check the validation here
+
+        const isValidPassword = this.validatePassword(password);
+
+        if (!isValidPassword.isValid) {
+          Swal.fire({
+            title: "Invalid Password!",
+            text: isValidPassword.message,
+            icon: "error",
+            confirmButtonText: "Retry",
+          });
+          return;
+        }
+
+        existingUsers.push({ email, username, password });
+        this.myStore.isRegister = true;
+        isValidSignUp = true;
+
+        // save to local storage
+
+        localStorage.setItem("users", JSON.stringify(existingUsers));
+
+        Swal.fire({
+          title: "Good Job!",
+          text: "You are signup successfully!.",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      }
+
+      // check validation password
 
       //  store them in databse
 
       // update store here
-      this.myStore.isRegister = true;
-      // check the validation here
 
-      const isValid = true;
-
-      console.log(this.userSignUP);
-
-      if (isValid) {
+      if (isValidSignUp) {
         this.$router.push("/login");
       } else {
         this.$router.redirect();
       }
+    },
+
+    validatePassword(password) {
+      if (password.length < 6) {
+        return {
+          isValid: false,
+          massage: "Password must be at least 6 characters long.",
+        };
+      }
+
+      // check for characters and numbers
+
+      const hasLetter = /[a-aA-A]/.test(password);
+      const hasNumber = /\d/.test(password);
+
+      if (!hasLetter || !hasNumber) {
+        return {
+          isValid: false,
+          message: "Password must contain at least one letter and one number.",
+        };
+      }
+
+      return { isValid: true };
     },
   },
 };
@@ -212,6 +291,7 @@ export default {
 .more-option .loginOption {
   font-weight: bold;
   color: #af47d2;
+  cursor: pointer;
 }
 
 .signupDetails {

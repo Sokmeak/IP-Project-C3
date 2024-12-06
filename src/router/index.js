@@ -9,9 +9,24 @@ import Cookies from "js-cookie";
 export function isAuthenticated() {
   const savedEmail = Cookies.get("email");
   const savedPassword = Cookies.get("password");
+
+  // const sessionEmail = sessionStorage.getItem("email"); // Temporary session storage
+  // const sessionPassword = sessionStorage.getItem("password");
+
+  const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+  let status = false;
+
+  if ((savedEmail && savedPassword) || loggedInUser) {
+    status = true;
+     return status;
+  }
+
+ 
+
   const sessionEmail = sessionStorage.getItem("email");
   const sessionPassword = sessionStorage.getItem("password");
   return (savedEmail && savedPassword) || (sessionEmail && sessionPassword);
+
 }
 
 // Define routes
