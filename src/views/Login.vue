@@ -64,9 +64,11 @@
 
           <PrimaryButton type="submit" content="Login"></PrimaryButton>
 
-          <div class="back" @click="goBackToSignUp">
-            <i class="fa-solid fa-arrow-left"></i>
-            <span>Back</span>
+
+          <div class="back">
+            <i class="fa-solid fa-angle-left"></i>
+            <a href="#">Back</a>
+
           </div>
         </div>
       </div>

@@ -74,8 +74,8 @@
             <span>Have an account? </span>
             <span class="loginOption" @click="goToLogin">Login</span>
           </div>
-          <div class="back">
-            <i class="fa-solid fa-arrow-left"></i>
+          <div class="back">  
+            <i class="fa-solid fa-angle-left"></i>
             <!-- back to the landing page -->
             <a href="#">Back</a>
           </div>
