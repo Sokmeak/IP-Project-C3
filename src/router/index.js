@@ -30,6 +30,10 @@ export function isAuthenticated() {
 const routes = [
   {
     path: "/",
+    redirect: "/landing",
+  },
+  {
+    path: "/landing",
     name: "LandingPage",
     component: LandingPage, // Default to LandingPage
   },
