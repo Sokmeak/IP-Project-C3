@@ -1,5 +1,6 @@
 <template>
 
+
   <!-- Show the PageLoader if loading is not complete -->
   <PageLoader v-if="!isLoaded" />
 
@@ -48,17 +49,9 @@ export default {
 
 
 
-export default {
-  components: {
-
-    ServiceSection,
-    Footer,
-
-  },
-};
-</script>
 
 <style scoped>
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -67,5 +60,7 @@ export default {
 
 .wrapper > :nth-child(2) {
   margin-top: auto;
-}
+
+/* Optional: Global styles */
+
 </style>

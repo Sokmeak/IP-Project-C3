@@ -1,18 +1,21 @@
 <template>
-  <button :class="['button-primary', customClass]" :type="type" @click="handleClick">
+  <button
+    :class="['button-primary', $attrs.class]"
+    :type="type"
+    v-bind="$attrs"
+    @click="handleClick"
+  >
     {{ content }}
+    <slot></slot>
   </button>
 </template>
 <script>
 export default {
+  name: "PrimaryButton",
+  inheritAttrs: false, // Prevent default attribute inheritance
   props: {
     content: String,
     type: String,
-    customClass: {
-      type: String,
-
-      default: "",
-    },
 
     methods: {
       handleClick(event) {
@@ -25,10 +28,11 @@ export default {
 </script>
 <style scoped>
 .button-primary {
+  /* border-radius: 0.4rem;   */
   background-color: #af47d2;
   color: white;
   padding: 1rem;
-  border-radius: 0.4rem;
+
   font-family: "Roboto", serif;
   font-size: 18px;
 
@@ -36,5 +40,8 @@ export default {
   cursor: pointer;
 
   /* font-size: 1rem; */
+}
+.primary-button.custom-button {
+  border-radius:15px; /* Ensures the class is applied properly */
 }
 </style>
