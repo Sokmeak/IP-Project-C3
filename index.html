@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Angkor Apparel's main</title>
+
+    <title>Angkor Apparel</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,22 +23,37 @@
       rel="stylesheet"
     />
 
-    <script src="https://kit.fontawesome.com/1a59047b3d.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/484e01476d.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Include SweetAlert2 via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <style>
-
-    *{
+    * {
       margin: 0;
       padding: 0;
-      box-sizing: border-box  ;
+      box-sizing: border-box;
     }
-    body {
 
-      background-color: #ffffff;
+    body {
+    
       font-family: "Roboto", serif;
       font-weight: 400;
       font-size: 16px;
       font-style: normal;
+    }
+    #app{
+      background-color: #edb3ff;
+      display: flex;
+      flex-direction:column;
+      /* change to auto nexttime */
+      width: 100vw;
+
+      height: 100vh;
+      justify-content: space-between;
     }
   </style>
   <body>
