@@ -28,7 +28,7 @@ export default {
     finishLoading() {
       setTimeout(() => {
         this.isLoaded = true; // Hide loader after delay
-      }, 3000); // Simulate loading time (3 seconds)
+      }, 2000); // Simulate loading time (3 seconds)
     },
   },
   created() {
@@ -46,7 +46,6 @@ export default {
 </script>
 
 <style scoped>
-
 .wrapper {
   display: flex;
   flex-direction: column;
