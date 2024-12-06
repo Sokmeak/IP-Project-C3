@@ -10,15 +10,13 @@ export function isAuthenticated() {
   const savedEmail = Cookies.get("email");
   const savedPassword = Cookies.get("password");
 
-  // const sessionEmail = sessionStorage.getItem("email"); // Temporary session storage
-  // const sessionPassword = sessionStorage.getItem("password");
 
   const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
   let status = false;
 
   if ((savedEmail && savedPassword) || loggedInUser) {
     status = true;
-    return status;
+    return status;   // return the existing user
   }
 
   const sessionEmail = sessionStorage.getItem("email");
@@ -30,7 +28,7 @@ export function isAuthenticated() {
 const routes = [
   {
     path: "/",
-    redirect: "/landing",
+    redirect: "/landing", // when the user request for root => it will redirec to landlin p
   },
   {
     path: "/landing",
