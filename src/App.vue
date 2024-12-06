@@ -1,16 +1,12 @@
 <template>
-
-
   <!-- Show the PageLoader if loading is not complete -->
   <PageLoader v-if="!isLoaded" />
-
 
   <!-- Show the HomePage after loading is complete -->
   <template v-else> <RouterView /></template>
 </template>
 
 <script>
-
 import PageLoader from "./components/PageLoader.vue";
 
 import { RouterView } from "vue-router";
@@ -45,13 +41,11 @@ export default {
     this.$router.afterEach(() => {
       this.finishLoading(); // End loader when navigation completes
     });
-
-
-
-
+  },
+};
+</script>
 
 <style scoped>
-
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -60,7 +54,7 @@ export default {
 
 .wrapper > :nth-child(2) {
   margin-top: auto;
+}
 
 /* Optional: Global styles */
-
 </style>

@@ -33,9 +33,9 @@ export default {
 
 <!-- adjust some style -->
 <style scoped>
-.imageWrapper {
-  width: 200px;
-  height: 200px;
+.imageWrapper img {
+  width: 250px;
+  height: 250px;
 }
 
 .collectionCard {

@@ -12,12 +12,14 @@
           class="btn custom-button"
           content="Shop Now"
           type="button"
+          @click="goToLogin"
         ></PrimaryButton>
 
         <PrimaryButton
           class="btn learn-more"
           content="Learn More"
           type="button"
+          @click="goToLogin"
         ></PrimaryButton>
       </div>
     </div>
@@ -30,10 +32,25 @@
 
 <script>
 import PrimaryButton from "../Buttons/PrimaryButton.vue";
+import router from "@/router";
+import { useStore } from "@/stores/user";
 export default {
   name: "HeroSection",
+  setup() {
+    const myStore = useStore();
+
+    return {
+      myStore,
+    };
+  },
   components: {
     PrimaryButton,
+  },
+  methods: {
+    goToLogin() {
+      this.myStore.isRegister = false;
+      this.$router.push("/signup");
+    },
   },
 };
 </script>

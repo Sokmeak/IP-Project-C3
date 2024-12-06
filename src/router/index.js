@@ -18,15 +18,12 @@ export function isAuthenticated() {
 
   if ((savedEmail && savedPassword) || loggedInUser) {
     status = true;
-     return status;
+    return status;
   }
-
- 
 
   const sessionEmail = sessionStorage.getItem("email");
   const sessionPassword = sessionStorage.getItem("password");
   return (savedEmail && savedPassword) || (sessionEmail && sessionPassword);
-
 }
 
 // Define routes

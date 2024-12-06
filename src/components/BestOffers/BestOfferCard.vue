@@ -47,6 +47,10 @@ export default {
 
 <!-- adjust some style -->
 <style scoped>
+.imageWrapper img {
+  width: 250px;
+  height: 250px;
+}
 .rating{
     display: flex;
     flex-direction: row;

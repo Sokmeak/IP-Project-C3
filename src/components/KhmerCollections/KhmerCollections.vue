@@ -76,7 +76,7 @@ export default {
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 4rem;
 }
 .BestOffers {
   padding: 50px 0;
@@ -86,7 +86,7 @@ export default {
 .container {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 5rem;
   justify-content: center;
 }
 </style>

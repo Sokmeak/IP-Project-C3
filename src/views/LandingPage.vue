@@ -6,6 +6,10 @@
     <TrendingVideos />
     <KhmerCollections />
     <BestOffers />
+
+    <serviceSection/>
+    <TestimonialsComponent/>
+    <Footer/>
   </div>
 </template>
 
@@ -16,6 +20,9 @@ import CategorySection from "@/components/Categories/CategorySection.vue";
 import TrendingVideos from "@/components/Videos/TrendingVideos.vue";
 import KhmerCollections from "@/components/KhmerCollections/KhmerCollections.vue";
 import BestOffers from "@/components/BestOffers/BesfOffers.vue";
+import Footer from "@/components/Footer.vue";
+import serviceSection from "@/components/Services/serviceSection.vue";
+import TestimonialsComponent from "@/components/TestimonialsComponent.vue";
 
 export default {
   components: {
@@ -25,6 +32,10 @@ export default {
     TrendingVideos,
     KhmerCollections,
     BestOffers,
+    
+    serviceSection,
+    TestimonialsComponent,
+    Footer,
   },
 };
 </script>

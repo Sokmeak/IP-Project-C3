@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import BestOfferCard from './BestOfferCard.vue';
+import BestOfferCard from "./BestOfferCard.vue";
 
 export default {
   name: "KhmerCollections",
@@ -75,18 +75,16 @@ export default {
   justify-content: space-between;
   padding: 0 5rem 0 5rem;
 }
-.seemore{
-    
-    text-decoration: underline;
-    color:blue;
 
+.seemore {
+  text-decoration: underline;
+  color: blue;
 }
 .BestOffersSectionContainer {
   margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
 }
 .BestOffers {
   padding: 50px 0;
@@ -96,7 +94,7 @@ export default {
 .container {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 5rem;
   justify-content: center;
 }
 </style>

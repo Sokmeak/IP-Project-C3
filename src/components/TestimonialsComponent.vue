@@ -1,6 +1,7 @@
 <template>
+  <!-- change to seperate components next time -->
   <section class="testimonials">
-    <h2 class="title">What our client say</h2>
+    <h1 class="title">What our client say</h1>
     <div class="testimonial-list">
       <div class="testimonial" v-for="client in clients" :key="client.id">
         <!-- Profile Picture -->
@@ -31,7 +32,7 @@ export default {
           id: 2,
           name: "Yosel Promora",
           feedback: "We gather see here too quit then just now stop",
-          image: "/images/client2.jpg", // Replace with your image path
+          image: "/images/client1.jpg", // Replace with your image path
         },
         {
           id: 3,
@@ -81,6 +82,7 @@ export default {
 .testimonial {
   display: flex;
   align-items: center;
+  width: 20rem;
   gap: 1rem;
   padding: 1rem;
   transition: box-shadow 0.3s, border 0.3s;
@@ -88,8 +90,12 @@ export default {
 }
 
 .testimonial:hover {
-  border: 1px solid #ccc;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 0.2s;
+  transform: scale(1.005);
+  border: 1.5px solid #af47d2;
+
+  cursor: pointer;
 }
 
 .profile-image {
