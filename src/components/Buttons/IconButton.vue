@@ -1,7 +1,9 @@
 <template>
   <button class="button-google" @click="handClick">
-    <img src="../../../public/images/googlelogo.png" alt="google logo" />
-    <p>Continue with Google</p>
+    <div class="btn-content">
+      <img src="../../../public/images/googlelogo.png" alt="google logo" />
+      <div class="text">Continue with Google</div>
+    </div>
   </button>
 </template>
 <script>
@@ -30,5 +32,11 @@ img {
 
   font-family: "Roboto", serif;
   font-size: 18px;
+}
+.btn-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 </style>

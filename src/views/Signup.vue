@@ -74,7 +74,7 @@
             <span>Have an account? </span>
             <span class="loginOption" @click="goToLogin">Login</span>
           </div>
-          <div class="back">  
+          <div class="back">
             <i class="fa-solid fa-angle-left"></i>
             <!-- back to the landing page -->
             <a href="#">Back</a>
@@ -213,7 +213,7 @@ export default {
 
       // check for characters and numbers
 
-      const hasLetter = /[a-aA-A]/.test(password);
+      const hasLetter = /[a-aA-Z]/.test(password);
       const hasNumber = /\d/.test(password);
 
       if (!hasLetter || !hasNumber) {
