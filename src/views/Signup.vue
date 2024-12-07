@@ -213,7 +213,7 @@ export default {
 
       // check for characters and numbers
 
-      const hasLetter = /[a-aA-Z]/.test(password);
+      const hasLetter = /[a-aA-z]/.test(password);
       const hasNumber = /\d/.test(password);
 
       if (!hasLetter || !hasNumber) {
@@ -296,12 +296,12 @@ export default {
 
 .signupDetails {
   /* margin-top: 1.5rem; */
-  padding: 3rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   /* align-items: center;*/
-  gap: 1rem;
+  gap: 0.5rem;
 }
 .signupForm-wrapper img {
   width: 40rem;

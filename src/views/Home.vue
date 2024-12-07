@@ -23,7 +23,7 @@ import KhmerCollections from "@/components/KhmerCollections/KhmerCollections.vue
 import BestOffers from "@/components/BestOffers/BesfOffers.vue";
 import Footer from "@/components/Footer.vue";
 import serviceSection from "@/components/Services/serviceSection.vue";
-import TestimonialsComponent from "@/components/TestimonialsComponent.vue";
+import TestimonialsComponent from "@/components/Testimonails/Testimonials.vue";
 
 export default {
   components: {

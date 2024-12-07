@@ -25,7 +25,9 @@
     </div>
 
     <div class="hero-content proverb">
-      <p>"You can sense <span>the fashion</span>."</p>
+      <!-- <p>"You can sense <span>the fashion</span>."</p> -->
+
+      <p class="multiple-text"></p>
     </div>
   </section>
 </template>
@@ -36,6 +38,7 @@ import router from "@/router";
 import { useStore } from "@/stores/user";
 export default {
   name: "HeroSection",
+
   setup() {
     const myStore = useStore();
 
@@ -51,6 +54,21 @@ export default {
       this.myStore.isRegister = false;
       this.$router.push("/signup");
     },
+  },
+  mounted() {
+    const typed = new Typed(".multiple-text", {
+      strings: [
+        "You can sense the fashion.",
+        "Get your new Outfits.",
+        "Affordable Product.",
+        "Easy Shoppoing Website.",
+      ],
+
+      typeSpeed: 80,
+      backSpeed: 80,
+      backDelay: 1200,
+      loop: true,
+    });
   },
 };
 </script>
@@ -122,10 +140,10 @@ export default {
   font-size: larger;
   font-weight: bold;
 }
-.hero-content p {
-  /* margin: 1rem 0; */
-  color: #6c757d;
-}
+/* .hero-content p { */
+/* margin: 1rem 0; */
+/* color: #6c757d; */
+/* } */
 .cta-buttons button {
   padding: 0.8rem 1.5rem;
   border-radius: 4px;
@@ -137,7 +155,8 @@ export default {
   color: white;
 }
 
-.proverb span {
+.proverb {
+  font-weight: bolder;
   color: #a240de;
 }
 </style>

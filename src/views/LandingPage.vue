@@ -22,7 +22,7 @@ import KhmerCollections from "@/components/KhmerCollections/KhmerCollections.vue
 import BestOffers from "@/components/BestOffers/BesfOffers.vue";
 import Footer from "@/components/Footer.vue";
 import serviceSection from "@/components/Services/serviceSection.vue";
-import TestimonialsComponent from "@/components/TestimonialsComponent.vue";
+import Testimonials from "@/components/Testimonails/Testimonials.vue";
 
 export default {
   components: {
@@ -34,7 +34,7 @@ export default {
     BestOffers,
     
     serviceSection,
-    TestimonialsComponent,
+    TestimonialsComponent: Testimonials,
     Footer,
   },
 };

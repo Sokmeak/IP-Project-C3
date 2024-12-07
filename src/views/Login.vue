@@ -17,13 +17,13 @@
           </div>
 
           <div class="email-field">
-            <label for="email">Email</label>
+            <label for="email">Email or Username</label>
             <InputField
               id="email"
-              type="email"
+             
               v-model="user.email"
               place-holder="johnsmith123@gmail.com"
-              required
+             
             ></InputField>
           </div>
 
@@ -64,11 +64,9 @@
 
           <PrimaryButton type="submit" content="Login"></PrimaryButton>
 
-
           <div class="back">
             <i class="fa-solid fa-angle-left"></i>
             <a href="#">Back</a>
-
           </div>
         </div>
       </div>
@@ -106,6 +104,7 @@ export default {
       rememberMe: false,
       user: {
         email: "",
+        username: "",
         password: "",
       },
       passwordFieldType: "password",
@@ -121,6 +120,9 @@ export default {
 
     handleLogin() {
       const email = this.user.email.trim();
+      const username = this.user.email.trim();
+
+      // just in case user input username
       const password = this.user.password.trim();
 
       // Retrieve users from local storage
@@ -131,7 +133,9 @@ export default {
 
       const validUserInfo = users.find(
         (user) =>
-          String(user.email) === email && String(user.password) === password
+          (String(user.email) === email &&
+            String(user.password) === password) ||
+          (String(user.username) === username && String(user.password))
       );
 
       console.log(validUserInfo);
@@ -169,7 +173,7 @@ export default {
     },
     goBackToSignUp() {
       console.log("go back.....");
-       this.myStore.isRegister = false;
+      this.myStore.isRegister = false;
       this.$router.push("/signup");
     },
 
@@ -283,11 +287,11 @@ export default {
   background-color: #f0dff5;
 }
 .loginDetails {
-  padding: 3rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 .loginForm-wrapper img {
   width: 40rem;
