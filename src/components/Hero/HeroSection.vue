@@ -60,7 +60,7 @@ export default {
       strings: [
         "You can sense the fashion.",
         "Get your new Outfits.",
-        "Affordable Product.",
+        "Affordable Products.",
         "Easy Shoppoing Website.",
       ],
 
@@ -103,18 +103,19 @@ export default {
 }
 .hero {
   display: flex;
+  border-radius: 10px;
 
   flex-direction: row;
   justify-content: space-between;
   margin-top: 7rem;
   text-align: center;
   padding: 2rem 4rem 2rem 4rem;
-  background-color: #f8f8f8; /* Light background for contrast */
+  background-color: #f0dff5; /* Light background for contrast */
 }
 .hero-content {
-  width: 60%;
+  width: 100%;
   font-size: 20px;
-  padding: 2rem 5rem 2rem 5rem;
+  padding: 2rem 4rem 2rem 4rem;
   display: flex;
   flex-direction: column;
 
@@ -156,6 +157,7 @@ export default {
 }
 
 .proverb {
+  font-family: "Sansita", sans-serif;
   font-weight: bolder;
   color: #a240de;
 }

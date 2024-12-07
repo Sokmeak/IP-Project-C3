@@ -59,7 +59,7 @@ export default {
 
         {
           imgSrc: "../../public/images/MenTrad T shirt.png",
-          name: "Hats",
+          name: "Men Traditional T-shirt",
           description: "Nice traditional T-shirt for visiting Angkor Wat",
         },
       ],

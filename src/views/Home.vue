@@ -2,13 +2,13 @@
   <div class="homePage">
     <HeaderComponent />
     <div class="startComponents">
-      <KhmerCollections />
+      <BestOffers />
     </div>
 
-    
-    <BestOffers />
     <KhmerCollections />
     <BestOffers />
+    <KhmerCollections />
+  
 
     <Footer />
   </div>
@@ -47,9 +47,9 @@ export default {
   /* margin-top: 5rem; */
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  /* gap: 1rem; */
 }
 .startComponents{
-  margin-top: 2rem;
+  margin-top: 4rem;
 }
 </style>

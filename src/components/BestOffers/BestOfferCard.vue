@@ -51,10 +51,10 @@ export default {
   width: 250px;
   height: 250px;
 }
-.rating{
-    display: flex;
-    flex-direction: row;
-    gap: 0.5rem;
+.rating {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
 }
 .ShopNowBtn {
   height: 2rem !important;
@@ -67,9 +67,9 @@ export default {
   background-color: white;
 }
 .discountedPrice {
-    color: #af47d2;
-    font-size: larger;
-    font-weight: bold;
+  color: #af47d2;
+  font-size: larger;
+  font-weight: bold;
 }
 .OriginalPrice {
   text-decoration: line-through;
@@ -97,19 +97,27 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  gap: 1rem;
+  /* align-items: center; */
+  gap: 2rem;
 
   /* background-color: rgb(254, 255, 193); */
 }
 
 .bestofferCard:hover {
-  border: 1px solid gray;
+  /* border: 1px solid gray;
   transition: 0.4s ease;
   transform: scale(1.01);
   border-radius: 10px;
-  background-color: #e9c8f4;
+  background-color: #e9c8f4; */
   /* color: rgb(167, 162, 162); */
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 0.2s;
+  transform: scale(1.005);
+  border: 1.5px solid #af47d2;
+ 
+
+  cursor: pointer;
 }
 
 .seemore {
