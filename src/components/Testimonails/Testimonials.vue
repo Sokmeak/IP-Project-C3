@@ -42,20 +42,20 @@ export default {
           id: 3,
           name: "Ericol Ason",
           feedback: "You here well see as America else there where",
-          image: "../../public/images/client3.jpg", // Replace with your image path
+          image: "../../public/images/client1.jpg", // Replace with your image path
         },
         {
           id: 4,
           name: "Dollar Dillay",
           feedback: "Thanks well to here gather right just already may see",
-          image: "../../public/images/client4.jpg", // Replace with your image path
+          image: "../../public/images/client1.jpg", // Replace with your image path
         },
         {
           id: 5,
           name: "Ding Dong",
           feedback: "Thanks well to here gather right just already may see",
-          image: "../../public/images/client5.jpg", // Replace with your image path
-        },
+          image: "../../public/images/client1.jpg", // Replace with your image path
+        }
       ],
     };
   },
