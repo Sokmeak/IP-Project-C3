@@ -9,22 +9,24 @@
         {{ name }}
       </h4>
       <!-- <p class="description">{{ description }}</p> -->
-      <div class="rating">
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-regular fa-star"></i>
 
-        <!-- Use a function for generating star base on #rating -->
+      <div class="description">
+        <p>Khmer project is the best choice for everyone.</p>
       </div>
-      <div class="seemore">
+
+      <!-- Should use the function for analyze the price and get discout -->
+
+      <!-- Some products are promotion but we use the same product card. -->
+      <div class="seemoreAndPrice">
         <div class="Price">
           <p class="actualPrice">$ 10.00</p>
-          <p class="OriginalPrice">$ 20.00</p>
+          <!-- <p class="OriginalPrice">$ 20.00</p> -->
         </div>
 
-        <PrimaryButton class="ShopNowBtn" content="Shop Now"></PrimaryButton>
+        <!-- <PrimaryButton class="ShopNowBtn" content="Shop Now"></PrimaryButton> -->
+        <div class="seemore">
+          <a href="#">see more</a>
+        </div>
       </div>
     </div>
   </div>
@@ -103,12 +105,12 @@ export default {
   /* background-color: rgb(254, 255, 193); */
 }
 
-.bestofferCard:hover {
+.GenProductCard:hover {
   /* border: 1px solid gray;
-  transition: 0.4s ease;
-  transform: scale(1.01);
-  border-radius: 10px;
-  background-color: #e9c8f4; */
+    transition: 0.4s ease;
+    transform: scale(1.01);
+    border-radius: 10px;
+    background-color: #e9c8f4; */
   /* color: rgb(167, 162, 162); */
 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -119,11 +121,14 @@ export default {
   cursor: pointer;
 }
 
-.seemore {
+.seemoreAndPrice {
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+}
+.seemore {
+  text-decoration: underline;
 }
 .content {
   height: 9rem;

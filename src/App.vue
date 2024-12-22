@@ -58,3 +58,6 @@ export default {
 
 /* Optional: Global styles */
 </style>
+
+<!-- create a new component for project in general -->
+<!-- How can we store data in the as json format in local within project file -->

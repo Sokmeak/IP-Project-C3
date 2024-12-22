@@ -1,7 +1,7 @@
 <template>
   <div class="loginPage">
     <form class="loginForm-container" @submit.prevent="handleLogin">
-      <DefaultBranch />
+      <DefaultBrand />
       <div class="loginForm-wrapper">
         <img src="../../public/images/OAuth/tapromFace.png" alt="temple" />
         <div class="loginDetails">
@@ -20,10 +20,8 @@
             <label for="email">Email or Username</label>
             <InputField
               id="email"
-             
               v-model="user.email"
               place-holder="johnsmith123@gmail.com"
-             
             ></InputField>
           </div>
 
@@ -78,7 +76,7 @@
 import Cookies from "js-cookie";
 
 import { useRouter } from "vue-router";
-import DefaultBranch from "@/components/Brands/DefaultBrand.vue";
+import DefaultBrand from "@/components/Brands/DefaultBrand.vue";
 import InputField from "@/components/InputField.vue";
 import IconButton from "@/components/Buttons/IconButton.vue";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
@@ -93,7 +91,7 @@ export default {
     };
   },
   components: {
-    DefaultBranch,
+    DefaultBrand,
     InputField,
     PrimaryButton,
     IconButton,

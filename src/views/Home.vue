@@ -1,14 +1,24 @@
 <template>
   <div class="homePage">
     <HeaderComponent />
-    <div class="startComponents">
+
+    <MenProducts />
+    <!-- <div class="startComponents">
       <BestOffers />
     </div>
 
+
+     
     <KhmerCollections />
     <BestOffers />
     <KhmerCollections />
-  
+   -->
+
+
+   
+
+    <!--  -->
+   <!--  -->
 
     <Footer />
   </div>
@@ -24,6 +34,7 @@ import BestOffers from "@/components/BestOffers/BesfOffers.vue";
 import Footer from "@/components/Footer.vue";
 import serviceSection from "@/components/Services/serviceSection.vue";
 import TestimonialsComponent from "@/components/Testimonails/Testimonials.vue";
+import MenProducts from "@/components/GeneralProducts/MenProducts.vue";
 
 export default {
   components: {
@@ -33,6 +44,7 @@ export default {
     TrendingVideos,
     KhmerCollections,
     BestOffers,
+    MenProducts,
 
     serviceSection,
     TestimonialsComponent,
@@ -49,7 +61,7 @@ export default {
   flex-direction: column;
   /* gap: 1rem; */
 }
-.startComponents{
+.startComponents {
   margin-top: 4rem;
 }
 </style>
