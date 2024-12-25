@@ -3,16 +3,15 @@ import LandingPage from "@/views/LandingPage.vue"; // Import LandingPage compone
 import Login from "@/views/Login.vue"; // Login page component
 import Signup from "@/views/Signup.vue"; // Signup page component
 import Home from "@/views/Home.vue"; // Home page component
+import MenClothes from "@/views/MenClothes.vue"; // Men page component
+import WomenClothes from "@/views/WomenClothes.vue"; // Women page component
+import ChildrenClothes from "@/views/ChildrenClothes.vue"; // Children page component
 import Cookies from "js-cookie";
 
 // Authentication check function
 export function isAuthenticated() {
   const savedEmail = Cookies.get("email");
   const savedPassword = Cookies.get("password");
-
-  // const sessionEmail = sessionStorage.getItem("email"); // Temporary session storage
-  // const sessionPassword = sessionStorage.getItem("password");
-
   const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
   let status = false;
 
@@ -81,6 +80,21 @@ const routes = [
         }
       });
     },
+  },
+  {
+    path: "/men",
+    name: "MenClothes",
+    component: MenClothes,
+  },
+  {
+    path: "/women",
+    name: "WomenClothes",
+    component: WomenClothes,
+  },
+  {
+    path: "/children",
+    name: "ChildrenClothes",
+    component: ChildrenClothes,
   },
 ];
 
