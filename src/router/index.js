@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import Home from "@/components/Home.vue";
+// import Home from "@/components/Home.vue";
 import UserPage from "@/views/UserPage/UserPage.vue";
 import Account from "@/views/UserPage/Account.vue";
 import ChangePassword from "@/views/UserPage/ChangePassword.vue";
@@ -9,11 +9,11 @@ import Orders from "@/views/UserPage/Orders.vue";
 import PaymentMethods from "@/views/UserPage/PaymentMethods.vue";
 
 const routes = [
-  {
-    path: "/",
-    name: "Home",
-    component: Home,
-  },
+  // {
+  //   path: "/",
+  //   name: "Home",
+  //   component: Home,
+  // },
   {
     path: "/userpage/:id",
     component: UserPage,
