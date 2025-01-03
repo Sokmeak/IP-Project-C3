@@ -90,26 +90,30 @@ export default {
   flex-direction: column;
   height: 100%;
   background-color: #f9f3fc;
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
 }
 
 .header {
   border-radius: 10px 10px 0 0;
-  text-align: center;
   background-color: white;
+  padding-left: 10px;
   margin-bottom: 20px;
-  height: 10vh;
+  height: 15vh;
 }
 
 .header h3 {
-  font-size: 1.2rem;
-  color: #2c3e50;
+  padding-top:10px;
+  font-size: 1rem;
+  color: #7e8b99;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .header h2 {
+  padding-top:10px;
   font-size: 1.8rem;
-  color: #2c3e50;
+  color: #7e8b99;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .menu {
@@ -136,18 +140,18 @@ export default {
 }
 .menu li a:hover,
 .menu li.active a {
-  background-color: #e1d7f1;
   color: #6c63ff;
 }
 
 .menu li a .icon {
-  font-size: 20px;
+  font-size: 1rem;
+  padding-left:10px;
   margin-right: 15px;
   color: #2c3e50;
 }
 
 .menu li a .label {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
 }
 
@@ -157,12 +161,24 @@ export default {
   border-radius: 5px;
 }
 
-.back-button,
-.logout-button {
+.back-button{
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid transparent;
   background-color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+.logout-button {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid transparent;
+  background-color: #f50404;
   font-size: 1rem;
   cursor: pointer;
   border-radius: 8px;
@@ -178,7 +194,7 @@ export default {
 }
 
 .logout-button {
-  color: #e74c3c;
+  color: #e9e9e9;
   border-color: #e74c3c;
 }
 

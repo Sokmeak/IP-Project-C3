@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Favorites</h1>
     <div v-for="(item, index) in favorites" :key="index" class="favorite-item">
       <img :src="item.image" alt="Product Image" />
       <p><strong>{{ item.name }}</strong></p>

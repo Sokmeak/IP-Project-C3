@@ -1,11 +1,38 @@
 <template>
   <div class="orders">
-    <h1>My Orders</h1>
-    <div v-for="order in orders" :key="order.id" class="order">
-      <h3>Order #{{ order.id }}</h3>
-      <p>Status: {{ order.status }}</p>
-      <p>Total: ${{ order.total }}</p>
-      <button @click="viewOrder(order.id)">View Details</button>
+    <div v-for="order in orders" :key="order.id" class="order-card">
+      <div class="order-header">
+        <span
+          :class="{
+            'status-pending': order.status === 'Pending',
+            'status-delivered': order.status === 'Delivered',
+          }"
+        >
+          {{ order.status }}
+        </span>
+        <span class="delivery-info">
+          {{ order.deliveryInfo }}
+        </span>
+      </div>
+      <div class="order-container">
+        <div class="order-body">
+          <div v-for="item in order.items" :key="item.name" class="order-item">
+            <div class="item-image"></div>
+            <div class="item-details">
+              <h4>{{ item.name }}</h4>
+              <p>Quantity: {{ item.quantity }}</p>
+              <p>Price: ${{ item.price }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="order-actions">
+          <button class="track-button">Track orders</button>
+          <button class="details-button" @click="viewOrder(order.id)">
+            View details
+          </button>
+          <button class="invoice-button">Get invoice</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -16,8 +43,24 @@ export default {
   data() {
     return {
       orders: [
-        { id: 101, status: "Pending", total: 50 },
-        { id: 102, status: "Delivered", total: 80 },
+        {
+          id: 101,
+          status: "Pending",
+          deliveryInfo: "arrives tomorrow (Mon, 10 Dec | 10am - 11am)",
+          items: [
+            { name: "Angkor Wat T-shirt", quantity: 1, price: 10.0 },
+            { name: "Angkor Wat Pants", quantity: 2, price: 15.0 },
+          ],
+        },
+        {
+          id: 102,
+          status: "Delivered",
+          deliveryInfo: "Saturday, 8 December",
+          items: [
+            { name: "Angkor Wat T-shirt", quantity: 1, price: 10.0 },
+            { name: "Angkor Wat Pants", quantity: 2, price: 15.0 },
+          ],
+        },
       ],
     };
   },
@@ -34,32 +77,133 @@ export default {
 .orders {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  border-radius: 4px;
-  margin-bottom: 10px;
+  background-color: #f9f3fc;
+  border-radius: 10px;
   padding: 20px;
 }
 
 .orders h1 {
-  
-  font-size: 3rem;
+  font-size: 2rem;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  color: #7e8b99;
 }
-.order{
-  margin: 20px 0 10px;
+
+.order-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.order-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  padding: 20px;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.status-pending {
+  color: #ff9800;
+  font-weight: bold;
+}
+
+.status-delivered {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.delivery-info {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.order-body {
+  display: flex;
+  width: 40%;
+  flex-direction: column;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px 10px 10px;
+  gap: 15px;
+  margin: 15px 10px 10px 10px;
+  border-left: 4px solid #9b51e0;
+}
+
+.order-item {
+  display: flex;
+  padding-left: 10px;
+  gap: 10px;
+}
+
+.item-image {
+  width: 60px;
+  height: 60px;
+  background-color: #d3b0ff;
+  border-radius: 5px;
+}
+
+.item-details h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+.item-details p {
+  margin: 2px 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.order-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 15px 10px 10px 10px;
+  padding:10px 30px;
+  align-items: flex-start;
 }
 
 button {
-  padding: 8px 12px;
-  background-color: #007bff;
-  color: white;
+  flex: 1;
+  padding: 10px 15px;
+  font-size: 0.9rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-button:hover {
-  background-color: #0056b3;
+.track-button {
+  background-color: #9b51e0;
+  color: white;
+}
+
+.track-button:hover {
+  background-color: #7a3db3;
+}
+
+.details-button {
+  background-color: #555;
+  color: white;
+}
+
+.details-button:hover {
+  background-color: #333;
+}
+
+.invoice-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.invoice-button:hover {
+  background-color: #d32f2f;
 }
 </style>

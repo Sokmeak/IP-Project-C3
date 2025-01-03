@@ -37,7 +37,7 @@ export default {
 }
 
 .sidebar-container {
-  height: 80%;
+  height: 95%;
   flex: 0 0 280px;
   margin: 20px 50px 10px;
   background-color: #f9f3fc;
@@ -51,7 +51,7 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  height: 80%;
+  height: 95%;
 }
 
 .content-heading {
