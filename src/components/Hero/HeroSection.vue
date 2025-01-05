@@ -58,6 +58,7 @@ export default {
   mounted() {
     const typed = new Typed(".multiple-text", {
       strings: [
+        "Welcome to Angkor Apparel",
         "You can sense the fashion.",
         "Get your new Outfits.",
         "Affordable Products.",

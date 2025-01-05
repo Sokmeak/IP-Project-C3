@@ -1,22 +1,23 @@
 <template>
-  <div class="bestofferCard">
+  <div class="bestofferCard" @mouseenter="CheckID">
     <div class="imageWrapper">
-      <img :src="imgSrc" alt="Khmer Collection" />
+      <img :src="'../../../public/images/' + imgSrc" alt="Khmer Collection" />
     </div>
 
     <div class="content">
       <h4 class="name">
         {{ name }}
       </h4>
-      <!-- <p class="description">{{ description }}</p> -->
-      <div class="rating">
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-regular fa-star"></i>
+      <p class="description">{{ description }}</p>
 
-        <!-- Use a function for generating star base on #rating -->
+      <!-- Use a function for generating star base on #rating  -->
+
+      <div class="rating">
+        <i class="fa-solid fullStar fa-star"></i>
+        <i class="fa-solid fullStar fa-star"></i>
+        <i class="fa-solid fullStar fa-star"></i>
+        <i class="fa-solid fullStar fa-star"></i>
+        <i class="fa-regular fa-star"></i>
       </div>
       <div class="seemore">
         <div class="Price">
@@ -32,15 +33,22 @@
 
 <script>
 import PrimaryButton from "../Buttons/PrimaryButton.vue";
+
 export default {
   components: {
     PrimaryButton,
   },
   props: {
+    id: Number,
     imgSrc: String,
     name: String,
     description: String,
     // need more props like color: ...
+  },
+  methods: {
+    CheckID() {
+      console.log("Check ID = " + this.id);
+    },
   },
 };
 </script>
@@ -55,6 +63,9 @@ export default {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
+}
+.fullStar {
+  color: #f1c40f;
 }
 .ShopNowBtn {
   height: 2rem !important;
@@ -102,6 +113,11 @@ export default {
 
   /* background-color: rgb(254, 255, 193); */
 }
+.discription {
+  font-size: 14px;
+  height: 1rem;
+  color: gray;
+}
 
 .bestofferCard:hover {
   /* border: 1px solid gray;
@@ -115,7 +131,6 @@ export default {
   transition: 0.2s;
   transform: scale(1.005);
   border: 1.5px solid #af47d2;
- 
 
   cursor: pointer;
 }
@@ -127,12 +142,14 @@ export default {
   justify-content: space-between;
 }
 .content {
-  height: 9rem;
+  /* height: 9rem; */
+  height: fit-content;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: start;
+  gap: 0.3rem;
   /* background-color: white; */
 }
 </style>

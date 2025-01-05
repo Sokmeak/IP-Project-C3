@@ -23,7 +23,7 @@
       <div class="search-container">
         <input type="text" placeholder="Search" class="search-bar" />
       </div>
-      <div class="iconWrapper">
+      <div  class="iconWrapper">
         <i @click="GoToAccount" class="fa fa-user fa-xl"></i>
         <i @click="GoToshoppingCards" class="fa fa-shopping-cart fa-xl"></i>
       </div>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+
 import SecodaryBrand from "../Brands/SecondaryBrand.vue";
 export default {
   name: "HeaderComponent",
@@ -46,6 +47,7 @@ export default {
     GoToshoppingCards() {
       alert("Redirecting to Shopping Cards");
     },
+   
   },
 
   // props: {

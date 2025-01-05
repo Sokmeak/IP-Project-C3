@@ -28,7 +28,7 @@ export default {
     finishLoading() {
       setTimeout(() => {
         this.isLoaded = true; // Hide loader after delay
-      }, 2000); // Simulate loading time (3 seconds)
+      }, 2000); // Simulate loading time (2 seconds)
     },
   },
   created() {

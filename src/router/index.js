@@ -30,17 +30,20 @@ export function isAuthenticated() {
 const routes = [
   {
     path: "/",
-    redirect: "/landing",
+    redirect: "landing", // Redirect to landing page
+    props: true,
   },
   {
     path: "/landing",
     name: "LandingPage",
     component: LandingPage, // Default to LandingPage
+    props: true,
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
+    props: true,
     beforeEnter: (to, from, next) => {
       if (isAuthenticated()) {
         next("/home"); // Redirect to home if authenticated
@@ -53,6 +56,7 @@ const routes = [
     path: "/signup",
     name: "Signup",
     component: Signup,
+    props: true,
     beforeEnter: (to, from, next) => {
       import("@/stores/user").then(({ useStore }) => {
         const store = useStore();
@@ -67,6 +71,7 @@ const routes = [
   {
     path: "/home",
     name: "Home",
+    props: true,
     component: Home,
     beforeEnter: (to, from, next) => {
       import("@/stores/user").then(({ useStore }) => {

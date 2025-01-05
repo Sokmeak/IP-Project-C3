@@ -1,3 +1,68 @@
+<script>
+// import MenproductData from "../Data/MenProductData.js";
+import KhmerCollectionCard from "./KhmerCollectionCard.vue";
+import { useProductStore } from "@/stores/product";
+import { onMounted, ref, computed } from "vue";
+
+export default {
+  name: "KhmerCollections",
+  components: {
+    KhmerCollectionCard,
+  },
+  setup() {
+    const productStore = useProductStore();
+    onMounted(() => {
+      productStore.fetchProducts();
+    });
+
+    const khmerCollections = computed(() => productStore.getBestOfferProducts);
+
+    return {
+      khmerCollections,
+    };
+  },
+
+  data() {
+    return {
+      // collections: [
+      //   {
+      //     imgSrc: "../../public/images/Krama.png",
+      //     name: "Kramas",
+      //     description:
+      //       "Khmer traditional towel use in many things, like taking shower and for swiping.",
+      //   },
+      //   {
+      //     imgSrc: "../../public/images/WomenHole.png",
+      //     name: "Women hol skirts",
+      //     description:
+      //       "Khmer traditional dress, rectangular cloth worn around the lower body",
+      //   },
+      //   {
+      //     imgSrc: "../../public/images/WomenTrad.png",
+      //     name: "Women traditional dresses",
+      //     description: "Traditional dress for wearing to pagoda event",
+      //   },
+      //   {
+      //     imgSrc: "../../public/images/angkorWatT-shirt.png",
+      //     name: "Angkor Wat T-shirt",
+      //     description: "Simple T-shirt with tons of logo of choices and color",
+      //   },
+      //   {
+      //     imgSrc: "../../public/images/Hat.png",
+      //     name: "Hats",
+      //     description: "Hat and palm hat for hot or Summer season",
+      //   },
+      //   {
+      //     imgSrc: "../../public/images/MenTrad T shirt.png",
+      //     name: "Hats",
+      //     description: "Nice traditional T-shirt for visiting Angkor Wat",
+      //   },
+      // ],
+    };
+  },
+};
+</script>
+
 <template>
   <section class="BestOffers">
     <div class="BestOffersSectionContainer">
@@ -6,66 +71,16 @@
       </div>
       <div class="container">
         <KhmerCollectionCard
-          v-for="(item, index) in collections"
-          :key="index"
-          :imgSrc="item.imgSrc"
-          :name="item.name"
-          :description="item.description"
+          v-for="product in khmerCollections.slice(0, 6)"
+          :key="product.productId"
+          :imgSrc="product.productImages[0]"
+          :name="product.productName"
+          :description="product.description"
         />
       </div>
     </div>
   </section>
 </template>
-
-<script>
-import KhmerCollectionCard from "./KhmerCollectionCard.vue";
-
-export default {
-  name: "KhmerCollections",
-  components: {
-    KhmerCollectionCard,
-  },
-  data() {
-    return {
-      collections: [
-        {
-          imgSrc: "../../public/images/Krama.png",
-          name: "Kramas",
-          description:
-            "Khmer traditional towel use in many things, like taking shower and for swiping.",
-        },
-        {
-          imgSrc: "../../public/images/WomenHole.png",
-          name: "Women hol skirts",
-          description:
-            "Khmer traditional dress, rectangular cloth worn around the lower body",
-        },
-        {
-          imgSrc: "../../public/images/WomenTrad.png",
-          name: "Women traditional dresses",
-          description: "Traditional dress for wearing to pagoda event",
-        },
-        {
-          imgSrc: "../../public/images/angkorWatT-shirt.png",
-          name: "Angkor Wat T-shirt",
-          description: "Simple T-shirt with tons of logo of choices and color",
-        },
-        {
-          imgSrc: "../../public/images/Hat.png",
-          name: "Hats",
-          description: "Hat and palm hat for hot or Summer season",
-        },
-
-        {
-          imgSrc: "../../public/images/MenTrad T shirt.png",
-          name: "Hats",
-          description: "Nice traditional T-shirt for visiting Angkor Wat",
-        },
-      ],
-    };
-  },
-};
-</script>
 
 <style scoped>
 .header {

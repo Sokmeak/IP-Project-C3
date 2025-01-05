@@ -58,7 +58,7 @@ export default {
 }
 .category-card img {
   width: 100%;
-  height: 35rem;
+  height: 33rem;
   border-radius: 4px;
 }
 

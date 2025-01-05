@@ -3,15 +3,32 @@
     <div class="vdoConetentHeader-wrapper">
       <h2>Trending Videos</h2>
       <div class="changeVDO">
-        <i @click="BackToPrevious" class="fa-solid fa-angle-left"></i>
-        <i @click="GoToNext" class="fa-solid fa-angle-right"></i>
+        <div @click="BackToPrevious" class="MoveContainer">
+          <i class="fa-solid fa-angle-left"></i>
+        </div>
+
+        <div @click="GoToNext" class="MoveContainer">
+          <i class="fa-solid fa-angle-right"></i>
+        </div>
       </div>
     </div>
-    <div class="video-list">
-      <div class="video-card" v-for="video in videos" :key="video.id">
-        <!-- <p>Video {{ video.id }}</p> -->
-        <div class="player">
-          <i class="fa-solid fa-play fa-xl"></i>
+    <div class="video-list-wrapper">
+      <div
+        class="video-list"
+        :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
+      >
+        <div v-for="video in videos" :key="video.id" class="video-container">
+          <video
+            class="video-card"
+            width="500px"
+            height="400px"
+            controls="controls"
+            autoplay
+            loop
+            muted
+          >
+            <source :src="video.url" type="video/mp4" />
+          </video>
         </div>
       </div>
     </div>
@@ -23,31 +40,74 @@ export default {
   name: "TrendingVideos",
   data() {
     return {
-      videos: [{ id: 1 }, { id: 2 }, { id: 3 }],
+      currentIndex: 0,
+      currentLength: 0,
+      videosToShow: 3,
+      videos: [
+        {
+          id: 1,
+          url: "https://videos.pexels.com/video-files/5889057/5889057-sd_640_360_25fps.mp4",
+        },
+        {
+          id: 2,
+          url: "https://videos.pexels.com/video-files/3959704/3959704-sd_960_506_25fps.mp4",
+        },
+        {
+          id: 3,
+          url: "https://videos.pexels.com/video-files/4715373/4715373-sd_960_506_25fps.mp4",
+        },
+        {
+          id: 4,
+          url: "https://videos.pexels.com/video-files/5889057/5889057-sd_640_360_25fps.mp4",
+        },
+        {
+          id: 5,
+          url: "https://videos.pexels.com/video-files/3959704/3959704-sd_960_506_25fps.mp4",
+        },
+        {
+          id: 6,
+          url: "https://videos.pexels.com/video-files/4715373/4715373-sd_960_506_25fps.mp4",
+        },
+        { id: 7, url: "https://media.geeksforgeeks.org/wp-content/uploads/20231020155223/Full-Stack-Development-_-LIVE-Classes-_-GeeksforGeeks.mp4" },
+        { id: 8, url: "https://media.geeksforgeeks.org/wp-content/uploads/20231020155223/Full-Stack-Development-_-LIVE-Classes-_-GeeksforGeeks.mp4" },
+        { id: 9, url: "https://media.geeksforgeeks.org/wp-content/uploads/20231020155223/Full-Stack-Development-_-LIVE-Classes-_-GeeksforGeeks.mp4" },
+      ],
     };
+  },
+  computed: {
+    // visibleVideos() {
+    //   return this.videos.slice(0, this.currentIndex + this.videosToShow);
+    // },
   },
   methods: {
     BackToPrevious() {
-      alert("BackToPrevious...");
+      if (this.currentLength < this.videos.length) {
+        this.currentIndex--;
+        this.currentLength = this.currentLength - 3;
+      }
     },
     GoToNext() {
-      alert("GoToNext...");
+      if (this.currentLength + this.videosToShow < this.videos.length - 1) {
+        this.currentLength += 3;
+        this.currentIndex++;
+      }
     },
   },
 };
 </script>
 
 <style scoped>
+/* 
 .trending-videos {
   padding: 2rem;
 }
 .video-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
 
-  /* display: flex;
-  flex-direction: row; */
+
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  overflow: auto;
 }
 .vdoConetentHeader-wrapper {
   display: flex;
@@ -89,6 +149,68 @@ export default {
 }
 .player i {
   color: white;
+} */
 
+.trending-videos {
+  padding: 2rem;
+}
+
+.MoveContainer {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.MoveContainer:hover {
+  background-color: #ca98da;
+}
+
+.vdoConetentHeader-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.changeVDO {
+  display: flex;
+  cursor: pointer;
+  gap: 0.9rem;
+}
+
+.video-list-wrapper {
+  overflow: hidden; /* Ensures only visible videos are shown */
+  width: 100%;
+}
+
+.video-list {
+  display: flex;
+  gap: 3rem;
+  transition: transform 0.5s ease-in-out; /* Smooth transition */
+}
+
+.video-container {
+  /* min-width: calc(100% / 3);  */
+  width: 500px;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-card {
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.video-card:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 0.2s;
+  transform: scale(1.005);
+  border: 1.5px solid #af47d2;
+  cursor: pointer;
 }
 </style>

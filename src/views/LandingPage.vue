@@ -3,13 +3,17 @@
     <HeaderComponent />
     <HeroSection />
     <CategorySection />
+
     <TrendingVideos />
-    <KhmerCollections />
+
     <BestOffers />
 
-    <serviceSection/>
-    <TestimonialsComponent/>
-    <Footer/>
+
+    <KhmerCollections />
+
+    <serviceSection />
+    <TestimonialsComponent />
+    <Footer />
   </div>
 </template>
 
@@ -32,7 +36,7 @@ export default {
     TrendingVideos,
     KhmerCollections,
     BestOffers,
-    
+
     serviceSection,
     TestimonialsComponent: Testimonials,
     Footer,
