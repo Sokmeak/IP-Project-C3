@@ -12,6 +12,7 @@ import PageLoader from "./components/PageLoader.vue";
 import { RouterView } from "vue-router";
 
 export default {
+  name: "App",
   components: {
     PageLoader,
   },
