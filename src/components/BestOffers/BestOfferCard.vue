@@ -21,7 +21,7 @@
       </div>
       <div class="seemore">
         <div class="Price">
-          <p class="discountedPrice">$ 10.00</p>
+          <p class="actualPrice">$ 10.00</p>
           <p class="OriginalPrice">$ 20.00</p>
         </div>
 
@@ -77,7 +77,7 @@ export default {
   margin: 0;
   background-color: white;
 }
-.discountedPrice {
+.actualPrice {
   color: #af47d2;
   font-size: larger;
   font-weight: bold;

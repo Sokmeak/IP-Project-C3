@@ -83,6 +83,22 @@ export default {
 </template>
 
 <style scoped>
+
+.view-all-btn {
+  border: 1px solid #000;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #000;
+  transition: all 0.3s;
+}
+
+.view-all-btn:hover {
+  background-color: #af47d2;
+  color: white;
+  border-color: #af47d2;
+}
 .header {
   display: flex;
   justify-content: center;

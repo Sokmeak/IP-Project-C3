@@ -23,7 +23,7 @@ import HeroSection from "@/components/Hero/HeroSection.vue";
 import CategorySection from "@/components/Categories/CategorySection.vue";
 import TrendingVideos from "@/components/Videos/TrendingVideos.vue";
 import KhmerCollections from "@/components/KhmerCollections/KhmerCollections.vue";
-import BestOffers from "@/components/BestOffers/BesfOffers.vue";
+import BestOffers from "@/components/BestOffers/BestOffers.vue";
 import Footer from "@/components/Footer.vue";
 import serviceSection from "@/components/Services/serviceSection.vue";
 import Testimonials from "@/components/Testimonails/Testimonials.vue";
@@ -36,6 +36,7 @@ export default {
     TrendingVideos,
     KhmerCollections,
     BestOffers,
+
 
     serviceSection,
     TestimonialsComponent: Testimonials,

@@ -1,5 +1,7 @@
 <template>
   <div class="default-brand">
+
+    <!-- How can pass a function click from default branch to secondary branch to banner component that secodary is the parent of default and the banner is the parent of secondary? -->
     <img src="../../../public/images/defaultLogo.png" alt="aa-logo" />
     <div class="brand-name">
       <span :style="{ color: fontColor1 }">Angkor </span>
@@ -14,7 +16,10 @@ export default {
   props: {
     fontColor1: String,
     fontColor2: String,
+    
   },
+
+  
 };
 </script>
 <style scoped>

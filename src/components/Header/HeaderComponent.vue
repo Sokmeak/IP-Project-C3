@@ -1,30 +1,36 @@
 <template>
   <header class="header">
     <!-- Updated Brand Section -->
-    <!-- <div class="default-brand">
-      <img src="../../../public/images/defaultLogo.png" alt="aa-logo" />
-      <div class="brand-name">
-        <span :style="{ color: fontColor1 }">Angkor </span>
-        <span :style="{ color: fontColor2 }">Apparel</span>
-      </div>
-    </div> -->
+    <RouterLink class = "link" to="/home">
+      <SecodaryBrand />
+    </RouterLink>
+
+    <!-- Hamburger Menu for Mobile -->
+    <div class="hamburger" @click="toggleMenu">
+      <i class="fa fa-bars"></i>
+    </div>
 
     <!-- Navigation Menu -->
-    <SecodaryBrand />
-    <div class="classify-wrapper nav">
-      <li>Men</li>
-      <li>Women</li>
-      <li>Children</li>
+    <div :class="['classify-wrapper nav', { active: menuActive }]">
+      <li v-for="link in links" :key="link.name">
+        <router-link
+          :to="link.path"
+          class="nav-link"
+          :class="{ active: isActive(link.path) }"
+          @click="closeMenu"
+        >
+          {{ link.name }}
+        </router-link>
+      </li>
     </div>
 
     <!-- Actions -->
     <div class="actions">
-      <!-- <i class="fa fa-search"></i> -->
       <div class="search-container">
         <input type="text" placeholder="Search" class="search-bar" />
       </div>
       <div class="iconWrapper">
-        <RouterLink class ="link" to="/userpage/1/account">
+        <RouterLink class="link" to="/userpage/1/account">
           <i class="fa fa-user fa-xl"></i>
         </RouterLink>
         <i @click="GoToshoppingCards" class="fa fa-shopping-cart fa-xl"></i>
@@ -35,41 +41,55 @@
 
 <script>
 import SecodaryBrand from "../Brands/SecondaryBrand.vue";
+
 import { RouterLink, RouterView } from "vue-router";
 export default {
   name: "HeaderComponent",
   components: {
     SecodaryBrand,
   },
-  // Control by route in stead
+  data() {
+    return {
+      // Define links dynamically
+      links: [
+        { name: "Men", path: "/men" },
+        { name: "Women", path: "/women" },
+        { name: "Children", path: "/children" },
+      ],
+      menuActive: false, // State to toggle mobile menu
+    };
+  },
   methods: {
     GoToAccount() {
-      alert("Redirecting to user account....");
+      alert("Redirecting to user account...");
     },
     GoToshoppingCards() {
-      alert("Redirecting to Shopping Cards");
+      alert("Redirecting to shopping cards...");
+    },
+    // Check if the current route matches the link path
+    isActive(path) {
+      return this.$route.path === path;
+    },
+    // Toggle menu for mobile view
+    toggleMenu() {
+      this.menuActive = !this.menuActive;
+    },
+    // Close menu on link click (mobile view)
+    closeMenu() {
+      this.menuActive = false;
     },
   },
-
-  // props: {
-  //   fontColor1: {
-  //     type: String,
-  //     default: "#ffffff", // Default color for the first part of the text
-  //   },
-  //   fontColor2: {
-  //     type: String,
-  //     default: "#ffdb00", // Default color for the second part of the text
-  //   },
-  // },
 };
 </script>
 
 <style scoped>
-.link{
-  color:white;
+/* Original Header Styles Preserved */
+.link {
+  color: white;
 }
-.link:hover{
+.link:hover {
   color: #bba8c6;
+  text-decoration: none;
 }
 
 .search-container {
@@ -89,7 +109,6 @@ export default {
 }
 .header {
   display: flex;
-  width: 100%;
   justify-content: space-between;
   align-items: center;
   background-color: #a240de;
@@ -97,58 +116,114 @@ export default {
   color: white;
   position: fixed;
   z-index: 99;
-}
-.classify-wrapper {
-  margin-top: 1.5 rem;
-  display: flex;
-  flex-direction: row;
-  /* align-items: center; */
-  justify-content: center;
-  color: #ffdb00;
-  font-weight: 500;
-  font-size: 20px;
-  gap: 5rem;
+  width: 100%;
 }
 
-.nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: white;
 }
-.nav li {
+
+/* Navigation Menu */
+.classify-wrapper {
+  display: flex;
+  gap: 5rem;
+  list-style: none;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.classify-wrapper.active {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #a240de;
+  width: 100%;
+  padding: 1rem 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+  color: #ffdb00;
+  text-decoration: none;
   cursor: pointer;
 }
+
+.nav-link:hover {
+  /* text-decoration: underline; */
+   /* Add underline on hover */
+  color: #ffffff;
+}
+
+/* Active Link Style */
+.nav-link.active {
+  color: white;
+  font-weight: bold;
+  text-decoration: none; /* Remove underline for active state */
+  border-bottom: 2px solid white; /* Add bottom border for active link */
+}
+
+/* Actions */
 .actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 2rem;
   position: relative;
 }
-/* .search-bar {
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: none;
-  border-radius: 20px;
-} */
-.search-bar {
-  width: 100%;
-  padding: 8px 40px; /* Adjust padding to make space for the icon */
-  font-size: 16px;
-  border-radius: 20px;
-  border: none;
+
+/* Search Bar */
+.search-container {
+  position: relative;
 }
+
+.search-bar {
+  /* padding: 8px 40px; */
+  /* Adjust padding to make space for the icon */
+  padding: 0.5rem 3rem;
+  border-radius: 20px;
+  border: none;
+  width: 250px;
+  font-size: 16px;
+}
+
+/* Icons */
+.iconWrapper {
+  display: flex;
+  gap: 1.5rem;
+}
+
 .fa {
+  color: white;
   cursor: pointer;
 }
-.iconWrapper {
-  margin-left: 1rem;
-  width: 100px;
-  display: flex;
-  gap: 3rem;
+
+.fa:hover {
+  color: #ffdb00;
 }
-/* .fa-search {
-  position: absolute;
-  top: 13px;
-  color: #8a8a8a;
-} */
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .classify-wrapper {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .actions {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-bar {
+    width: 150px;
+    font-size: 14px;
+  }
+}
 </style>

@@ -20,14 +20,21 @@
       <button class="back-button" @click="goBack">
         <i class="fa-solid fa-arrow-left"></i> Back
       </button>
-      <button class="logout-button" @click="handleLogout">
+
+      <RouterLink to = "/login">
+        <button class="logout-button" >
         <i class="fa-solid fa-right-from-bracket"></i> Logout
       </button>
+
+      </RouterLink>
+     
     </div>
   </div>
 </template>
 
 <script>
+
+import { RouterLink,RouterView } from 'vue-router';
 export default {
   name: "SidebarMenu",
   props: {

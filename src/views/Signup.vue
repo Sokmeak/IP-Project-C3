@@ -254,6 +254,8 @@ export default {
 }
 .back {
   display: flex;
+  justify-content: start;
+  align-items: center;
   flex-direction: row;
   gap: 0.5rem;
   color: #af47d2;

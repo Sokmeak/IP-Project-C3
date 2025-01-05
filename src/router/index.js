@@ -3,6 +3,9 @@ import LandingPage from "@/views/LandingPage.vue"; // Import LandingPage compone
 import Login from "@/views/Login.vue"; // Login page component
 import Signup from "@/views/Signup.vue"; // Signup page component
 import Home from "@/views/Home.vue"; // Home page component
+import MenClothes from "@/views/MenClothes.vue"; // Men page component
+import WomenClothes from "@/views/WomenClothes.vue"; // Women page component
+import ChildrenClothes from "@/views/ChildrenClothes.vue"; // Children page component
 import Cookies from "js-cookie";
 import UserPage from "@/views/UserPage/UserPage.vue";
 
@@ -10,10 +13,6 @@ import UserPage from "@/views/UserPage/UserPage.vue";
 export function isAuthenticated() {
   const savedEmail = Cookies.get("email");
   const savedPassword = Cookies.get("password");
-
-  // const sessionEmail = sessionStorage.getItem("email"); // Temporary session storage
-  // const sessionPassword = sessionStorage.getItem("password");
-
   const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
   let status = false;
 
@@ -29,10 +28,6 @@ export function isAuthenticated() {
 const id =1;
 
 // Define routes
-
-
-
-
 
 const routes = [
   {
@@ -51,29 +46,33 @@ const routes = [
     name: "Login",
     component: Login,
     props: true,
-    beforeEnter: (to, from, next) => {
-      if (isAuthenticated()) {
-        next("/home"); // Redirect to home if authenticated
-      } else {
-        next(); // Proceed to login
-      }
-    },
+
+    // auto login section
+
+    // 
+    // beforeEnter: (to, from, next) => {
+    //   if (isAuthenticated()) {
+    //     next("/home"); // Redirect to home if authenticated
+    //   } else {
+    //     next(); // Proceed to login
+    //   }
+    // },
   },
   {
     path: "/signup",
     name: "Signup",
     component: Signup,
     props: true,
-    beforeEnter: (to, from, next) => {
-      import("@/stores/user").then(({ useStore }) => {
-        const store = useStore();
-        if (store.isRegister) {
-          next("/login"); // Redirect to login if already registered
-        } else {
-          next(); // Allow accessing the signup page
-        }
-      });
-    },
+    // beforeEnter: (to, from, next) => {
+    //   import("@/stores/user").then(({ useStore }) => {
+    //     const store = useStore();
+    //     if (store.isRegister) {
+    //       next("/login"); // Redirect to login if already registered
+    //     } else {
+    //       next(); // Allow accessing the signup page
+    //     }
+    //   });
+    // },
   },
 
 
@@ -133,6 +132,21 @@ const routes = [
         component: () => import("@/views/UserPage/PaymentMethods.vue"),
       },
     ],
+  },
+  {
+    path: "/men",
+    name: "MenClothes",
+    component: MenClothes,
+  },
+  {
+    path: "/women",
+    name: "WomenClothes",
+    component: WomenClothes,
+  },
+  {
+    path: "/children",
+    name: "ChildrenClothes",
+    component: ChildrenClothes,
   },
 ];
 
