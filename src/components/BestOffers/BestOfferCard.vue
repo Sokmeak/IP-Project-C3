@@ -109,6 +109,8 @@ export default {
   flex-direction: column;
   justify-content: center;
   /* align-items: center; */
+  border: 1px solid gray;
+  border-radius: 10px;
   gap: 2rem;
 
   /* background-color: rgb(254, 255, 193); */
@@ -131,6 +133,7 @@ export default {
   transition: 0.2s;
   transform: scale(1.005);
   border: 1.5px solid #af47d2;
+  
 
   cursor: pointer;
 }
@@ -146,8 +149,10 @@ export default {
   height: fit-content;
   width: 100%;
   display: flex;
+  /* background-color: #f5f5f5; */
   flex-direction: column;
   justify-content: space-between;
+
   align-items: start;
   gap: 0.3rem;
   /* background-color: white; */

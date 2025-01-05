@@ -1,7 +1,7 @@
 <template>
   <div class="collectionCard">
     <div class="imageWrapper">
-      <img :src="'../../public/images/'+imgSrc" alt="Khmer Collection" />
+      <img :src="'../../public/images/' + imgSrc" alt="Khmer Collection" />
     </div>
 
     <div class="content">
@@ -10,9 +10,9 @@
       </h4>
       <p class="description">{{ description }}</p>
       <div class="rating">
-        <i class="fa-solid fullStar  fa-star"></i>
         <i class="fa-solid fullStar fa-star"></i>
-        <i class="fa-solid  fullStar fa-star"></i>
+        <i class="fa-solid fullStar fa-star"></i>
+        <i class="fa-solid fullStar fa-star"></i>
         <i class="fa-solid fullStar fa-star"></i>
         <i class="fa-regular fa-star"></i>
       </div>
@@ -43,7 +43,6 @@ export default {
   height: 250px;
 }
 
-
 .fullStar {
   color: #f1c40f;
 }
@@ -55,7 +54,9 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.7rem;
+  border: 1px solid gray;
+  border-radius: 10px;
 
   /* background-color: rgb(254, 255, 193); */
 }
