@@ -7,8 +7,7 @@
 
     <KhmerCollections />
     <BestOffers />
-    <KhmerCollections />
-  
+    <!-- <KhmerCollections /> -->
 
     <Footer />
   </div>
@@ -33,7 +32,6 @@ export default {
     TrendingVideos,
     KhmerCollections,
     BestOffers,
-
     serviceSection,
     TestimonialsComponent,
     Footer,
@@ -49,7 +47,7 @@ export default {
   flex-direction: column;
   /* gap: 1rem; */
 }
-.startComponents{
+.startComponents {
   margin-top: 4rem;
 }
 </style>

@@ -1,14 +1,13 @@
-import { ref, computed } from "vue";
-import { defineStore, storeToRefs } from "pinia";
+import { ref } from "vue";
+import { defineStore } from "pinia";
 import Cookies from "js-cookie";
-import Login from "@/views/Login.vue";
 
 export function isAuthenticated() {
   const savedEmail = Cookies.get("email");
   const savedPassword = Cookies.get("password");
   const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
   console.log(loggedInUser);
-  
+
   // const sessionEmail = sessionStorage.getItem("email"); // Temporary session storage
   // const sessionPassword = sessionStorage.getItem("password");
   let status = false;
@@ -34,4 +33,6 @@ export const useStore = defineStore("counter", () => {
   return {
     isRegister,
   };
+
+  // How to get data from the store and use function for filtering the product in the store
 });

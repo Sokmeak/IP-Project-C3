@@ -1,7 +1,7 @@
 <template>
   <div class="collectionCard">
     <div class="imageWrapper">
-      <img :src="imgSrc" alt="Khmer Collection" />
+      <img :src="'../../public/images/'+imgSrc" alt="Khmer Collection" />
     </div>
 
     <div class="content">
@@ -9,6 +9,14 @@
         {{ name }}
       </h4>
       <p class="description">{{ description }}</p>
+      <div class="rating">
+        <i class="fa-solid fullStar  fa-star"></i>
+        <i class="fa-solid fullStar fa-star"></i>
+        <i class="fa-solid  fullStar fa-star"></i>
+        <i class="fa-solid fullStar fa-star"></i>
+        <i class="fa-regular fa-star"></i>
+      </div>
+
       <div class="seemore">
         <a href="#">see more</a>
       </div>
@@ -35,6 +43,10 @@ export default {
   height: 250px;
 }
 
+
+.fullStar {
+  color: #f1c40f;
+}
 .collectionCard {
   width: 313px;
   padding: 0 2rem 1rem 2rem;

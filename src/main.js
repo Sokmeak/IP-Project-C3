@@ -14,4 +14,4 @@ app.mount("#app");
 //   .use(router) // Use Vue Router
 //   .use(createPinia()) // Use Pinia state management
 //   .mount("#app"); // Mount the app to the DOM
-e;
+;
