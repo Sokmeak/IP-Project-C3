@@ -123,18 +123,6 @@ input[type="radio"] {
 .delete-button:hover {
   color: #e63939;
 }
-
-/* .add-card-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #d14eff;
-  color: #fff;
-  border: none;
-  border-radius: 20px;
-  font-size: 1rem;
-  cursor: pointer;
-} */
-
 .add-card-button {
   margin-top: 5px;
   width: 10rem;

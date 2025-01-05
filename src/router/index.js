@@ -29,6 +29,11 @@ export function isAuthenticated() {
 const id =1;
 
 // Define routes
+
+
+
+
+
 const routes = [
   {
     path: "/",
@@ -70,6 +75,9 @@ const routes = [
       });
     },
   },
+
+
+
   {
     path: "/home",
     name: "Home",
@@ -89,6 +97,9 @@ const routes = [
       });
     },
   },
+
+
+  
 
   {
     path: "/userpage/:id",
