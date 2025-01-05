@@ -1,18 +1,22 @@
 <template>
   <div class="payment-methods">
     <h1>Your saved Payment methods</h1>
-    <div v-for="method in paymentMethods" :key="method.id" class="payment-method">
+    <div
+      v-for="method in paymentMethods"
+      :key="method.id"
+      class="payment-method"
+    >
       <div class="card-info">
         <span class="card-brand">VISA</span>
         <span class="bank-name">Axim Bank</span>
         <span class="card-number">**** **** **** {{ method.last4 }}</span>
       </div>
       <div class="actions">
-        <input 
-          type="radio" 
-          :name="'defaultCard'" 
-          :value="method.id" 
-          v-model="selectedCard" 
+        <input
+          type="radio"
+          :name="'defaultCard'"
+          :value="method.id"
+          v-model="selectedCard"
         />
         <button @click="removeMethod(method.id)" class="delete-button">
           &#128465;
@@ -37,7 +41,9 @@ export default {
   },
   methods: {
     removeMethod(id) {
-      this.paymentMethods = this.paymentMethods.filter((method) => method.id !== id);
+      this.paymentMethods = this.paymentMethods.filter(
+        (method) => method.id !== id
+      );
       alert(`Payment method removed.`);
     },
   },
@@ -118,7 +124,7 @@ input[type="radio"] {
   color: #e63939;
 }
 
-.add-card-button {
+/* .add-card-button {
   margin-top: 20px;
   padding: 10px 20px;
   background-color: #d14eff;
@@ -127,6 +133,21 @@ input[type="radio"] {
   border-radius: 20px;
   font-size: 1rem;
   cursor: pointer;
+} */
+
+.add-card-button {
+  margin-top: 5px;
+  width: 10rem;
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #a445f7;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  border-radius: 15px;
 }
 
 .add-card-button:hover {

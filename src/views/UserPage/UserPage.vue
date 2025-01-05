@@ -4,7 +4,7 @@
       <SidebarMenu class="sidebar-menu" />
     </div>
     <div class="main-content">
-      <h2 class="content-heading">Welcome to {{ pageTitle }}</h2>
+      <h2 class="content-heading">{{ pageTitle }}</h2>
       <div class="content-container">
         <router-view />
       </div>

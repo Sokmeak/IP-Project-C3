@@ -4,17 +4,32 @@
     <form @submit.prevent="handleSubmit">
       <div class="form-group">
         <label for="current-password">Current Password:</label>
-        <input type="password" id="current-password" v-model="currentPassword" required />
+        <input
+          type="password"
+          id="current-password"
+          v-model="currentPassword"
+          required
+        />
       </div>
       <div class="form-group">
         <label for="new-password">New Password:</label>
-        <input type="password" id="new-password" v-model="newPassword" required />
+        <input
+          type="password"
+          id="new-password"
+          v-model="newPassword"
+          required
+        />
       </div>
       <div class="form-group">
         <label for="confirm-password">Confirm New Password:</label>
-        <input type="password" id="confirm-password" v-model="confirmPassword" required />
+        <input
+          type="password"
+          id="confirm-password"
+          v-model="confirmPassword"
+          required
+        />
       </div>
-      <button type="submit">Update Password</button>
+      <button type="submit">Update</button>
     </form>
   </div>
 </template>
@@ -45,13 +60,13 @@ export default {
 <style scoped>
 .change-password {
   display: flex;
-  flex-direction: column; 
-  justify-content: center; 
+  flex-direction: column;
+  justify-content: center;
   padding: 20px;
 }
 .change-password h1 {
   font-size: 3rem;
-  text-align: center; 
+  text-align: center;
 }
 .form-group {
   margin: 15px 0;
@@ -70,15 +85,21 @@ input {
 }
 
 button {
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
+  margin-top: 5px;
+  width: 10rem;
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #a445f7;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  border-radius: 15px;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #9844d4;
 }
 </style>

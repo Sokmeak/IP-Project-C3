@@ -4,6 +4,7 @@
 
   <!-- Show the HomePage after loading is complete -->
   <template v-else> <RouterView /></template>
+  <!-- <RouterView/> -->
 </template>
 
 <script>
@@ -31,16 +32,26 @@ export default {
         this.isLoaded = true; // Hide loader after delay
       }, 2000); // Simulate loading time (2 seconds)
     },
+    shouldLoad(to) {
+      // Restrict loading if navigating to the user page
+      const userPagePath = `/userpage/`; // Adjust if necessary
+      return !to.path.startsWith(userPagePath);
+    },
   },
   created() {
     // Listen to router events
     this.$router.beforeEach((to, from, next) => {
-      this.startLoading(); // Start loader when navigation begins
+      if (this.shouldLoad(to)) {
+        this.startLoading(); // Start loader when navigation begins
+      }
+
       next(); // Allow navigation
     });
 
-    this.$router.afterEach(() => {
-      this.finishLoading(); // End loader when navigation completes
+    this.$router.afterEach((to) => {
+      if (this.shouldLoad(to)) {
+        this.finishLoading(); // End loader when navigation completes
+      }
     });
   },
 };

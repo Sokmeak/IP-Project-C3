@@ -4,6 +4,7 @@ import Login from "@/views/Login.vue"; // Login page component
 import Signup from "@/views/Signup.vue"; // Signup page component
 import Home from "@/views/Home.vue"; // Home page component
 import Cookies from "js-cookie";
+import UserPage from "@/views/UserPage/UserPage.vue";
 
 // Authentication check function
 export function isAuthenticated() {
@@ -25,6 +26,7 @@ export function isAuthenticated() {
   const sessionPassword = sessionStorage.getItem("password");
   return (savedEmail && savedPassword) || (sessionEmail && sessionPassword);
 }
+const id =1;
 
 // Define routes
 const routes = [
@@ -86,6 +88,40 @@ const routes = [
         }
       });
     },
+  },
+
+  {
+    path: "/userpage/:id",
+    // redirect: "/userpage/:id/account",
+    component: UserPage,
+    props: true,
+    children: [
+      {
+        path: "account",
+        name: "Account",
+        component: () => import("@/views/UserPage/Account.vue"),
+      },
+      {
+        path: "change-password",
+        name: "ChangePassword",
+        component: () => import("@/views/UserPage/ChangePassword.vue"),
+      },
+      {
+        path: "favorites",
+        name: "Favorites",
+        component: () => import("@/views/UserPage/Favorites.vue"),
+      },
+      {
+        path: "orders",
+        name: "Orders",
+        component: () => import("@/views/UserPage/Orders.vue"),
+      },
+      {
+        path: "payment-methods",
+        name: "PaymentMethods",
+        component: () => import("@/views/UserPage/PaymentMethods.vue"),
+      },
+    ],
   },
 ];
 

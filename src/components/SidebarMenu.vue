@@ -10,8 +10,8 @@
         :key="item.path"
         :class="{ active: isActive(item.path) }"
       >
-        <router-link :to="`/userpage/${userId}${item.path}`">
-          <span class="icon"><i :class="item.icon"></i></span>
+        <router-link class="link" :to="`/userpage/${userId}${item.path}`">
+          <span class="icon"><i :class="`iconImage ` + item.icon"></i></span>
           <span class="label">{{ item.label }}</span>
         </router-link>
       </li>
@@ -31,13 +31,15 @@
 export default {
   name: "SidebarMenu",
   props: {
-    userId: {
-      type: String,
-      required: true,
-    },
+    // userId: {
+    //   type: String,
+    //   required: true,
+    // },
+    userId: Number,
   },
   data() {
     return {
+      userId: 1,
       menuItems: [
         {
           label: "My Orders",
@@ -103,17 +105,17 @@ export default {
 }
 
 .header h3 {
-  padding-top:10px;
+  padding-top: 10px;
   font-size: 1rem;
   color: #7e8b99;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .header h2 {
-  padding-top:10px;
+  padding-top: 10px;
   font-size: 1.8rem;
   color: #7e8b99;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .menu {
@@ -127,6 +129,7 @@ export default {
 }
 .menu li.active {
   border-left: 4px solid #9b51e0; /* Purple active indicator */
+  /* color:yellow; */
 }
 .menu li a {
   display: flex;
@@ -138,16 +141,21 @@ export default {
   transition: background-color 0.3s ease;
   font-size: 1rem;
 }
-.menu li a:hover,
-.menu li.active a {
-  color: #6c63ff;
-}
 
 .menu li a .icon {
   font-size: 1rem;
-  padding-left:10px;
+  padding-left: 10px;
   margin-right: 15px;
   color: #2c3e50;
+}
+
+/* control the hover and active color */
+.menu li a:hover .iconImage,
+.menu li a:hover,
+.menu li.active a,
+.menu li.active .iconImage {
+  color: #6c63ff;
+  /* color: #171363; */
 }
 
 .menu li a .label {
@@ -156,12 +164,12 @@ export default {
 }
 
 .menu li.active a .label {
-  font-weight: bold; 
-  
+  font-weight: bold;
+
   border-radius: 5px;
 }
 
-.back-button{
+.back-button {
   margin-bottom: 10px;
   padding: 10px;
   border: 1px solid transparent;

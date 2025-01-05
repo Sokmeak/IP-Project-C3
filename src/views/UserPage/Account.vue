@@ -13,7 +13,11 @@
       </div>
       <div class="form-group">
         <label for="address">Address</label>
-        <input id="address" type="text" placeholder="66 Preah Monivong Blvd (93)" />
+        <input
+          id="address"
+          type="text"
+          placeholder="66 Preah Monivong Blvd (93)"
+        />
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -47,7 +51,6 @@ export default {
 </script>
 
 <style scoped>
-
 h1 {
   font-size: 1.5rem;
   margin-bottom: 10px;
@@ -93,6 +96,7 @@ input {
 
 .update-button {
   margin-top: 5px;
+  width: 10rem;
   padding: 10px;
   font-size: 1rem;
   color: #fff;

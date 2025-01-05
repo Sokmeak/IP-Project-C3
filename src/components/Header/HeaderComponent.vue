@@ -23,8 +23,10 @@
       <div class="search-container">
         <input type="text" placeholder="Search" class="search-bar" />
       </div>
-      <div  class="iconWrapper">
-        <i @click="GoToAccount" class="fa fa-user fa-xl"></i>
+      <div class="iconWrapper">
+        <RouterLink class ="link" to="/userpage/1/account">
+          <i class="fa fa-user fa-xl"></i>
+        </RouterLink>
         <i @click="GoToshoppingCards" class="fa fa-shopping-cart fa-xl"></i>
       </div>
     </div>
@@ -32,8 +34,8 @@
 </template>
 
 <script>
-
 import SecodaryBrand from "../Brands/SecondaryBrand.vue";
+import { RouterLink, RouterView } from "vue-router";
 export default {
   name: "HeaderComponent",
   components: {
@@ -47,7 +49,6 @@ export default {
     GoToshoppingCards() {
       alert("Redirecting to Shopping Cards");
     },
-   
   },
 
   // props: {
@@ -64,6 +65,13 @@ export default {
 </script>
 
 <style scoped>
+.link{
+  color:white;
+}
+.link:hover{
+  color: #bba8c6;
+}
+
 .search-container {
   position: relative;
   display: inline-block;
