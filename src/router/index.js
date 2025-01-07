@@ -30,11 +30,19 @@ const id = 1;
 // Define routes
 
 const routes = [
-  // {
-  //   path: "/",
-  //   redirect: "landing", // Redirect to landing page
-  //   props: true,
-  // },
+  {
+    path: "/",
+    redirect: "landing", // Redirect to landing page
+    props: true,
+  },
+
+  {
+  
+    path: "/landing",
+    name: "LandingPage",
+    component: LandingPage, // Default to LandingPage
+    props: true,
+  },
 
   {
     path: "/login",
@@ -102,13 +110,6 @@ const routes = [
         component: () => import("@/views/UserPage/PaymentMethods.vue"),
       },
     ],
-  },
-
-  {
-    path: "/landing",
-    name: "LandingPage",
-    component: LandingPage, // Default to LandingPage
-    props: true,
   },
 
   // home, men, women, children use the same have nav bar and footer.
