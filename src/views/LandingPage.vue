@@ -1,6 +1,6 @@
 <template>
   <div class="landingPage">
-    <HeaderComponent />
+    <HeaderComponent/>
     <HeroSection />
     <CategorySection />
 
@@ -8,12 +8,11 @@
 
     <BestOffers />
 
-
     <KhmerCollections />
 
     <serviceSection />
     <TestimonialsComponent />
-    <Footer />
+    <Footer/>
   </div>
 </template>
 
@@ -36,8 +35,6 @@ export default {
     TrendingVideos,
     KhmerCollections,
     BestOffers,
-
-
     serviceSection,
     TestimonialsComponent: Testimonials,
     Footer,

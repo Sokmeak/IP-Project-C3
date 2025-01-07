@@ -1,6 +1,6 @@
 <template>
   <div class="banner">
-    <img src="/images/banner-image.png" alt="New Year Shopping Banner" />
+    <img src="./banner-image.png" alt="New Year Shopping Banner" />
   </div>
 </template>
 
@@ -12,10 +12,10 @@ export default {
 
 <style scoped>
 .banner {
-  margin-top: 5rem; /* Adds space below the navigation bar */
+  margin-top: 3rem; /* Adds space below the navigation bar */
   text-align: center;
-  background-color: #f8f8f8;
-  padding: 2rem;
+  /* background-color: #f8f8f8; */
+  padding: 2rem 0 ;
 }
 .banner img {
   max-width: 100%;

@@ -34,6 +34,7 @@ export default {
   flex-direction: column;
   gap: 1rem;
   padding: 2rem;
+  background-color: #f0dff5;
 }
 .category-list {
   width: 100%;

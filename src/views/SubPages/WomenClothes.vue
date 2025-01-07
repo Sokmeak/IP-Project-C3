@@ -1,10 +1,14 @@
 <template>
   <div class="women-clothes-page">
+    
     <!-- Header -->
-    <HeaderComponent />
+   
+
+ 
 
     <!-- Content Wrapper -->
     <div class="content-wrapper">
+      <p>Welcome to Women page.</p>
       <!-- Recommended for Women Section -->
       <!-- <div class="section recommended">
         <div class="section-header">
@@ -65,7 +69,7 @@
     </div>
 
     <!-- Footer -->
-    <Footer />
+    
   </div>
 </template>
 

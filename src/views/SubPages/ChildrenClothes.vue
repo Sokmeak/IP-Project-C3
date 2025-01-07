@@ -1,14 +1,17 @@
 <template>
   <div class="women-clothes-page">
-    <!-- Header -->
-    <HeaderComponent />
+
+ 
+   
+   
 
     <!-- Content Wrapper -->
     <div class="content-wrapper">
-      <!-- Recommended for Men Section -->
+      <p>Welcome to Children page.</p>
+      <!-- Recommended for Children Section -->
       <!-- <div class="section recommended">
         <div class="section-header">
-          <h1>Recommended for Men</h1>
+          <h1>Recommended for Children</h1>
           <div class="view-all-btn">View All</div>
         </div>
         <div class="product-grid">
@@ -22,11 +25,11 @@
         </div>
       </div> -->
 
-      <!-- Men's Dresses Section -->
+      <!-- Children's T-shirt Section -->
       <!-- <div class="tshirts-section">
         <div class="section dresses">
           <div class="section-header">
-            <h1>Men's T-shirt</h1>
+            <h1>Kid's T-shirt</h1>
             <div class="view-all-btn">View All</div>
           </div>
           <div class="product-grid">
@@ -41,10 +44,10 @@
         </div>
       </div> -->
 
-      <!-- Men's Accessories Section -->
+      <!-- Children's Accessories Section -->
       <!-- <div class="section accessories">
         <div class="section-header">
-          <h1>Men's Accessories</h1>
+          <h1>Children's Accessories</h1>
           <div class="view-all-btn">View All</div>
         </div>
         <div class="product-grid">
@@ -57,14 +60,15 @@
           />
         </div>
       </div> -->
-      <BestOffers />
-      <KhmerCollections />
+
+      <BestOffers/>
+      <KhmerCollections/>
       <BestOffers />
       <KhmerCollections />
     </div>
 
-    <!-- Footer -->
-    <Footer />
+   
+   
   </div>
 </template>
 
@@ -73,14 +77,16 @@ import HeaderComponent from "@/components/Header/HeaderComponent.vue";
 import Footer from "@/components/Footer.vue";
 import ProductCard from "@/components/GeneralProducts/ProductCard.vue";
 
-import KhmerCollections from "@/components/KhmerCollections/KhmerCollections.vue";
 import BestOffers from "@/components/BestOffers/BestOffers.vue";
+import KhmerCollections from "@/components/KhmerCollections/KhmerCollections.vue";
+
 
 export default {
   components: {
     HeaderComponent,
     Footer,
     ProductCard,
+
     BestOffers,
     KhmerCollections,
   },
@@ -120,7 +126,7 @@ export default {
         },
       ],
 
-      // Men's T-Shirts Data
+      // Children's Dresses Data
       dressProducts: [
         {
           imgSrc: "/images/WomenTrad.png",
@@ -154,7 +160,7 @@ export default {
         },
       ],
 
-      // Men's Accessories Data
+      // children's Accessories Data
       accessoriesProducts: [
         {
           imgSrc: "/images/Hat.png",
@@ -193,7 +199,7 @@ export default {
 </script>
 
 <style scoped>
-.men-clothes-page {
+.children-clothes-page {
   display: flex;
   flex-direction: column;
   gap: 3rem;

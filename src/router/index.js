@@ -2,10 +2,10 @@ import { createRouter, createWebHistory } from "vue-router";
 import LandingPage from "@/views/LandingPage.vue"; // Import LandingPage component
 import Login from "@/views/Login.vue"; // Login page component
 import Signup from "@/views/Signup.vue"; // Signup page component
-import Home from "@/views/Home.vue"; // Home page component
-import MenClothes from "@/views/MenClothes.vue"; // Men page component
-import WomenClothes from "@/views/WomenClothes.vue"; // Women page component
-import ChildrenClothes from "@/views/ChildrenClothes.vue"; // Children page component
+import Home from "@/views/SubPages/Home.vue"; // Home page component
+import MenClothes from "@/views/SubPages/MenClothes.vue"; // Men page component
+import WomenClothes from "@/views/SubPages/WomenClothes.vue"; // Women page component
+import ChildrenClothes from "@/views/SubPages/ChildrenClothes.vue"; // Children page component
 import Cookies from "js-cookie";
 import UserPage from "@/views/UserPage/UserPage.vue";
 
@@ -25,22 +25,17 @@ export function isAuthenticated() {
   const sessionPassword = sessionStorage.getItem("password");
   return (savedEmail && savedPassword) || (sessionEmail && sessionPassword);
 }
-const id =1;
+const id = 1;
 
 // Define routes
 
 const routes = [
-  {
-    path: "/",
-    redirect: "landing", // Redirect to landing page
-    props: true,
-  },
-  {
-    path: "/landing",
-    name: "LandingPage",
-    component: LandingPage, // Default to LandingPage
-    props: true,
-  },
+  // {
+  //   path: "/",
+  //   redirect: "landing", // Redirect to landing page
+  //   props: true,
+  // },
+
   {
     path: "/login",
     name: "Login",
@@ -49,7 +44,7 @@ const routes = [
 
     // auto login section
 
-    // 
+    //
     // beforeEnter: (to, from, next) => {
     //   if (isAuthenticated()) {
     //     next("/home"); // Redirect to home if authenticated
@@ -75,35 +70,10 @@ const routes = [
     // },
   },
 
-
-
-  {
-    path: "/home",
-    name: "Home",
-    props: true,
-    component: Home,
-    beforeEnter: (to, from, next) => {
-      import("@/stores/user").then(({ useStore }) => {
-        const store = useStore();
-        const isRegistered = store.isRegister;
-        if (!isRegistered) {
-          next("/signup"); // Redirect to signup if not registered
-        } else if (!isAuthenticated()) {
-          next("/login"); // Redirect to login if not authenticated
-        } else {
-          next(); // Proceed to home
-        }
-      });
-    },
-  },
-
-
-  
-
   {
     path: "/userpage/:id",
-    // redirect: "/userpage/:id/account",
-    component: UserPage,
+    redirect: "/userpage/:id/account",
+     component: UserPage,
     props: true,
     children: [
       {
@@ -133,20 +103,88 @@ const routes = [
       },
     ],
   },
+
+ 
+
   {
-    path: "/men",
-    name: "MenClothes",
-    component: MenClothes,
+    path: "/landing",
+    name: "LandingPage",
+    component: LandingPage, // Default to LandingPage
+    props: true,
   },
+
+ // home, men, women, children use the same have nav bar and footer.
+
+  // Some the parent should be the layout page
+
+
+  // {
+  //   path: "/home",
+  //   name: "Home",
+  //   props: true,
+  //   component: () => import("@/views/LayoutPage.vue"),
+  //   beforeEnter: (to, from, next) => {
+  //     import("@/stores/user").then(({ useStore }) => {
+  //       const store = useStore();
+  //       const isRegistered = store.isRegister;
+  //       if (!isRegistered) {
+  //         next("/signup"); // Redirect to signup if not registered
+  //       } else if (!isAuthenticated()) {
+  //         next("/login"); // Redirect to login if not authenticated
+  //       } else {
+  //         next(); // Proceed to home
+  //       }
+  //     });
+  //   },
+  // },
+
+  // {
+  //   path: "/men",
+  //   name: "MenClothes",
+  //   component: MenClothes,
+  // },
+  // {
+  //   path: "/women",
+  //   name: "WomenClothes",
+  //   component: WomenClothes,
+  // },
+  // {
+  //   path: "/children",
+  //   name: "ChildrenClothes",
+  //   component: ChildrenClothes,
+  // },
+
   {
-    path: "/women",
-    name: "WomenClothes",
-    component: WomenClothes,
-  },
-  {
-    path: "/children",
-    name: "ChildrenClothes",
-    component: ChildrenClothes,
+    path:"/",
+    redirect:"/home",   // default page in layout is home
+    name:"root",
+    component:() =>import("@/views/LayoutPage.vue"),
+    props:true,
+    children:[
+      {
+        path:"home",
+        name:"home",
+        component:() =>import ("@/views/SubPages/Home.vue")
+
+      },
+      {
+        path:"men",
+        name:"Men",
+        component:() =>import("@/views/SubPages/MenClothes.vue")
+        // what if the differences in side subpage contains the any categories that can be classify
+      },
+      {
+        path:"women",
+        name:"Women",
+        component:() =>import("@/views/SubPages/WomenClothes.vue")
+      },
+      {
+        path:"children",
+        name:"Children",
+        component:() =>import("@/views/SubPages/ChildrenClothes.vue")
+      },
+    ]
+
   },
 ];
 

@@ -22,7 +22,7 @@
             class="video-card"
             width="500px"
             height="400px"
-            controls="controls"
+       
             autoplay
             loop
             muted

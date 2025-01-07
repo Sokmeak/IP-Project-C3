@@ -2,7 +2,7 @@
   <section class="service-section">
     <div class="header-container">
       <h1 class="section-title">Why choose us</h1>
-      <PrimaryButton content="Shop Now" class="shopnow"></PrimaryButton>
+      <PrimaryButton @click = "checkOAuth" content="Shop Now" class="shopnow"></PrimaryButton>
     </div>
     <div class="features-container">
       <FeatureCard
@@ -19,12 +19,22 @@
 <script>
 import FeatureCard from "./FeatureCard.vue";
 import PrimaryButton from "../Buttons/PrimaryButton.vue";
+import router from "@/router";
+import { useStore } from "@/stores/user";
+
 
 export default {
   name: "ServiceSection",
   components: {
     FeatureCard,
     PrimaryButton,
+  },
+  setup() {
+    const myStore = useStore();
+
+    return {
+      myStore,
+    };
   },
   data() {
     return {
@@ -55,6 +65,12 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    checkOAuth() {
+      this.myStore.isRegister = false;
+      this.$router.push("/signup");
+    },
   },
 };
 </script>

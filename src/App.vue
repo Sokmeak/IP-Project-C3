@@ -1,9 +1,9 @@
 <template>
-  <PageLoader v-if="!isLoaded" />
+  <!-- <PageLoader v-if="!isLoaded" /> -->
 
   <!-- Show the HomePage after loading is complete -->
-  <template v-else> <RouterView /></template>
-  <!-- <RouterView/> -->
+  <!-- <template v-else> <RouterView /></template> -->
+  <RouterView/>
 </template>
 
 <script>
