@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <!-- Updated Brand Section -->
-    <RouterLink class = "link" to="/home">
+    <RouterLink class="link" to="/product/home">
       <SecodaryBrand />
     </RouterLink>
 
@@ -14,9 +14,8 @@
     <div :class="['classify-wrapper nav', { active: menuActive }]">
       <li v-for="link in links" :key="link.name">
         <router-link
-          :to="link.path"
+          :to="`/product` + link.path"
           class="nav-link"
-          :class="{ active: isActive(link.path) }"
           @click="closeMenu"
         >
           {{ link.name }}
@@ -68,7 +67,8 @@ export default {
     },
     // Check if the current route matches the link path
     isActive(path) {
-      return this.$route.path === path;
+      let fullPath = `/product` + path;
+      return this.$route.path === fullPath;
     },
     // Toggle menu for mobile view
     toggleMenu() {
@@ -86,6 +86,11 @@ export default {
 /* Original Header Styles Preserved */
 .link {
   color: white;
+
+}
+
+.link.router-link-active{
+  border: none;
 }
 .link:hover {
   color: #bba8c6;
@@ -151,20 +156,54 @@ export default {
   color: #ffdb00;
   text-decoration: none;
   cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s ease-in-out;
+  position: relative;
 }
-
-.nav-link:hover {
-  /* text-decoration: underline; */
-   /* Add underline on hover */
-  color: #ffffff;
-}
-
-/* Active Link Style */
 .nav-link.active {
   color: white;
   font-weight: bold;
+  border-bottom: 2px solid white;
+}
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; /* Adjust the position of the underline */
+  width: 0;
+  height: 2px;
+  background-color: white;
+  transition: width 0.3s ease-in-out; /* Smoothly animate the width */
+}
+.nav-link:hover {
+  color: white;
+}
+.nav-link:hover::after {
+  /* text-decoration: underline; */
+  /* Add underline on hover */
+  color: #ffffff;
+  width: 100%;
+}
+
+/* Active Link Style */
+/* .nav-link.active {
+  color: white;
+  font-weight: bold;
   text-decoration: none; /* Remove underline for active state */
-  border-bottom: 2px solid white; /* Add bottom border for active link */
+/* border-bottom: 2px solid white;  */
+/* Add bottom border for active link */
+/*
+} 
+*/
+.router-link-active {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-bottom: 2px solid white;
 }
 
 /* Actions */

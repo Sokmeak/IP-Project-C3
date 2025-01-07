@@ -73,7 +73,7 @@ const routes = [
   {
     path: "/userpage/:id",
     redirect: "/userpage/:id/account",
-     component: UserPage,
+    component: UserPage,
     props: true,
     children: [
       {
@@ -104,8 +104,6 @@ const routes = [
     ],
   },
 
- 
-
   {
     path: "/landing",
     name: "LandingPage",
@@ -113,10 +111,9 @@ const routes = [
     props: true,
   },
 
- // home, men, women, children use the same have nav bar and footer.
+  // home, men, women, children use the same have nav bar and footer.
 
   // Some the parent should be the layout page
-
 
   // {
   //   path: "/home",
@@ -155,36 +152,47 @@ const routes = [
   // },
 
   {
-    path:"/",
-    redirect:"/home",   // default page in layout is home
-    name:"root",
-    component:() =>import("@/views/LayoutPage.vue"),
-    props:true,
-    children:[
+    path: "/product",
+    redirect: "product/home", // default page in layout is home
+    name: "product",
+    component: () => import("@/views/LayoutPage.vue"),
+    props: true,
+    children: [
       {
-        path:"home",
-        name:"home",
-        component:() =>import ("@/views/SubPages/Home.vue")
-
+        path: "home",
+        name: "home",
+        component: () => import("@/views/SubPages/Home.vue"),
+        beforeEnter: (to, from, next) => {
+          import("@/stores/user").then(({ useStore }) => {
+            const store = useStore();
+            const isRegistered = store.isRegister;
+            if (!isRegistered) {
+              next("/signup"); // Redirect to signup if not registered
+            } else if (!isAuthenticated()) {
+              next("/login"); // Redirect to login if not authenticated
+            } else {
+              next(); // Proceed to home
+            }
+          });
+        },
       },
       {
-        path:"men",
-        name:"Men",
-        component:() =>import("@/views/SubPages/MenClothes.vue")
+        path: "men",
+        name: "Men",
+        component: () => import("@/views/SubPages/MenClothes.vue"),
         // what if the differences in side subpage contains the any categories that can be classify
       },
       {
-        path:"women",
-        name:"Women",
-        component:() =>import("@/views/SubPages/WomenClothes.vue")
+        path: "women",
+        name: "Women",
+        component: () => import("@/views/SubPages/WomenClothes.vue"),
       },
       {
-        path:"children",
-        name:"Children",
-        component:() =>import("@/views/SubPages/ChildrenClothes.vue")
+        path: "children",
+        name: "Children",
+        component: () => import("@/views/SubPages/ChildrenClothes.vue"),
       },
-    ]
-
+    ],
   },
 ];
 

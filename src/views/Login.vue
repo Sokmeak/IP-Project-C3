@@ -159,7 +159,8 @@ export default {
         }
 
         // Redirect to home page
-        this.$router.push("/home");
+        // this.$router.push("/home");
+        this.$router.push("/product");
       } else {
         Swal.fire({
           title: "Error!",
