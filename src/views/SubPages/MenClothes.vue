@@ -58,9 +58,11 @@
           />
         </div>
       </div> -->
-      <BestOffers />
+
+      <!-- sholud we use props type -->
+      <BestOffers type="Men" />
       <KhmerCollections />
-      <BestOffers />
+      <BestOffers type = "Men"/>
       <KhmerCollections />
     </div>
   

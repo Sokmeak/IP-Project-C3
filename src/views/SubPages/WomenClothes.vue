@@ -1,10 +1,6 @@
 <template>
   <div class="women-clothes-page">
-    
     <!-- Header -->
-   
-
- 
 
     <!-- Content Wrapper -->
     <div class="content-wrapper">
@@ -62,14 +58,13 @@
         </div>
       </div> -->
 
-      <BestOffers />
+      <BestOffers type="Women" />
       <KhmerCollections />
-      <BestOffers />
+      <BestOffers type ="Women"/>
       <KhmerCollections />
     </div>
 
     <!-- Footer -->
-    
   </div>
 </template>
 

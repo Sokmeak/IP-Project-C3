@@ -31,17 +31,27 @@ import { useProductStore } from "@/stores/product";
 import { onMounted, ref, computed } from "vue";
 export default {
   name: "KhmerCollections",
+  props: {
+    type: String,
+  },
   components: {
     BestOfferCard,
   },
 
-  setup() {
+  setup(props) {
     const productStore = useProductStore();
+
+    console.log(props.type);
+    
+
     onMounted(() => {
       productStore.fetchProducts();
     });
+    // parse the parameter here
 
-    const collections = computed(() => productStore.getBestOfferProducts);
+    const collections = computed(() => productStore.getBestOfferProducts(props.type));
+
+    console.log(collections.value);
 
     return {
       collections,
@@ -103,9 +113,7 @@ export default {
   //     this.fetchBestProducts();
   //   },
   // },
-  // mounted() {
-  //   this.fetchBestProducts();
-  // },
+ 
 };
 </script>
 

@@ -6,16 +6,19 @@ import { onMounted, ref, computed } from "vue";
 
 export default {
   name: "KhmerCollections",
+  props:{
+    type:String
+  },
   components: {
     KhmerCollectionCard,
   },
-  setup() {
+  setup(props) {
     const productStore = useProductStore();
     onMounted(() => {
       productStore.fetchProducts();
     });
 
-    const khmerCollections = computed(() => productStore.getBestOfferProducts);
+    const khmerCollections = computed(() => productStore.getBestOfferProducts(props.type));
 
     return {
       khmerCollections,

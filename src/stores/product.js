@@ -23,9 +23,24 @@ export const useProductStore = defineStore("products", {
     },
 
     // Get best offer products (rating >= 4)
-    getBestOfferProducts: (state) => {
-      return state.products.filter((product) => product.rating > 3);
+    // getBestOfferProducts: (state) => {
+    //   return state.products.filter((product) => product.rating > 3);
+    // },
+
+    // getBestOfferProducts: (state) => (type) => {
+    //   return state.products.filter(
+    //     (product) => product.rating > 3 && product.type === type
+    //   );
+    // },
+
+
+
+    getBestOfferProducts: (state) => (type = null) => {
+      return state.products.filter(
+        (product) => product.rating > 3 && (type ? product.productType === type : true)
+      );
     },
+    
     // Get best-for-today products (promotionPercentage >= 20)
     getBestForTodayProducts: (state) => {
       return state.products.filter(
@@ -341,7 +356,7 @@ export const useProductStore = defineStore("products", {
               productImages: ["Children/children.jpg", "children3_image2.jpg"],
               description: "Colorful T-shirt for kids",
               quantity: 60,
-              rating: 3,
+              rating: 4,
               promotionPercentage: 10,
               price: 70,
             },
@@ -376,7 +391,7 @@ export const useProductStore = defineStore("products", {
               productName: "Hole Women 1",
               productType: "Women",
               productGroup: "Hole",
-              productImages: ["Women/woment1.jpg", "women1_image2.jpg"],
+              productImages: ["Women/WomenTrad.png", "women1_image2.jpg"],
               description: "Stylish outfit for women",
               quantity: 60,
               rating: 4,
@@ -388,7 +403,7 @@ export const useProductStore = defineStore("products", {
               productName: "Arvbark Women 2",
               productType: "Women",
               productGroup: "Arvbark",
-              productImages: ["Women/woment1.jpg", "women2_image2.jpg"],
+              productImages: ["Women/WomenTrad.png", "women2_image2.jpg"],
               description: "Elegant traditional wear",
               quantity: 20,
               rating: 4.5,
@@ -400,7 +415,7 @@ export const useProductStore = defineStore("products", {
               productName: "Trouser Women 3",
               productType: "Women",
               productGroup: "Trouser",
-              productImages: ["Women/woment1.jpg", "women3_image2.jpg"],
+              productImages: ["Women/WomenTrad.png", "women3_image2.jpg"],
               description: "Comfortable trousers",
               quantity: 35,
               rating: 3,
@@ -412,7 +427,7 @@ export const useProductStore = defineStore("products", {
               productName: "Skirt Women 4",
               productType: "Women",
               productGroup: "Skirt",
-              productImages: ["Women/woment1.jpg", "women4_image2.jpg"],
+              productImages: ["Women/WomenTrad.png", "women4_image2.jpg"],
               description: "Chic office skirt",
               quantity: 25,
               rating: 4,
@@ -424,7 +439,7 @@ export const useProductStore = defineStore("products", {
               productName: "Hat Women 5",
               productType: "Women",
               productGroup: "Hat",
-              productImages: ["Women/woment1.jpg", "women5_image2.jpg"],
+              productImages: ["Women/WomenTrad.png", "women5_image2.jpg"],
               description: "Fashionable summer hat",
               quantity: 10,
               rating: 4.5,
@@ -436,7 +451,7 @@ export const useProductStore = defineStore("products", {
               productName: "Shirt Women 6",
               productType: "Women",
               productGroup: "Shirt",
-              productImages: ["Women/woment1.jpg", "women6_image2.jpg"],
+              productImages: ["Women/WomenTrad.png", "women6_image2.jpg"],
               description: "Soft fabric shirt",
               quantity: 50,
               rating: 3,
@@ -448,7 +463,7 @@ export const useProductStore = defineStore("products", {
               productName: "Traditional Dress Women 7",
               productType: "Women",
               productGroup: "Traditional Dress",
-              productImages: ["Women/woment1.jpg", "women7_image2.jpg"],
+              productImages: ["Women/WomenTrad.png", "women7_image2.jpg"],
               description: "Cultural attire for events",
               quantity: 30,
               rating: 4,
@@ -460,7 +475,7 @@ export const useProductStore = defineStore("products", {
               productName: "Hat Women 8",
               productType: "Women",
               productGroup: "Hat",
-              productImages: ["Women/woment1.jpg", "women8_image2.jpg"],
+              productImages: ["Women/WomenTrad.png", "women8_image2.jpg"],
               description: "Elegant wide-brimmed hat",
               quantity: 20,
               rating: 4.5,
@@ -472,7 +487,7 @@ export const useProductStore = defineStore("products", {
               productName: "Trouser Women 9",
               productType: "Women",
               productGroup: "Trouser",
-              productImages: ["Women/woment1.jpg", "women9_image2.jpg"],
+              productImages: ["Women/WomenTrad.png", "women9_image2.jpg"],
               description: "High-waisted trousers",
               quantity: 45,
               rating: 3,
@@ -484,7 +499,7 @@ export const useProductStore = defineStore("products", {
               productName: "Arvbark Women 10",
               productType: "Women",
               productGroup: "Arvbark",
-              productImages: ["Women/woment1.jpg", "women10_image2.jpg"],
+              productImages: ["Women/WomenTrad.png", "women10_image2.jpg"],
               description: "Classic outfit",
               quantity: 15,
               rating: 4.5,

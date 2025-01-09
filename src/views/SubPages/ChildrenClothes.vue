@@ -61,9 +61,9 @@
         </div>
       </div> -->
 
-      <BestOffers/>
+      <BestOffers type = "Children"/>
       <KhmerCollections/>
-      <BestOffers />
+      <BestOffers type = "Children" />
       <KhmerCollections />
     </div>
 

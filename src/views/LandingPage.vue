@@ -1,12 +1,12 @@
 <template>
   <div class="landingPage">
     <HeaderComponent/>
-    <HeroSection />
+    <!-- <HeroSection /> -->
     <CategorySection />
 
     <TrendingVideos />
 
-    <BestOffers />
+    <BestOffers :type = "Men"/>
 
     <KhmerCollections />
 
