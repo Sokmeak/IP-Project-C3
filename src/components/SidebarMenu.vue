@@ -20,9 +20,20 @@
       <button class="back-button" @click="goBack">
         <i class="fa-solid fa-arrow-left"></i> Back
       </button>
-      <button class="logout-button" @click="handleLogout">
+      <button class="logout-button" @click="showLogoutConfirmation">
         <i class="fa-solid fa-right-from-bracket"></i> Logout
       </button>
+    </div>
+    <!-- Logout Confirmation Modal -->
+    <div v-if="showModal" class="modal-overlay">
+      <div class="modal">
+        <h3>Logout confirmation</h3>
+        <p>Are you sure you want to logout?</p>
+        <div class="modal-buttons">
+          <button class="confirm-button" @click="logout">Logout</button>
+          <button class="cancel-button" @click="closeModal">Cancel</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -40,6 +51,7 @@ export default {
   data() {
     return {
       userId: 1,
+      showModal: false,
       menuItems: [
         {
           label: "My Orders",
@@ -78,8 +90,15 @@ export default {
     goBack() {
       this.$router.go(-1);
     },
+    showLogoutConfirmation() {
+      this.showModal = true;
+    },
+    closeModal() {
+      this.showModal = false;
+    },
     logout() {
-      console.log("Logging out...");
+      this.showModal = false;
+      console.log("Logged out");
       // Add your logout logic here
     },
   },
@@ -209,6 +228,70 @@ export default {
 .logout-button:hover {
   background-color: #e74c3c;
   color: white;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal h3 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.modal p {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #666;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.confirm-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #ddd;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm-button:hover {
+  background-color: #c0392b;
+}
+
+.cancel-button:hover {
+  background-color: #bbb;
 }
 
 @media (max-width: 768px) {

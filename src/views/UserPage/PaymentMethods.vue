@@ -19,7 +19,7 @@
           v-model="selectedCard"
         />
         <button @click="removeMethod(method.id)" class="delete-button">
-          &#128465;
+          <i class="fa-regular fa-trash-can"></i>
         </button>
       </div>
     </div>
@@ -77,7 +77,7 @@ h1 {
   padding: 15px;
   margin-bottom: 10px;
   width: 100%;
-  max-width: 400px;
+  max-width: 60rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -101,6 +101,11 @@ h1 {
   color: #333;
 }
 
+i {
+  font-size: 1.2rem;
+  color: #ff4d4d;
+}
+
 .actions {
   display: flex;
   align-items: center;
@@ -111,19 +116,6 @@ input[type="radio"] {
   accent-color: #5c3b91;
   cursor: pointer;
 }
-
-.delete-button {
-  background: none;
-  border: none;
-  font-size: 1.2rem;
-  color: #ff4d4d;
-  cursor: pointer;
-}
-
-.delete-button:hover {
-  color: #e63939;
-}
-
 /* .add-card-button {
   margin-top: 20px;
   padding: 10px 20px;

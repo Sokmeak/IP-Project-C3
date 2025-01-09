@@ -1,6 +1,7 @@
 <template>
   <div class="userpage">
     <div class="sidebar-container">
+      <!-- <default-brand class="logo"/> -->
       <SidebarMenu class="sidebar-menu" />
     </div>
     <div class="main-content">
@@ -13,11 +14,14 @@
 </template>
 
 <script>
+import DefaultBrand from "@/components/Brands/DefaultBrand.vue";
 import SidebarMenu from "@/components/SidebarMenu.vue";
 export default {
   name: "UserPage",
   components: {
     SidebarMenu,
+    DefaultBrand
+
   },
   computed: {
     pageTitle() {
@@ -37,9 +41,9 @@ export default {
 }
 
 .sidebar-container {
-  height: 95%;
+  height: 90%;
   flex: 0 0 280px;
-  margin: 20px 50px 10px;
+  margin: 50px 50px 50px;
   background-color: #f9f3fc;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -53,12 +57,19 @@ export default {
   align-items: flex-start;
   height: 95%;
 }
+.logo{
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: left;
+}
 
 .content-heading {
   font-size: 1.8rem;
   color: #333;
   margin-bottom: 20px;
   text-align: left;
+  
 }
 
 .content-container {
@@ -68,5 +79,6 @@ export default {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 40px;
+  overflow: auto;
 }
 </style>

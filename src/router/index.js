@@ -97,6 +97,11 @@ const routes = [
     props: true,
     children: [
       {
+        path: "orders",
+        name: "Orders",
+        component: () => import("@/views/UserPage/Orders.vue"),
+      },
+      {
         path: "account",
         name: "Account",
         component: () => import("@/views/UserPage/Account.vue"),
@@ -111,11 +116,7 @@ const routes = [
         name: "Favorites",
         component: () => import("@/views/UserPage/Favorites.vue"),
       },
-      {
-        path: "orders",
-        name: "Orders",
-        component: () => import("@/views/UserPage/Orders.vue"),
-      },
+     
       {
         path: "payment-methods",
         name: "PaymentMethods",
