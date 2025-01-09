@@ -13,14 +13,23 @@ export const useProductStore = defineStore("products", {
         state.products.filter((product) => product.productType === type);
     },
 
-    // Get products by type and group
-    getProductByTypeAndGroup: (state) => {
-      return (type, group) =>
-        state.products.filter(
-          (product) =>
-            product.productGroup === group && product.productType === type
-        );
+    getProductByTypeAndGroup: (state) => (type, group) => {
+      console.log("Products:", state.products);
+      console.log("Type:", type, "Group:", group);
+      return state.products.filter(
+        (product) =>
+          product.productGroup === group && product.productType === type
+      );
     },
+
+    getBestOfferProducts:
+      (state) =>
+      (type = null) => {
+        return state.products.filter(
+          (product) =>
+            product.rating > 3 && (type ? product.productType === type : true)
+        );
+      },
 
     // Get best offer products (rating >= 4)
     // getBestOfferProducts: (state) => {
@@ -33,14 +42,6 @@ export const useProductStore = defineStore("products", {
     //   );
     // },
 
-
-
-    getBestOfferProducts: (state) => (type = null) => {
-      return state.products.filter(
-        (product) => product.rating > 3 && (type ? product.productType === type : true)
-      );
-    },
-    
     // Get best-for-today products (promotionPercentage >= 20)
     getBestForTodayProducts: (state) => {
       return state.products.filter(
@@ -159,7 +160,7 @@ export const useProductStore = defineStore("products", {
               productId: 7,
               productName: "Shirt Men 7",
               productType: "Men",
-              productGroup: "Shirt",
+              productGroup: "T-Shirt",
               productImages: ["Men/angkorWatT-shirt.jpg", "men7_image2.jpg"],
               description: "Slim fit office shirt",
               quantity: 20,
@@ -267,7 +268,7 @@ export const useProductStore = defineStore("products", {
               productId: 16,
               productName: "T-shirt Men 16",
               productType: "Men",
-              productGroup: "T-shirt",
+              productGroup: "Pans",
               productImages: ["Men/angkorWatT-shirt.jpg", "men16_image2.jpg"],
               description: "Vintage graphic tee",
               quantity: 80,
@@ -352,7 +353,7 @@ export const useProductStore = defineStore("products", {
               productId: 43,
               productName: "T-shirt Children 3",
               productType: "Children",
-              productGroup: "T-shirt",
+              productGroup: "Skirt",
               productImages: ["Children/children.jpg", "children3_image2.jpg"],
               description: "Colorful T-shirt for kids",
               quantity: 60,
@@ -390,7 +391,7 @@ export const useProductStore = defineStore("products", {
               productId: 21,
               productName: "Hole Women 1",
               productType: "Women",
-              productGroup: "Hole",
+              productGroup: "Hat",
               productImages: ["Women/WomenTrad.png", "women1_image2.jpg"],
               description: "Stylish outfit for women",
               quantity: 60,
@@ -414,7 +415,7 @@ export const useProductStore = defineStore("products", {
               productId: 23,
               productName: "Trouser Women 3",
               productType: "Women",
-              productGroup: "Trouser",
+              productGroup: "Skirt",
               productImages: ["Women/WomenTrad.png", "women3_image2.jpg"],
               description: "Comfortable trousers",
               quantity: 35,
@@ -438,7 +439,7 @@ export const useProductStore = defineStore("products", {
               productId: 25,
               productName: "Hat Women 5",
               productType: "Women",
-              productGroup: "Hat",
+              productGroup: "Skirt",
               productImages: ["Women/WomenTrad.png", "women5_image2.jpg"],
               description: "Fashionable summer hat",
               quantity: 10,

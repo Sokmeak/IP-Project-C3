@@ -60,8 +60,11 @@
       </div> -->
 
       <!-- sholud we use props type -->
+
       <BestOffers type="Men" />
       <KhmerCollections />
+        <!-- Create a component that can generate the general product by passing type and group via props -->
+
       <BestOffers type = "Men"/>
       <KhmerCollections />
     </div>

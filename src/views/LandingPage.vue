@@ -1,14 +1,20 @@
 <template>
   <div class="landingPage">
     <HeaderComponent/>
-    <!-- <HeroSection /> -->
+    <HeroSection />
     <CategorySection />
 
     <TrendingVideos />
 
-    <BestOffers :type = "Men"/>
+    <BestOffers type = "Men"/>
+    <BestOffers type = "Women"/>
 
-    <KhmerCollections />
+    <GeneralProducts  type = "Men" group = "T-shirt" title="Explore Men T-Shirt"/>
+    <GeneralProducts  type = "Women" group = "Skirt" title="Explore Women Skirt"/>
+
+  
+
+    <KhmerCollections/>
 
     <serviceSection />
     <TestimonialsComponent />
@@ -26,6 +32,7 @@ import BestOffers from "@/components/BestOffers/BestOffers.vue";
 import Footer from "@/components/Footer.vue";
 import serviceSection from "@/components/Services/serviceSection.vue";
 import Testimonials from "@/components/Testimonails/Testimonials.vue";
+import GeneralProducts from "@/components/GeneralProducts/GeneralProducts.vue";
 
 export default {
   components: {
@@ -36,6 +43,7 @@ export default {
     KhmerCollections,
     BestOffers,
     serviceSection,
+    GeneralProducts,
     TestimonialsComponent: Testimonials,
     Footer,
   },

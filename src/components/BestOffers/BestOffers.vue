@@ -28,7 +28,7 @@
 import BestOfferCard from "./BestOfferCard.vue";
 import { mapState } from "pinia";
 import { useProductStore } from "@/stores/product";
-import { onMounted, ref, computed } from "vue";
+import { onMounted, computed } from "vue";
 export default {
   name: "KhmerCollections",
   props: {
@@ -51,7 +51,7 @@ export default {
 
     const collections = computed(() => productStore.getBestOfferProducts(props.type));
 
-    console.log(collections.value);
+   
 
     return {
       collections,

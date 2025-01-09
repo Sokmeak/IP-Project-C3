@@ -1,7 +1,7 @@
 <template>
   <div class="GenProductCard">
     <div class="imageWrapper">
-      <img :src="imgSrc" alt="Khmer Collection" />
+      <img :src="'../../../public/images/'+imgSrc" alt="General product" />
     </div>
 
     <div class="content">
@@ -11,7 +11,7 @@
       <!-- <p class="description">{{ description }}</p> -->
 
       <div class="description">
-        <p>Khmer project is the best choice for everyone.</p>
+       {{ description }}
       </div>
 
       <!-- Should use the function for analyze the price and get discout -->
@@ -100,6 +100,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   /* align-items: center; */
+  border-radius: 10px;
   gap: 2rem;
 
   /* background-color: rgb(254, 255, 193); */
