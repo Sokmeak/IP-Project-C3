@@ -13,13 +13,26 @@ export const useProductStore = defineStore("products", {
         state.products.filter((product) => product.productType === type);
     },
 
+    // getProductByTypeAndGroup: (state) => (type, group) => {
+    //   console.log("Products:", state.products);
+    //   console.log("Type:", type, "Group:", group);
+    //   return state.products.filter(
+    //     (product) =>
+    //       product.productGroup === group && product.productType === type
+    //   );
+    // },
+
     getProductByTypeAndGroup: (state) => (type, group) => {
       console.log("Products:", state.products);
       console.log("Type:", type, "Group:", group);
-      return state.products.filter(
-        (product) =>
-          product.productGroup === group && product.productType === type
-      );
+
+      return state.products.filter((product) => {
+        // Check conditions based on whether type or group is provided
+        const matchesType = type ? product.productType === type : true;
+        const matchesGroup = group ? product.productGroup === group : true;
+
+        return matchesType && matchesGroup;
+      });
     },
 
     getBestOfferProducts:
@@ -372,6 +385,18 @@ export const useProductStore = defineStore("products", {
               rating: 4,
               promotionPercentage: 7,
               price: 50,
+            },
+            {
+              productId: 45,
+              productName: "Shirt Children 5",
+              productType: "Children",
+              productGroup: "Shirt",
+              productImages: ["Children/children.jpg", "children5_image2.jpg"],
+              description: "Stylish party shirt for kids",
+              quantity: 30,
+              rating: 4.5,
+              promotionPercentage: 12,
+              price: 100,
             },
             {
               productId: 45,

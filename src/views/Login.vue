@@ -152,8 +152,8 @@ export default {
 
         // If "Remember Me" is checked, store credentials in cookies
         if (this.rememberMe) {
-          Cookies.set("email", email, { expires: 7 }); // Expire in 7 days
-          Cookies.set("password", password, { expires: 7 }); // Expire in 7 days
+          Cookies.set("email", email, { expires: 1 }); // Expire in 7 days
+          Cookies.set("password", password, { expires: 1 }); // Expire in 7 days
         } else {
           sessionStorage.setItem("loggedInUser", JSON.stringify(this.user));
         }

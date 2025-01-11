@@ -1,5 +1,5 @@
 <template>
-  <section class="product-section">
+  <section class="product-section" :style="{ backgroundColor: bgColor }">
     <div class="generalProContainer">
       <div class="header">
         <h1>{{ title }}</h1>
@@ -9,7 +9,7 @@
       </div>
       <div class="container">
         <ProductCard
-          v-for="(product, index) in collections"
+          v-for="(product, index) in collections.slice(0,6)"
           :key="index"
           :imgSrc="product.productImages[0]"
           :name="product.productName"
@@ -42,6 +42,10 @@ export default {
     title: {
       type: String,
       required: true,
+    },
+    bgColor: {
+      type: String,
+      default: "white",
     },
     type: String,
     group: String,

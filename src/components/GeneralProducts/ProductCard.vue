@@ -93,6 +93,7 @@ export default {
 }
 
 .GenProductCard {
+  background-color: white;
   width: 313px;
   padding: 0 2rem 1rem 2rem;
   height: auto;

@@ -1,24 +1,20 @@
 <template>
   <div class="landingPage">
-    <HeaderComponent/>
+    <HeaderComponent />
     <HeroSection />
     <CategorySection />
 
     <TrendingVideos />
 
-    <BestOffers type = "Men"/>
-    <BestOffers type = "Women"/>
+    <BestOffers productType="Men" />
+    <BestOffers productType="Women" />
 
-    <GeneralProducts  type = "Men" group = "T-shirt" title="Explore Men T-Shirt"/>
-    <GeneralProducts  type = "Women" group = "Skirt" title="Explore Women Skirt"/>
-
-  
-
-    <KhmerCollections/>
+    <GeneralProducts type="Men" group="T-shirt" title="Explore Men T-Shirt" />
+    <GeneralProducts type="Women" group="Skirt" title="Explore Women Skirt" />
 
     <serviceSection />
     <TestimonialsComponent />
-    <Footer/>
+    <Footer />
   </div>
 </template>
 
@@ -27,12 +23,12 @@ import HeaderComponent from "@/components/Header/HeaderComponent.vue";
 import HeroSection from "@/components/Hero/HeroSection.vue";
 import CategorySection from "@/components/Categories/CategorySection.vue";
 import TrendingVideos from "@/components/Videos/TrendingVideos.vue";
-import KhmerCollections from "@/components/KhmerCollections/KhmerCollections.vue";
-import BestOffers from "@/components/BestOffers/BestOffers.vue";
+
 import Footer from "@/components/Footer.vue";
 import serviceSection from "@/components/Services/serviceSection.vue";
 import Testimonials from "@/components/Testimonails/Testimonials.vue";
 import GeneralProducts from "@/components/GeneralProducts/GeneralProducts.vue";
+import ListProducts from "@/components/ReadyToBuyProduct/ListProducts.vue";
 
 export default {
   components: {
@@ -40,8 +36,8 @@ export default {
     HeroSection,
     CategorySection,
     TrendingVideos,
-    KhmerCollections,
-    BestOffers,
+
+    BestOffers : ListProducts,
     serviceSection,
     GeneralProducts,
     TestimonialsComponent: Testimonials,
