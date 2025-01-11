@@ -8,6 +8,12 @@
             'status-delivered': order.status === 'Delivered',
           }"
         >
+          <i
+            :class="{
+              'fa-regular fa-hourglass-half': order.status === 'Pending',
+              'fa-regular fa-circle-check': order.status === 'Delivered',
+            }"
+          ></i>
           {{ order.status }}
         </span>
         <span class="delivery-info">
@@ -126,7 +132,7 @@ export default {
 
 .order-body {
   display: flex;
-  width: 40%;
+  width: 50%;
   flex-direction: column;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -163,15 +169,17 @@ export default {
 
 .order-actions {
   display: flex;
+  width:30%;
   flex-direction: column;
   gap: 10px;
   margin: 15px 10px 10px 10px;
-  padding:10px 30px;
+  padding:10px ;
   align-items: flex-start;
 }
 
 button {
   flex: 1;
+  width:90%;
   padding: 10px 15px;
   font-size: 0.9rem;
   border: none;
@@ -182,6 +190,7 @@ button {
 
 .track-button {
   background-color: #9b51e0;
+  
   color: white;
 }
 

@@ -29,9 +29,7 @@
         <input type="text" placeholder="Search" class="search-bar" />
       </div>
       <div class="iconWrapper">
-        <RouterLink class="link" to="/userpage/1/account">
-          <i class="fa fa-user fa-xl"></i>
-        </RouterLink>
+        <i @click="GoToAccount" class="fa fa-user fa-xl"></i>
         <i @click="GoToshoppingCards" class="fa fa-shopping-cart fa-xl"></i>
       </div>
     </div>
@@ -40,8 +38,9 @@
 
 <script>
 import SecodaryBrand from "../Brands/SecondaryBrand.vue";
+import Swal from "sweetalert2"; // Import SweetAlert2
+import { isAuthenticated } from "@/router"; // Import the isAuthenticated function
 
-import { RouterLink, RouterView } from "vue-router";
 export default {
   name: "HeaderComponent",
   components: {
@@ -60,7 +59,26 @@ export default {
   },
   methods: {
     GoToAccount() {
-      alert("Redirecting to user account...");
+      if (!isAuthenticated()) {
+        Swal.fire({
+          title: "Login or Create an Account",
+          text: "You need to log in or create an account to access this page.",
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonText: "Login",
+          cancelButtonText: "Create an account",
+          confirmButtonColor: "#007bff", // Blue color for Login button
+          cancelButtonColor: "#28a745", // Green color for Create account button
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.$router.push("/login"); // Redirect to Login page
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            this.$router.push("/signup"); // Redirect to Signup page
+          }
+        });
+      } else {
+        this.$router.push("/userpage/1/account"); // Redirect to Account page
+      }
     },
     GoToshoppingCards() {
       alert("Redirecting to shopping cards...");

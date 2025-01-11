@@ -88,6 +88,28 @@ const routes = [
         path: "account",
         name: "Account",
         component: () => import("@/views/UserPage/Account.vue"),
+        beforeEnter: (to, from, next) => {
+          if (!isAuthenticated()) {
+            Swal.fire({
+              title: "Login or Create an Account",
+              text: "You need to log in or create an account to access this page.",
+              icon: "info",
+              showCancelButton: true,
+              confirmButtonText: "Login",
+              cancelButtonText: "Create an account",
+              confirmButtonColor: "#007bff", // Blue color for Login button
+              cancelButtonColor: "#28a745", // Green color for Create account button
+            }).then((result) => {
+              if (result.isConfirmed) {
+                next("/login"); // Redirect to Login page
+              } else if (result.dismiss === Swal.DismissReason.cancel) {
+                next("/signup"); // Redirect to Signup page
+              }
+            });
+          } else {
+            next(); // Proceed to Account page
+          }
+        },
       },
       {
         path: "change-password",
