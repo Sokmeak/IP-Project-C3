@@ -1,4 +1,4 @@
-<<template>
+<template>
   <div class="payment-methods">
     <h1>Your Saved Payment Methods</h1>
      <!-- Display message if no payment methods are saved -->

@@ -92,6 +92,7 @@ export default {
     return {
       user: {
         email: "",
+
         password: "",
       },
       rememberMe: false,
@@ -108,7 +109,9 @@ export default {
       const password = this.user.password.trim();
 
       const users = JSON.parse(localStorage.getItem("users")) || [];
-      const userData = users.find((user) => user.email === email);
+      const userData = users.find(
+        (user) => user.email === email || user.username === email
+      );
 
       if (userData && userData.password === password) {
         // Save current user's email and username
@@ -117,7 +120,10 @@ export default {
 
         if (this.rememberMe) {
           Cookies.set("email", userData.email, { expires: 7, secure: true });
-          Cookies.set("username", userData.username, { expires: 7, secure: true });
+          Cookies.set("username", userData.username, {
+            expires: 7,
+            secure: true,
+          });
         }
 
         Swal.fire({
