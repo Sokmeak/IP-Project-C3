@@ -1,17 +1,11 @@
-import { createApp } from "vue"; // Import createApp
+import { createApp } from "vue";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import router from "./router";
 
 const app = createApp(App);
 
-app.use(createPinia());
-app.use(router);
-app.mount("#app");
+app.use(createPinia()); // Register Pinia
+app.use(router); // Register Router
 
-// // Create and mount the Vue app
-// createApp(App)
-//   .use(router) // Use Vue Router
-//   .use(createPinia()) // Use Pinia state management
-//   .mount("#app"); // Mount the app to the DOM
-;
+app.mount("#app");

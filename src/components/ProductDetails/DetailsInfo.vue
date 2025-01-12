@@ -131,7 +131,7 @@ export default {
     description: String,
     qty: Number,
     selectedImage: String,
-    id:Number,
+    id: Number,
   },
   data() {
     return {
@@ -195,7 +195,8 @@ export default {
         return;
       }
       const discountedPrice =
-        this.originalPrice - this.originalPrice * (this.promotionPercentage / 100);
+        this.originalPrice -
+        this.originalPrice * (this.promotionPercentage / 100);
 
       // Prepare the cart item object
       // const cartItem = {
@@ -215,8 +216,6 @@ export default {
         selectedSize: this.selectedSize,
         description: this.description,
       });
-
-     
     },
   },
 };
