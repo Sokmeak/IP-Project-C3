@@ -1,18 +1,24 @@
 <template>
-  <PageLoader v-if="!isLoaded" />
+  <!-- <PageLoader v-if="!isLoaded" /> -->
 
   <!-- Show the HomePage after loading is complete -->
-  <template v-else> <RouterView /></template>
-  <!-- <RouterView/> -->
+  <!-- <template v-else> <RouterView /></template> -->
+  <RouterView/>
+<!-- <ProductDeailsLayout/> -->
+
+
+   
 </template>
 
 <script>
 import PageLoader from "@/components/PageLoader.vue";
+import ProductDeailsLayout from "./components/ProductDetails/ProductDeailsLayout.vue";
 
 export default {
   name: "App",
   components: {
     PageLoader,
+    ProductDeailsLayout,
   },
   data() {
     return {

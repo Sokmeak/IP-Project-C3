@@ -1,31 +1,35 @@
 <template>
-  <div
-    class="bestofferCard"
-    @mouseenter="hover = true"
-    @mouseleave="hover = false"
-  >
-    <!-- Promotion Percentage Display -->
-    <div v-if="promotionPercentage > 0" class="promotionLabel">
-      - {{ promotionPercentage }}%
-    </div>
-    <i
-      v-if="hover"
-      @click="toggleFavorite"
-      :class="['fav', isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart']"
-    ></i>
-    <div class="imageWrapper">
-      <img :src="'../../../public/images/' + imgSrc" alt="Khmer Collection" />
-    </div>
+  <router-link class="link" :to="`/product/view/${id}`">
+    <div
+      class="bestofferCard"
+      @mouseenter="hover = true"
+      @mouseleave="hover = false"
+    >
+      <!-- Promotion Percentage Display -->
+      <div v-if="promotionPercentage > 0" class="promotionLabel">
+        - {{ promotionPercentage }}%
+      </div>
+      <i
+        v-if="hover"
+        @click="toggleFavorite"
+        :class="[
+          'fav',
+          isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart',
+        ]"
+      ></i>
+      <div class="imageWrapper">
+        <img :src="'../../../public/images/' + imgSrc" alt="Khmer Collection" />
+      </div>
 
-    <div class="content">
-      <h4 class="name">
-        {{ name }}
-      </h4>
-      <p class="description">{{ description }}</p>
+      <div class="content">
+        <h4 class="name">
+          {{ name }}
+        </h4>
+        <p class="description">{{ description }}</p>
 
-      <!-- Use a function for generating star base on #rating  -->
+        <!-- Use a function for generating star base on #rating  -->
 
-      <!-- <div class="rating">
+        <!-- <div class="rating">
         <i class="fa-solid fullStar fa-star"></i>
         <i class="fa-solid fullStar fa-star"></i>
         <i class="fa-solid fullStar fa-star"></i>
@@ -33,23 +37,26 @@
         <i class="fa-regular fa-star"></i>
       </div> -->
 
-      <div class="rating" v-html="generateStars(rating)"></div>
-      <div class="seemore">
-        <div class="Price">
-          <p class="actualPrice">
-            $ {{ calculateDiscountedPrice(originalPrice, promotionPercentage) }}
-          </p>
-          <p class="OriginalPrice">$ {{ originalPrice }}</p>
-        </div>
+        <div class="rating" v-html="generateStars(rating)"></div>
+        <div class="seemore">
+          <div class="Price">
+            <p class="actualPrice">
+              $
+              {{ calculateDiscountedPrice(originalPrice, promotionPercentage) }}
+            </p>
+            <p class="OriginalPrice">$ {{ originalPrice }}</p>
+          </div>
 
-        <PrimaryButton class="ShopNowBtn" content="Shop Now"></PrimaryButton>
+          <PrimaryButton class="ShopNowBtn" content="Shop Now"></PrimaryButton>
+        </div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
 import PrimaryButton from "../Buttons/PrimaryButton.vue";
+import { RouterLink } from "vue-router";
 
 export default {
   components: {
@@ -122,6 +129,13 @@ export default {
 
 <!-- adjust some style -->
 <style scoped>
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+/* .link:hover {
+  text-decoration: none;
+} */
 .promotionLabel {
   position: absolute;
   top: 10px;

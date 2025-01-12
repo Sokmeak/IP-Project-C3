@@ -92,7 +92,7 @@ export const useProductStore = defineStore("products", {
                 "Men/men1_image2.jpg",
               ],
               description: "Comfortable cotton T-shirt",
-              quantity: 50,
+              quantity: 0,
               rating: 4,
               promotionPercentage: 10,
               price: 100,
@@ -533,7 +533,7 @@ export const useProductStore = defineStore("products", {
               price: 300,
             },
           ]);
-        }, 3000);
+        }, 30);
       }).then((products) => (this.products = products));
     },
   },
