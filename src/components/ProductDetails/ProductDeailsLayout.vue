@@ -43,7 +43,7 @@
 
         <!-- Reviews Tab -->
         <div v-else class="reviews-tab">
-          <productReview :reviews="reviews" />
+          <productReview :reviews="reviews" :rating="product.rating" />
         </div>
       </div>
     </div>

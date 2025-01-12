@@ -130,11 +130,11 @@ export default {
 }
 
 .left-arrow {
-  left: 10px;
+  left: 3rem;
 }
 
 .right-arrow {
-  right: 10px;
+  right: 3rem;
 }
 .main-image {
   overflow: hidden; /* Ensures no overflow */

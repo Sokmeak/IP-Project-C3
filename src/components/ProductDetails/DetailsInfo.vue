@@ -65,7 +65,7 @@
     </div>
 
     <!-- Delivery Information -->
-    <!-- <div class="delivery-info">
+    <div class="delivery-info">
       <h6>Delivery</h6>
       <p>
         Free standard shipping on orders over <b>$35</b> before tax, plus free
@@ -87,7 +87,7 @@
           </tr>
         </tbody>
       </table>
-    </div> -->
+    </div>
 
     <!-- Return Policy -->
     <div class="return-policy">
