@@ -5,7 +5,7 @@ import Home from "@/views/SubPages/Home.vue";
 import MenClothes from "@/views/SubPages/MenClothes.vue";
 import WomenClothes from "@/views/SubPages/WomenClothes.vue";
 import ChildrenClothes from "@/views/SubPages/ChildrenClothes.vue";
-import ProductCart from "@/views/ProductCart.vue"; // Ensure correct import
+import ProductCart from "@/views/ProductCart.vue"; // Shopping Cart Page
 import UserPage from "@/views/UserPage/UserPage.vue";
 import Account from "@/views/UserPage/Account.vue";
 import Favorites from "@/views/UserPage/Favorites.vue";
@@ -15,6 +15,7 @@ import ChangePassword from "@/views/UserPage/ChangePassword.vue";
 import LayoutPage from "@/views/LayoutPage.vue";
 import LandingPage from "@/views/LandingPage.vue";
 import ShippingPage from "@/views/ShippingPage.vue";
+import ProductCheckout from "@/views/ProductCheckout.vue"; // Import ProductCheckout Page
 
 // Import Product Details
 import ProductDeailsLayout from "@/components/ProductDetails/ProductDeailsLayout.vue";
@@ -51,6 +52,11 @@ const routes = [
     path: "/shipping",
     name: "ShippingPage",
     component: ShippingPage,
+  },
+  {
+    path: "/checkout",
+    name: "ProductCheckout", // Checkout Page
+    component: ProductCheckout,
   },
   {
     path: "/userpage/:id",

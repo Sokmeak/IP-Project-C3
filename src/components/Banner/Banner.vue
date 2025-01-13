@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import banner1 from "@/components/Banner/banner1.png";
-import banner2 from "@/components/Banner/banner2.png";
+import banner1 from "@/components/Banner/banner2.png";
+import banner2 from "@/components/Banner/banner1.png";
 import banner3 from "@/components/Banner/banner3.png";
 
 export default {

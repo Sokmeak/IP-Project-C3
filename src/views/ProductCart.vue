@@ -1,67 +1,77 @@
 <template>
   <div>
+    <!-- Header -->
     <HeaderComponent />
+
+    <!-- Cart Section -->
     <div class="cart-section">
       <h1>Shopping Cart</h1>
 
-      <div v-if="cartItems.length" class="cart-content">
-        <!-- Cart Items -->
+      <div class="cart-content">
+        <!-- Left Section: Items List -->
         <div class="cart-items">
           <div class="cart-header">
             <p>{{ cartItems.length }} items</p>
           </div>
+
           <div v-for="item in cartItems" :key="item.id" class="cart-item">
             <img :src="item.image" :alt="item.name" class="item-image" />
             <div class="item-details">
-              <h3>{{ item.name }}</h3>
+              <h3>
+                {{ item.name }}
+                <span class="edit-link">Edit</span>
+              </h3>
               <p>{{ item.description }}</p>
-              <p class="price">Price: ${{ item.price.toFixed(2) }}</p>
+              <p class="price">
+                Price: ${{ item.price }}
+                <span class="discounted" v-if="item.discounted"
+                  >Discounted</span
+                >
+              </p>
+              <p>Size: {{ item.size }}</p>
               <p>Qty: {{ item.quantity }}</p>
-              <button @click="removeFromCart(item.id)" class="remove-btn">
-                Remove
-              </button>
             </div>
+            <!-- Remove Item Button -->
+            <button @click="removeItem(item.id)" class="remove-item-btn">
+              X
+            </button>
           </div>
         </div>
 
-        <!-- Order Summary -->
+        <!-- Right Section: Order Summary -->
         <div class="cart-summary">
-          <h3>Total Checkout</h3>
+          <h3>Total checkout</h3>
           <div class="summary-row">
             <span>Subtotal</span>
-            <span>${{ cartSubtotal.toFixed(2) }}</span>
+            <span>${{ subtotal.toFixed(2) }}</span>
           </div>
           <div class="summary-row">
             <span>Discount</span>
-            <span>-${{ discountAmount.toFixed(2) }}</span>
+            <span>-${{ discount.toFixed(2) }}</span>
           </div>
           <div class="summary-total">
-            <span>Total</span>
-            <span>${{ cartTotal.toFixed(2) }}</span>
+            <span>Total checkout</span>
+            <span>${{ totalPrice.toFixed(2) }}</span>
           </div>
           <div class="buttons">
-            <button @click="proceedToCheckout" class="checkout-btn">
+            <!-- Checkout Button -->
+            <button class="checkout-btn" @click="goToShipping">
               Checkout →
             </button>
-            <button @click="clearCart" class="cancel-btn">Clear Cart</button>
+            <button class="cancel-btn" @click="clearCart">Cancel</button>
           </div>
         </div>
       </div>
-
-      <!-- Empty Cart -->
-      <div v-else class="empty-cart">
-        <p>Your cart is empty.</p>
-        <router-link to="/product/home" class="go-back">
-          Go back to shop
-        </router-link>
-      </div>
     </div>
+
+    <!-- Footer -->
     <Footer />
   </div>
 </template>
 
 <script>
 import { computed } from "vue";
+import { useRouter } from "vue-router"; // Import Vue Router
 import { useCartStore } from "@/stores/cart";
 import HeaderComponent from "@/components/Header/HeaderComponent.vue";
 import Footer from "@/components/Footer.vue";
@@ -73,44 +83,57 @@ export default {
   },
   setup() {
     const cartStore = useCartStore();
+    const router = useRouter(); // Router instance for navigation
 
-    // Cart items and computed totals
+    // Computed properties for cart items and totals
     const cartItems = computed(() => cartStore.cartItems);
-    const cartSubtotal = computed(() =>
+    const subtotal = computed(() =>
       cartStore.cartItems.reduce(
         (sum, item) => sum + item.price * item.quantity,
         0
       )
     );
-    const discountAmount = computed(() => cartSubtotal.value * 0.1); // Example: 10% discount
-    const cartTotal = computed(() => cartSubtotal.value - discountAmount.value);
+    const discount = computed(() => subtotal.value * 0.1); // Example: 10% discount
+    const totalPrice = computed(() => subtotal.value - discount.value);
 
-    // Actions
-    const removeFromCart = (id) => cartStore.removeFromCart(id);
-    const clearCart = () => cartStore.clearCart();
-    const proceedToCheckout = () => {
-      alert("Proceeding to checkout...");
+    // Methods
+    const clearCart = () => {
+      cartStore.clearCart();
+      alert("Cart has been cleared!");
+    };
+
+    const removeItem = (id) => {
+      cartStore.removeFromCart(id);
+      alert("Item removed!");
+    };
+
+    const goToShipping = () => {
+      // Pass subtotal to the Shipping Page via query parameters
+      router.push({
+        name: "ShippingPage",
+        query: { subtotal: totalPrice.value }, // Pass the final total as query
+      });
     };
 
     return {
       cartItems,
-      cartSubtotal,
-      discountAmount,
-      cartTotal,
-      removeFromCart,
+      subtotal,
+      discount,
+      totalPrice,
       clearCart,
-      proceedToCheckout,
+      removeItem,
+      goToShipping,
     };
   },
 };
 </script>
 
 <style scoped>
+/* General Cart Section Styling */
 .cart-section {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  min-height: calc(100vh - 200px); /* Adjust based on header/footer height */
 }
 
 .cart-content {
@@ -120,7 +143,7 @@ export default {
   margin-top: 2rem;
 }
 
-/* Cart Items Section */
+/* Left Section: Cart Items */
 .cart-items {
   flex: 2;
   background: #ffffff;
@@ -138,6 +161,7 @@ export default {
 
 .cart-item {
   display: flex;
+  align-items: center;
   gap: 1rem;
   margin-bottom: 1.5rem;
   border-bottom: 1px solid #e0e0e0;
@@ -151,10 +175,22 @@ export default {
   object-fit: cover;
 }
 
+.item-details {
+  flex: 1;
+}
+
 .item-details h3 {
   font-size: 1rem;
   font-weight: bold;
   color: #26355d;
+}
+
+.edit-link {
+  color: #7e8b99;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 0.5rem;
 }
 
 .price {
@@ -163,7 +199,36 @@ export default {
   color: #ff5722;
 }
 
-/* Order Summary Section */
+.discounted {
+  font-size: 0.8rem;
+  color: #a240de;
+  font-style: italic;
+  margin-left: 0.5rem;
+}
+
+/* Remove Item Button */
+.remove-item-btn {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.remove-item-btn:hover {
+  background: #e60000;
+}
+
+/* Right Section: Cart Summary */
 .cart-summary {
   flex: 1;
   background: #ffffff;
@@ -194,6 +259,7 @@ export default {
   color: #26355d;
 }
 
+/* Buttons */
 .buttons {
   display: flex;
   justify-content: space-between;
@@ -234,35 +300,5 @@ export default {
 
 .cancel-btn:hover {
   background: #f1f1f1;
-}
-
-/* Center the Empty Cart Section */
-.empty-cart {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: calc(100vh - 200px); /* Center vertically */
-  font-size: 1.2rem;
-  color: #7e8b99;
-}
-
-.go-back {
-  color: #a240de;
-  text-decoration: underline;
-  cursor: pointer;
-  margin-top: 1rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .cart-content {
-    flex-direction: column;
-  }
-
-  .cart-summary {
-    margin-top: 2rem;
-  }
 }
 </style>

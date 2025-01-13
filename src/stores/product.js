@@ -94,7 +94,7 @@ export const useProductStore = defineStore("products", {
               description: "Comfortable cotton T-shirt",
               quantity: 0,
               rating: 4,
-              promotionPercentage: 10,
+              promotionPercentage: 0,
               price: 100,
             },
             {

@@ -10,11 +10,9 @@
       <span class="original-price" v-if="originalPrice"
         >${{ originalPrice.toFixed(2) }}</span
       >
-      <!-- <span class="discount" v-if="discount">- {{ discount }}%</span> -->
       <span v-if="promotionPercentage > 0" class="discount">
         - {{ promotionPercentage }}%
       </span>
-
       <span
         class="stockStatus"
         :class="{
@@ -56,38 +54,10 @@
       <div class="wishlist-container">
         <i
           @click="toggleFavorite"
-          :class="[
-            'wishlist',
-            isFavorite ? 'fa-solid fa-heart ' : 'fa-regular fa-heart',
-          ]"
+          :class="[isFavorite ? 'fa-solid fa-heart ' : 'fa-regular fa-heart']"
         ></i>
       </div>
     </div>
-
-    <!-- Delivery Information -->
-    <!-- <div class="delivery-info">
-      <h6>Delivery</h6>
-      <p>
-        Free standard shipping on orders over <b>$35</b> before tax, plus free
-        returns.
-      </p>
-      <table>
-        <thead>
-          <tr>
-            <th>Type</th>
-            <th>How Long</th>
-            <th>How Much</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(deliveryOption, index) in deliveryOptions" :key="index">
-            <td>{{ deliveryOption.type }}</td>
-            <td>{{ deliveryOption.howLong }}</td>
-            <td>{{ deliveryOption.howMuch }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
 
     <!-- Return Policy -->
     <div class="return-policy">
@@ -114,24 +84,36 @@
 
     <!-- Buttons -->
     <div class="action-buttons">
-      <button class="shopping-cart">Shopping Cart →</button>
+      <button @click="goToCart" class="shopping-cart">Shopping Cart →</button>
       <button @click="Back" class="cancel">Cancel</button>
     </div>
   </div>
 </template>
 
 <script>
-import { RouterLink } from "vue-router";
+import { useCartStore } from "@/stores/cart"; // Importing the cart store
+import { useRouter } from "vue-router"; // Vue Router for navigation
+
 export default {
   props: {
     originalPrice: Number,
     promotionPercentage: Number,
     sizes: Array,
-    deliveryOptions: Array,
     description: String,
     qty: Number,
     selectedImage: String,
     id: Number,
+  },
+  setup() {
+    const router = useRouter(); // Initialize Vue Router instance
+
+    const goToCart = () => {
+      router.push({ name: "ProductCart" }); // Navigate to ProductCart page
+    };
+
+    return {
+      goToCart,
+    };
   },
   data() {
     return {
@@ -141,21 +123,10 @@ export default {
     };
   },
   computed: {
-    discount() {
-      if (this.originalPrice) {
-        return Math.round(
-          ((this.originalPrice - this.price) / this.originalPrice) * 100
-        );
-      }
-      return null;
-    },
-
     stockStatus() {
-      console.log(this.qty);
-
-      if (this.qty == 0) {
+      if (this.qty === 0) {
         return "Out Of Stock";
-      } else if (this.qty > 0 && this.qty < 10) {
+      } else if (this.qty < 10) {
         return "Low Stock";
       } else {
         return "In Stock";
@@ -180,46 +151,36 @@ export default {
         (originalPrice * promotionPercentage) / 100
       ).toFixed(2);
     },
-    validateQuantity() {
-      if (this.quantity < 1) {
-        this.quantity = 1;
-      }
-    },
-
     HandleAddToCart() {
-      // Calculate the discounted price
-
-      // Validate the quantity (ensure it’s a positive integer)
-      if (this.quantity <= 0 || isNaN(this.quantity)) {
-        alert("Please enter a valid quantity!");
+      if (!this.selectedSize) {
+        alert("Please select a size before adding to cart.");
         return;
       }
-      const discountedPrice =
-        this.originalPrice -
-        this.originalPrice * (this.promotionPercentage / 100);
 
-      // Prepare the cart item object
-      // const cartItem = {
-      //   productId: this.product.productId,
-      //   selectedImage: this.image, // Assuming the first image is selected
-      //   price: discountedPrice,
-      //   quantity: this.quantity, // Assuming quantity is pre-defined or selected elsewhere
-      //   selectedSize: this.selectedSize,
-      //   description: this.product.description,
-      // };
+      const cartStore = useCartStore();
 
-      this.$emit("addToCart", {
-        productId: this.id, // Pass the required productId
+      const cartItem = {
+        id: this.id,
+        name: `Product ${this.id}`, // Example product name
         image: this.selectedImage,
-        price: discountedPrice,
+        price: parseFloat(
+          this.calculateDiscountedPrice(
+            this.originalPrice,
+            this.promotionPercentage
+          )
+        ),
+        size: this.selectedSize,
         quantity: this.quantity,
-        selectedSize: this.selectedSize,
         description: this.description,
-      });
+      };
+
+      cartStore.addToCart(cartItem); // Add item to cart store
+      alert("Item added to cart!");
     },
   },
 };
 </script>
+>
 
 <style scoped>
 .in-stock {

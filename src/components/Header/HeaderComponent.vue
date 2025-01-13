@@ -13,29 +13,33 @@
     <!-- Navigation Menu -->
     <div :class="['classify-wrapper nav', { active: menuActive }]">
       <li
-        v-for="link in links"
-        :key="link.name"
+        v-for="(items, category) in categories"
+        :key="category"
         class="nav-item"
-        @mouseover="hover = link.name"
+        @mouseover="hover = category"
         @mouseleave="hover = null"
       >
         <router-link
-          :to="`/product${link.path}`"
+          :to="`/product/${category.toLowerCase()}`"
           class="nav-link"
           @click="closeMenu"
         >
-          {{ link.name }}
+          {{ category }}
         </router-link>
 
         <!-- Dropdown Menu -->
-        <div class="dropdown-menu" v-if="hover === link.name">
+        <div class="dropdown-menu" v-if="hover === category">
           <div class="dropdown-content">
-            <h3>{{ link.name }}</h3>
+            <h3>{{ category }}</h3>
             <ul>
-              <li v-for="item in link.subMenu" :key="item.name">
-                <router-link :to="`/product${item.path}`" class="dropdown-link">
-                  {{ item.name }}
-                </router-link>
+              <li v-for="item in items" :key="item">
+                <a
+                  href="#"
+                  class="dropdown-link"
+                  @click.prevent="goToParentCategory(category)"
+                >
+                  {{ item }}
+                </a>
               </li>
             </ul>
           </div>
@@ -68,37 +72,35 @@ export default {
   },
   data() {
     return {
-      links: [
-        {
-          name: "Men",
-          path: "/men",
-          subMenu: [
-            { name: "T-Shirts", path: "/men/t-shirts" },
-            { name: "Pants", path: "/men/pants" },
-            { name: "Shoes", path: "/men/shoes" },
-          ],
-        },
-        {
-          name: "Women",
-          path: "/women",
-          subMenu: [
-            { name: "Dresses", path: "/women/dresses" },
-            { name: "Tops", path: "/women/tops" },
-            { name: "Shoes", path: "/women/shoes" },
-          ],
-        },
-        {
-          name: "Children",
-          path: "/children",
-          subMenu: [
-            { name: "T-Shirts", path: "/children/t-shirts" },
-            { name: "Shorts", path: "/children/shorts" },
-            { name: "Shoes", path: "/children/shoes" },
-          ],
-        },
-      ],
-      menuActive: false, // Mobile menu toggle
-      hover: null, // Tracks the current hover state for dropdowns
+      categories: {
+        Men: [
+          "Shirt",
+          "T-shirt",
+          "Pants",
+          "Hats",
+          "Krama",
+          "Short-pants",
+          "Shoes",
+        ],
+        Women: [
+          "Blouse",
+          "Sampot (Skirt)",
+          "Dress",
+          "Scarf (Krama)",
+          "Accessories",
+          "Shoes",
+        ],
+        Children: [
+          "Shirt",
+          "Pants",
+          "Dresses",
+          "Krama",
+          "Shoes",
+          "Accessories",
+        ],
+      },
+      menuActive: false,
+      hover: null,
     };
   },
   methods: {
@@ -110,6 +112,9 @@ export default {
     },
     goToCart() {
       this.$router.push("/cart");
+    },
+    goToParentCategory(category) {
+      this.$router.push(`/product/${category.toLowerCase()}`);
     },
   },
 };
@@ -149,59 +154,89 @@ export default {
 .nav-link {
   color: #ffdb00;
   text-decoration: none;
-  position: relative;
+  cursor: pointer;
   border-bottom: 2px solid transparent;
   transition: border-color 0.3s ease-in-out;
+  position: relative;
 }
 
 .nav-link:hover {
   color: white;
-  border-bottom: 2px solid white;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: white;
+  transition: width 0.3s ease-in-out;
 }
 
 /* Dropdown Menu */
 .dropdown-menu {
   position: absolute;
-  top: 100%; /* Align below the link */
+  top: 100%;
   left: 0;
   background-color: white;
-  width: 80%; /* Dropdown spans most of the width */
+  width: 300px; /* Adjusted size for better usability */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 10;
+  z-index: 999; /* Ensure dropdown is on top */
   padding: 1rem;
   display: flex;
   flex-direction: column;
-}
-
-.dropdown-content {
-  max-width: 900px;
-  margin: 0 auto;
+  pointer-events: auto; /* Enable click events */
 }
 
 .dropdown-content h3 {
   font-size: 1.2rem;
   font-weight: bold;
   color: #a240de;
-  margin-bottom: 1rem;
 }
 
 .dropdown-menu ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.dropdown-menu ul li {
-  margin-bottom: 0.5rem;
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Align directly below the parent */
+  left: 0;
+  background-color: white;
+  width: 200px; /* Adjust width as needed */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999; /* Ensure dropdown is on top */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto; /* Enable click events */
+}
+
+.nav-item {
+  position: relative; /* Ensure dropdown aligns with the parent */
 }
 
 .dropdown-link {
   text-decoration: none;
   color: black;
   font-size: 1rem;
+  display: block;
+  padding: 0.5rem;
+  border-radius: 4px;
 }
 
 .dropdown-link:hover {
-  color: #ff0000;
+  background-color: #f0f0f0;
+  color: #a240de;
 }
 
 /* Actions */
@@ -213,13 +248,26 @@ export default {
 
 .search-container {
   position: relative;
+  display: inline-block;
+}
+
+.search-container::before {
+  content: "\f002";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 600;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #aaa;
 }
 
 .search-bar {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2.5rem;
   border-radius: 20px;
   border: none;
-  width: 200px;
+  width: 250px;
   font-size: 16px;
 }
 
