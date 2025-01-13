@@ -1,8 +1,8 @@
 <template>
-  <section class="BestOffers">
-    <div class="BestOffersSectionContainer">
+  <section class="ProductListSection" :style="{ backgroundColor: bgColor }">
+    <div class="ProjectListContainer">
       <div class="header">
-        <h1>Best Offer for Today</h1>
+        <h1>{{ title }}</h1>
         <!-- <div class="seemore">see more</div> -->
 
         <div class="view-all-btn">View All</div>
@@ -11,13 +11,16 @@
       <div class="container">
         <!-- We can use v-if here -->
 
-        <BestOfferCard
+        <RTBProduct
           v-for="(item, index) in collections.slice(0, 6)"
           :key="index"
           :id="item.productId"
           :imgSrc="item.productImages[0]"
           :name="item.productName"
           :description="item.description"
+          :originalPrice="item.price"
+          :rating="item.rating"
+          :promotionPercentage="item.promotionPercentage"
         />
       </div>
     </div>
@@ -25,23 +28,40 @@
 </template>
 
 <script>
-import BestOfferCard from "./BestOfferCard.vue";
-import { mapState } from "pinia";
+import RTBProduct from "./RTBProductCard.vue";
 import { useProductStore } from "@/stores/product";
-import { onMounted, ref, computed } from "vue";
+import { onMounted, computed } from "vue";
 export default {
-  name: "KhmerCollections",
-  components: {
-    BestOfferCard,
+  name: "ListProducts",
+  props: {
+    productType: String,
+    title: {
+      type: String,
+      default: "Best Offer for Today",
+    },
+    bgColor: {
+      type: String,
+      default: "white",
+    },
   },
 
-  setup() {
+  components: {
+    RTBProduct,
+  },
+
+  setup(props) {
     const productStore = useProductStore();
+
+    console.log(props.productType);
+
     onMounted(() => {
       productStore.fetchProducts();
     });
+    // parse the parameter here
 
-    const collections = computed(() => productStore.getBestOfferProducts);
+    const collections = computed(() =>
+      productStore.getBestOfferProducts(props.productType)
+    );
 
     return {
       collections,
@@ -103,9 +123,6 @@ export default {
   //     this.fetchBestProducts();
   //   },
   // },
-  // mounted() {
-  //   this.fetchBestProducts();
-  // },
 };
 </script>
 
@@ -140,13 +157,13 @@ export default {
   text-decoration: underline;
   color: blue;
 }
-.BestOffersSectionContainer {
+.ProjectListContainer {
   margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
-.BestOffers {
+.ProductListSection {
   padding: 50px 0;
   /* background-color: #f0dff5; */
 }

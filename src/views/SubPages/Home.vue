@@ -1,12 +1,35 @@
 <template>
   <div class="homePage">
-    
     <Banner />
-    <p>Welcome to Home page.</p>
+
     <CategorySection />
     <TrendingVideos />
-    <KhmerCollections />
-    <BestOffers />
+    <BestOffers title="Men Best Offers" productType="Men" />
+    <BestOffers bg-color="#F0DFF5" productType="Women" />
+    <BestOffers productType="Children" />
+
+    <GeneralProducts
+      bgColor="#F0DFF5"
+      type="Women"
+      group="Skirt"
+      title="Explore Women Skirt"
+    />
+
+    <GeneralProducts type="Women" group="Skirt" title="Explore Women Skirt" />
+
+    <GeneralProducts
+      bgColor="#F0DFF5"
+      type="Men"
+      group="T-shirt"
+      title="Explore Men T-Shirt"
+    />
+    <GeneralProducts type="Men" group="T-shirt" title="Explore Men T-Shirt" />
+    <GeneralProducts
+      bg-color="#F0DFF5"
+      type="Children"
+      group="Shirt"
+      title="Explore Children New Outfits"
+    />
   </div>
 </template>
 
@@ -15,18 +38,18 @@ import Banner from "@/components/Banner/Banner.vue";
 import MenProducts from "@/components/GeneralProducts/MenProducts.vue";
 
 import HeroSection from "@/components/Hero/HeroSection.vue";
-import KhmerCollections from "@/components/KhmerCollections/KhmerCollections.vue";
-import BestOffers from "@/components/BestOffers/BestOffers.vue";
+import ListProducts from "@/components/ReadyToBuyProduct/ListProducts.vue";
 import TrendingVideos from "@/components/Videos/TrendingVideos.vue";
 import CategorySection from "@/components/Categories/CategorySection.vue";
+import GeneralProducts from "@/components/GeneralProducts/GeneralProducts.vue";
 
 export default {
   components: {
     HeroSection,
     Banner,
-    KhmerCollections,
+    GeneralProducts,
     MenProducts,
-    BestOffers,
+    BestOffers : ListProducts,
     TrendingVideos,
     CategorySection,
   },

@@ -80,13 +80,13 @@ export default {
   text-decoration: underline;
   color: blue;
 }
-.BestOffersSectionContainer {
+.ProjectListContainer {
   margin-top: 3rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
-.BestOffers {
+.ProductListSection {
   padding: 50px 0;
   /* background-color: #f0dff5; */
 }

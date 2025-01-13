@@ -1,193 +1,47 @@
 <template>
   <div class="women-clothes-page">
-
-
-
     <!-- Content Wrapper -->
     <div class="content-wrapper">
-      <p>Welcome to Men page.</p>
-      <!-- Recommended for Men Section -->
-      <!-- <div class="section recommended">
-        <div class="section-header">
-          <h1>Recommended for Men</h1>
-          <div class="view-all-btn">View All</div>
-        </div>
-        <div class="product-grid">
-          <ProductCard
-            v-for="(product, index) in recommendedProducts"
-            :key="`recommended-${index}`"
-            :imgSrc="product.imgSrc"
-            :name="product.name"
-            :description="product.description"
-          />
-        </div>
-      </div> -->
+      <BestOffers title="Men's Best Offer" productType="Men" />
+      <GeneralProducts
+        bgColor="#F0DFF5"
+        type="Men"
+        title="Recommended Product"
+      />
+      <BestOffers title="Men's Best Offer" productType="Men" />
+      <GeneralProducts
+        bg-color="#F0DFF5"
+        type="Men"
+        group="T-shirt"
+        title="Explore Men Pants"
+      />
+      <BestOffers title="Men's Best Offer" productType="Men" />
 
-      <!-- Men's Dresses Section -->
-      <!-- <div class="tshirts-section">
-        <div class="section dresses">
-          <div class="section-header">
-            <h1>Men's T-shirt</h1>
-            <div class="view-all-btn">View All</div>
-          </div>
-          <div class="product-grid">
-            <ProductCard
-              v-for="(product, index) in dressProducts"
-              :key="`dress-${index}`"
-              :imgSrc="product.imgSrc"
-              :name="product.name"
-              :description="product.description"
-            />
-          </div>
-        </div>
-      </div> -->
+      <GeneralProducts
+        bgColor="#F0DFF5"
+        type="Men"
+        group="T-shirt"
+        title="Explore Men T-Shirt"
+      />
 
-      <!-- Men's Accessories Section -->
-      <!-- <div class="section accessories">
-        <div class="section-header">
-          <h1>Men's Accessories</h1>
-          <div class="view-all-btn">View All</div>
-        </div>
-        <div class="product-grid">
-          <ProductCard
-            v-for="(product, index) in accessoriesProducts"
-            :key="`accessories-${index}`"
-            :imgSrc="product.imgSrc"
-            :name="product.name"
-            :description="product.description"
-          />
-        </div>
-      </div> -->
-      <BestOffers />
-      <KhmerCollections />
-      <BestOffers />
-      <KhmerCollections />
+      <GeneralProducts type="Men" group="T-shirt" title="Explore Men Hats" />
+
+      <!-- Create a component that can generate the general product by passing type and group via props -->
     </div>
-  
   </div>
 </template>
 
 <script>
-import HeaderComponent from "@/components/Header/HeaderComponent.vue";
-import Footer from "@/components/Footer.vue";
-import ProductCard from "@/components/GeneralProducts/ProductCard.vue";
-
-import KhmerCollections from "@/components/KhmerCollections/KhmerCollections.vue";
-import BestOffers from "@/components/BestOffers/BestOffers.vue";
+import ListProducts from "@/components/ReadyToBuyProduct/ListProducts.vue";
+import GeneralProducts from "@/components/GeneralProducts/GeneralProducts.vue";
 
 export default {
   components: {
-    HeaderComponent,
-    Footer,
-    ProductCard,
-    BestOffers,
-    KhmerCollections,
+    GeneralProducts,
+    BestOffers: ListProducts,
   },
-  data() {
-    return {
-      // Recommended Products Data
-      recommendedProducts: [
-        {
-          imgSrc: "/images/WomenTrad.png",
-          name: "Traditional Dress",
-          description: "Perfect for cultural events",
-        },
-        {
-          imgSrc: "/images/WomenHole.png",
-          name: "Silk Skirt",
-          description: "Elegant and stylish for all occasions",
-        },
-        {
-          imgSrc: "/images/Hat.png",
-          name: "Women's Hat",
-          description: "Stay stylish and cool",
-        },
-        {
-          imgSrc: "/images/Krama.png",
-          name: "Khmer Scarf",
-          description: "Versatile accessory for women",
-        },
-        {
-          imgSrc: "/images/outfit3.jpg",
-          name: "Casual Dress",
-          description: "Comfortable for everyday wear",
-        },
-        {
-          imgSrc: "/images/outfit4.jpg",
-          name: "Evening Gown",
-          description: "Elegant wear for special events",
-        },
-      ],
 
-      // Men's T-Shirts Data
-      dressProducts: [
-        {
-          imgSrc: "/images/WomenTrad.png",
-          name: "Traditional Dress",
-          description: "Beautiful cultural design",
-        },
-        {
-          imgSrc: "/images/WomenHole.png",
-          name: "Silk Skirt",
-          description: "Perfect for formal events",
-        },
-        {
-          imgSrc: "/images/outfit4.jpg",
-          name: "Cocktail Dress",
-          description: "Elegant and trendy",
-        },
-        {
-          imgSrc: "/images/outfit3.jpg",
-          name: "Summer Dress",
-          description: "Stay cool and stylish",
-        },
-        {
-          imgSrc: "/images/outfit2.jpg",
-          name: "Casual Maxi Dress",
-          description: "For laid-back days",
-        },
-        {
-          imgSrc: "/images/outfit1.jpg",
-          name: "Evening Dress",
-          description: "Sophisticated and chic",
-        },
-      ],
-
-      // Men's Accessories Data
-      accessoriesProducts: [
-        {
-          imgSrc: "/images/Hat.png",
-          name: "Wide-Brim Hat",
-          description: "Protect yourself in style",
-        },
-        {
-          imgSrc: "/images/Krama.png",
-          name: "Silk Scarf",
-          description: "Soft and luxurious",
-        },
-        {
-          imgSrc: "/images/outfit1.jpg",
-          name: "Tote Bag",
-          description: "Stylish and practical",
-        },
-        {
-          imgSrc: "/images/outfit3.jpg",
-          name: "Jewelry Set",
-          description: "Add a touch of elegance",
-        },
-        {
-          imgSrc: "/images/outfit4.jpg",
-          name: "Sunglasses",
-          description: "Trendy and protective",
-        },
-        {
-          imgSrc: "/images/defaultLogo.png",
-          name: "Wristwatch",
-          description: "Timeless accessory",
-        },
-      ],
-    };
-  },
+  // Men's T-Shirts Data
 };
 </script>
 

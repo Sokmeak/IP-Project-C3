@@ -1,92 +1,40 @@
 <template>
   <div class="women-clothes-page">
-    
     <!-- Header -->
-   
-
- 
 
     <!-- Content Wrapper -->
     <div class="content-wrapper">
-      <p>Welcome to Women page.</p>
-      <!-- Recommended for Women Section -->
-      <!-- <div class="section recommended">
-        <div class="section-header">
-          <h1>Recommended for Women</h1>
-          <div class="view-all-btn">View All</div>
-        </div>
-        <div class="product-grid">
-          <ProductCard
-            v-for="(product, index) in recommendedProducts"
-            :key="`recommended-${index}`"
-            :imgSrc="product.imgSrc"
-            :name="product.name"
-            :description="product.description"
-          />
-        </div>
-      </div> -->
+      <BestOffers title="Women's Best Offer" productType="Women" />
 
-      <!-- Women's Dresses Section -->
-      <!-- <div class="dresses-section">
-        <div class="section dresses">
-          <div class="section-header">
-            <h1>Women's Dresses</h1>
-            <div class="view-all-btn">View All</div>
-          </div>
-          <div class="product-grid">
-            <ProductCard
-              v-for="(product, index) in dressProducts"
-              :key="`dress-${index}`"
-              :imgSrc="product.imgSrc"
-              :name="product.name"
-              :description="product.description"
-            />
-          </div>
-        </div>
-      </div> -->
+      <GeneralProducts
+        bgColor="#F0DFF5"
+        type="Women"
+        title="Recommended Product"
+      />
+      <BestOffers title="Women's Trend Outfits" productType="Women" />
 
-      <!-- Women's Accessories Section -->
-      <!-- <div class="section accessories">
-        <div class="section-header">
-          <h1>Women's Accessories</h1>
-          <div class="view-all-btn">View All</div>
-        </div>
-        <div class="product-grid">
-          <ProductCard
-            v-for="(product, index) in accessoriesProducts"
-            :key="`accessories-${index}`"
-            :imgSrc="product.imgSrc"
-            :name="product.name"
-            :description="product.description"
-          />
-        </div>
-      </div> -->
-
-      <BestOffers />
-      <KhmerCollections />
-      <BestOffers />
-      <KhmerCollections />
+      <GeneralProducts
+        bgColor="#F0DFF5"
+        type="Women"
+        group="Skirt"
+        title="Explore Womnen Hole"
+      />
+      <GeneralProducts type="Women" group="Skirt" title="Explore Women Skirt" />
     </div>
 
     <!-- Footer -->
-    
   </div>
 </template>
 
 <script>
-import HeaderComponent from "@/components/Header/HeaderComponent.vue";
-import Footer from "@/components/Footer.vue";
-import ProductCard from "@/components/GeneralProducts/ProductCard.vue";
-import KhmerCollections from "@/components/KhmerCollections/KhmerCollections.vue";
-import BestOffers from "@/components/BestOffers/BestOffers.vue";
+import ListProducts from "@/components/ReadyToBuyProduct/ListProducts.vue";
+import GeneralProducts from "@/components/GeneralProducts/GeneralProducts.vue";
 
 export default {
   components: {
-    HeaderComponent,
-    Footer,
-    ProductCard,
-    BestOffers,
-    KhmerCollections,
+    GeneralProducts,
+
+    BestOffers : ListProducts,
   },
   data() {
     return {

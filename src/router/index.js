@@ -37,7 +37,6 @@ const routes = [
   },
 
   {
-  
     path: "/landing",
     name: "LandingPage",
     component: LandingPage, // Default to LandingPage
@@ -125,41 +124,41 @@ const routes = [
 
   // Some the parent should be the layout page
 
-  // {
-  //   path: "/home",
-  //   name: "Home",
-  //   props: true,
-  //   component: () => import("@/views/LayoutPage.vue"),
-  //   beforeEnter: (to, from, next) => {
-  //     import("@/stores/user").then(({ useStore }) => {
-  //       const store = useStore();
-  //       const isRegistered = store.isRegister;
-  //       if (!isRegistered) {
-  //         next("/signup"); // Redirect to signup if not registered
-  //       } else if (!isAuthenticated()) {
-  //         next("/login"); // Redirect to login if not authenticated
-  //       } else {
-  //         next(); // Proceed to home
-  //       }
-  //     });
-  //   },
-  // },
+  {
+    path: "/home",
+    name: "Home",
+    props: true,
+    component: () => import("@/views/LayoutPage.vue"),
+    beforeEnter: (to, from, next) => {
+      import("@/stores/user").then(({ useStore }) => {
+        const store = useStore();
+        const isRegistered = store.isRegister;
+        if (!isRegistered) {
+          next("/signup"); // Redirect to signup if not registered
+        } else if (!isAuthenticated()) {
+          next("/login"); // Redirect to login if not authenticated
+        } else {
+          next(); // Proceed to home
+        }
+      });
+    },
+  },
 
-  // {
-  //   path: "/men",
-  //   name: "MenClothes",
-  //   component: MenClothes,
-  // },
-  // {
-  //   path: "/women",
-  //   name: "WomenClothes",
-  //   component: WomenClothes,
-  // },
-  // {
-  //   path: "/children",
-  //   name: "ChildrenClothes",
-  //   component: ChildrenClothes,
-  // },
+  {
+    path: "/men",
+    name: "MenClothes",
+    component: MenClothes,
+  },
+  {
+    path: "/women",
+    name: "WomenClothes",
+    component: WomenClothes,
+  },
+  {
+    path: "/children",
+    name: "ChildrenClothes",
+    component: ChildrenClothes,
+  },
 
   {
     path: "/product",
@@ -195,8 +194,21 @@ const routes = [
         name: "Children",
         component: () => import("@/views/SubPages/ChildrenClothes.vue"),
       },
+      {
+        path: "view/:id",
+        name: "ViewDetails",
+        component: () =>
+          import("@/components/ProductDetails/ProductDeailsLayout.vue"),
+      },
     ],
   },
+
+  // {
+  //   path: "/",
+  //   name: "Test product details",
+  //   component: () =>
+  //     import("@/components/ProductDetails/ProductDeailsLayout.vue"),
+  // },
 ];
 
 // Create and export the router

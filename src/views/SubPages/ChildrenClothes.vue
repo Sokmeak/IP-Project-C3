@@ -1,94 +1,38 @@
 <template>
   <div class="women-clothes-page">
-
- 
-   
-   
-
     <!-- Content Wrapper -->
     <div class="content-wrapper">
-      <p>Welcome to Children page.</p>
-      <!-- Recommended for Children Section -->
-      <!-- <div class="section recommended">
-        <div class="section-header">
-          <h1>Recommended for Children</h1>
-          <div class="view-all-btn">View All</div>
-        </div>
-        <div class="product-grid">
-          <ProductCard
-            v-for="(product, index) in recommendedProducts"
-            :key="`recommended-${index}`"
-            :imgSrc="product.imgSrc"
-            :name="product.name"
-            :description="product.description"
-          />
-        </div>
-      </div> -->
+      <BestOffers title="Children's Best Offer" productType="Children" />
+      <GeneralProducts
+        bgColor="#F0DFF5"
+        type="Children"
+        title="Recommended Product"
+      />
+      <BestOffers title="Children's Trend Outfits" productType="Children" />
+      <GeneralProducts
+        bgColor="#F0DFF5"
+        type="Children"
+        title="Explore Men T-Shirt"
+      />
+      <GeneralProducts type="Children" title="Explore Children Pants" />
 
-      <!-- Children's T-shirt Section -->
-      <!-- <div class="tshirts-section">
-        <div class="section dresses">
-          <div class="section-header">
-            <h1>Kid's T-shirt</h1>
-            <div class="view-all-btn">View All</div>
-          </div>
-          <div class="product-grid">
-            <ProductCard
-              v-for="(product, index) in dressProducts"
-              :key="`dress-${index}`"
-              :imgSrc="product.imgSrc"
-              :name="product.name"
-              :description="product.description"
-            />
-          </div>
-        </div>
-      </div> -->
-
-      <!-- Children's Accessories Section -->
-      <!-- <div class="section accessories">
-        <div class="section-header">
-          <h1>Children's Accessories</h1>
-          <div class="view-all-btn">View All</div>
-        </div>
-        <div class="product-grid">
-          <ProductCard
-            v-for="(product, index) in accessoriesProducts"
-            :key="`accessories-${index}`"
-            :imgSrc="product.imgSrc"
-            :name="product.name"
-            :description="product.description"
-          />
-        </div>
-      </div> -->
-
-      <BestOffers/>
-      <KhmerCollections/>
-      <BestOffers />
-      <KhmerCollections />
+      <GeneralProducts
+        bgColor="#F0DFF5"
+        type="Children"
+        title="Explore Men Hats"
+      />
     </div>
-
-   
-   
   </div>
 </template>
 
 <script>
-import HeaderComponent from "@/components/Header/HeaderComponent.vue";
-import Footer from "@/components/Footer.vue";
-import ProductCard from "@/components/GeneralProducts/ProductCard.vue";
-
-import BestOffers from "@/components/BestOffers/BestOffers.vue";
-import KhmerCollections from "@/components/KhmerCollections/KhmerCollections.vue";
-
+import ListProducts from "@/components/ReadyToBuyProduct/ListProducts.vue";
+import GeneralProducts from "@/components/GeneralProducts/GeneralProducts.vue";
 
 export default {
   components: {
-    HeaderComponent,
-    Footer,
-    ProductCard,
-
-    BestOffers,
-    KhmerCollections,
+    GeneralProducts,
+    BestOffers : ListProducts,
   },
   data() {
     return {
