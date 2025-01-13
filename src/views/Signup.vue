@@ -159,6 +159,8 @@ export default {
       }).then(() => {
         this.$router.push("/login");
       });
+
+      console.log("Stored users: ", localStorage.getItem("users"));
     },
     
     validatePassword(password) {

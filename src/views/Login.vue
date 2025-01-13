@@ -92,6 +92,7 @@ export default {
     return {
       user: {
         email: "",
+
         password: "",
       },
       rememberMe: false,
