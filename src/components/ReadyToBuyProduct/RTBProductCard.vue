@@ -1,62 +1,58 @@
 <template>
-  <router-link class="link" :to="`/product/view/${id}`">
-    <div
-      class="bestofferCard"
-      @mouseenter="hover = true"
-      @mouseleave="hover = false"
-    >
-      <!-- Promotion Percentage Display -->
-      <div v-if="promotionPercentage > 0" class="promotionLabel">
-        - {{ promotionPercentage }}%
-      </div>
-      <i
-        v-if="hover"
-        @click="toggleFavorite"
-        :class="[
-          'fav',
-          isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart',
-        ]"
-      ></i>
-      <div class="imageWrapper">
+  <div
+    class="bestofferCard"
+    @mouseenter="hover = true"
+    @mouseleave="hover = false"
+  >
+    <!-- Promotion Percentage Display -->
+    <div v-if="promotionPercentage > 0" class="promotionLabel">
+      - {{ promotionPercentage }}%
+    </div>
+    <i
+      v-if="hover"
+      @click="toggleFavorite"
+      :class="[
+        'fav',
+        isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart',
+      ]"
+    ></i>
+
+    <div class="imageWrapper">
+      <router-link class="link" :to="`/product/view/${id}`">
         <img :src="'../../../public/images/' + imgSrc" alt="Khmer Collection" />
-      </div>
+      </router-link>
+    </div>
 
-      <div class="content">
-        <h4 class="name">
-          {{ name }}
-        </h4>
-        <p class="description">{{ description }}</p>
+    <div class="content">
+      <h4 class="name">
+        {{ name }}
+      </h4>
+      <p class="description">{{ description }}</p>
 
-        <!-- Use a function for generating star base on #rating  -->
+      <!-- Star Rating -->
+      <div class="rating" v-html="generateStars(rating)"></div>
 
-        <!-- <div class="rating">
-        <i class="fa-solid fullStar fa-star"></i>
-        <i class="fa-solid fullStar fa-star"></i>
-        <i class="fa-solid fullStar fa-star"></i>
-        <i class="fa-solid fullStar fa-star"></i>
-        <i class="fa-regular fa-star"></i>
-      </div> -->
-
-        <div class="rating" v-html="generateStars(rating)"></div>
-        <div class="seemore">
-          <div class="Price">
-            <p class="actualPrice">
-              $
-              {{ calculateDiscountedPrice(originalPrice, promotionPercentage) }}
-            </p>
-            <p class="OriginalPrice">$ {{ originalPrice }}</p>
-          </div>
-
-          <PrimaryButton class="ShopNowBtn" content="Shop Now"></PrimaryButton>
+      <div class="seemore">
+        <div class="Price">
+          <p class="actualPrice">
+            $
+            {{ calculateDiscountedPrice(originalPrice, promotionPercentage) }}
+          </p>
+          <p class="OriginalPrice">$ {{ originalPrice }}</p>
         </div>
+
+        <router-link class="link" :to="`/product/view/${id}`">
+          <PrimaryButton class="ShopNowBtn" content="Shop Now"></PrimaryButton>
+        </router-link>
       </div>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script>
 import PrimaryButton from "../Buttons/PrimaryButton.vue";
 import { RouterLink } from "vue-router";
+import { useFavoriteStore } from "@/stores/favorite"; // Import the favorite store
 
 export default {
   components: {
@@ -67,8 +63,6 @@ export default {
     imgSrc: String,
     name: String,
     description: String,
-    // need more props like color: ...
-
     rating: {
       type: Number,
       required: true,
@@ -85,23 +79,33 @@ export default {
   data() {
     return {
       hover: false, // Tracks whether the mouse is over the card
-      isFavorite: false, // Tracks whether the item is favorited
     };
   },
+  computed: {
+    // Check if the current product is favorited
+    isFavorite() {
+      const favoriteStore = useFavoriteStore();
+      return favoriteStore.isFavorite(this.id);
+    },
+  },
   methods: {
-    CheckID() {
-      console.log("Check ID = " + this.id);
-    },
-
     toggleFavorite() {
-      this.isFavorite = !this.isFavorite; // Toggles the favorite state
-      console.log(
-        `Product ${this.id} favorite state: ${
-          this.isFavorite ? "Favorited" : "Unfavorited"
-        }`
-      );
+      const favoriteStore = useFavoriteStore();
+      if (this.isFavorite) {
+        favoriteStore.removeFavorite(this.id); // Remove from favorites
+      } else {
+        const product = {
+          id: this.id,
+          name: this.name,
+          description: this.description,
+          imgSrc: this.imgSrc,
+          rating: this.rating,
+          originalPrice: this.originalPrice,
+          promotionPercentage: this.promotionPercentage,
+        };
+        favoriteStore.addFavorite(product); // Add to favorites
+      }
     },
-
     generateStars(rating) {
       const stars = [];
       for (let i = 1; i <= 5; i++) {
@@ -127,15 +131,12 @@ export default {
 };
 </script>
 
-<!-- adjust some style -->
 <style scoped>
 .link {
   text-decoration: none;
   color: inherit;
 }
-/* .link:hover {
-  text-decoration: none;
-} */
+
 .promotionLabel {
   position: absolute;
   top: 10px;
@@ -147,54 +148,62 @@ export default {
   font-weight: bold;
   border-radius: 5px;
 }
+
 .imageWrapper img {
   width: 250px;
   height: 250px;
 }
+
 .rating {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
 }
+
 .fullStar {
   color: #f1c40f;
 }
+
 .ShopNowBtn {
   height: 2rem !important;
   font-size: 14px;
   border-radius: 20px;
   color: #af47d2;
-  /* padding: 0; */
   padding: 0.1rem 1rem 0.1rem 1rem;
   margin: 0;
   background-color: white;
 }
+
 .actualPrice {
   color: #af47d2;
   font-size: larger;
   font-weight: bold;
 }
+
 .OriginalPrice {
   text-decoration: line-through;
   color: gray;
 }
+
 .Price {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 0.5rem;
 }
+
 .ShopNowBtn:hover {
   color: white;
   background-color: #af47d2;
 }
+
 .imageWrapper {
   width: 200px;
   height: 200px;
 }
+
 .fav {
   position: absolute;
-
   top: 10px;
   font-size: 1.5rem;
   right: 1.5rem;
@@ -205,6 +214,7 @@ export default {
 .fav.fa-regular {
   color: #af47d2;
 }
+
 .fav.fa-solid {
   color: #af47d2; /* Filled heart color */
 }
@@ -218,15 +228,13 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
   border: 1px solid gray;
   border-radius: 10px;
   gap: 2rem;
   transition: box-shadow 0.2s, transform 0.2s, border 0.2s;
-
-  /* background-color: rgb(254, 255, 193); */
 }
-.discription {
+
+.description {
   font-size: 14px;
   height: 1rem;
   color: gray;
@@ -237,7 +245,6 @@ export default {
   transition: 0.2s;
   transform: scale(1.005);
   border: 1.5px solid #af47d2;
-
   cursor: pointer;
 }
 
@@ -247,17 +254,14 @@ export default {
   width: 100%;
   justify-content: space-between;
 }
+
 .content {
-  /* height: 9rem; */
   height: fit-content;
   width: 100%;
   display: flex;
-  /* background-color: #f5f5f5; */
   flex-direction: column;
   justify-content: space-between;
-
   align-items: start;
   gap: 0.3rem;
-  /* background-color: white; */
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="sidebar">
     <div class="header">
       <h3>Hi,</h3>
-      <h2>{{ username }}</h2> <!-- Display the username here -->
+      <h2>{{ username }}</h2> 
     </div>
     <ul class="menu">
       <li
@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import Swal from "sweetalert2"; // Import SweetAlert2
-import Cookies from "js-cookie"; // Import js-cookie for cookie management
+import Swal from "sweetalert2"; 
+import Cookies from "js-cookie"; 
 
 export default {
   name: "SidebarMenu",
