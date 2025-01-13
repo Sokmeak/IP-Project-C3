@@ -145,7 +145,7 @@ export default {
         rating: this.newRating,
         comment: this.newComment,
       };
-      this.reviews.push(newReview);
+      this.reviews.unshift(newReview);
       this.newComment = ""; // Clear the comment field
       this.newRating = 5; // Reset the rating to default
     },
@@ -162,7 +162,7 @@ export default {
   flex-direction: column;
   justify-content: start;
   width: 35vw;
-  height: 50vh;
+  height: 60vh;
   overflow-y: auto;
   scroll-behavior: smooth;
   gap: 2rem;
@@ -179,6 +179,7 @@ export default {
   gap: 0.8rem;
   font-weight: bold;
   border-bottom: 1px solid #ddd;
+ 
 }
 .reviewerProfile {
   height: 4rem;

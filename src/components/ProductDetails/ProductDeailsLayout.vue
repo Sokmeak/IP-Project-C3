@@ -241,7 +241,7 @@ export default {
 
 .reviews-tab {
   padding: 20px;
-
   width: fit-content;
+  height: 1rem;
 }
 </style>
