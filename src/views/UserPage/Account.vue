@@ -3,6 +3,29 @@
     <form class="account-form" @submit.prevent="updateUserInfo">
       <div class="form-row">
         <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            v-model="user.username"
+            placeholder="Username"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="text"
+            :value="displayPassword"
+            placeholder="Enter new password"
+            required
+            disabled
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
           <label for="first-name">First name</label>
           <input
             id="first-name"
@@ -91,6 +114,8 @@ export default {
   data() {
     return {
       user: {
+        username: "", // Username field
+        password: "", // Password field
         firstName: "",
         lastName: "",
         address: "",
@@ -101,10 +126,26 @@ export default {
       },
     };
   },
+  computed: {
+    // Compute the masked password (e.g., "u*****34")
+    displayPassword() {
+      const password = this.user.password;
+      if (!password) return ""; // If password is empty, return empty string
+
+      const length = password.length;
+      if (length <= 2) {
+        return "*".repeat(length); // If password is too short, mask all characters
+      } else {
+        // Show the first character, mask the middle, and show the last two characters
+        return password.charAt(0) + "*".repeat(length - 3) + password.slice(-2);
+      }
+    },
+  },
   methods: {
     updateUserInfo() {
       // Validate required fields
       if (
+        !this.user.username ||
         !this.user.firstName ||
         !this.user.lastName ||
         !this.user.address ||
@@ -134,10 +175,19 @@ export default {
     },
   },
   created() {
-    // Load the current user's email from localStorage
+    // Load the current user's email, username, and password from localStorage
     const currentEmail = localStorage.getItem("currentEmail");
+    const currentUsername = localStorage.getItem("currentUsername");
+    const currentPassword = localStorage.getItem("currentPassword");
+
     if (currentEmail) {
       this.user.email = currentEmail;
+    }
+    if (currentUsername) {
+      this.user.username = currentUsername;
+    }
+    if (currentPassword) {
+      this.user.password = currentPassword;
     }
 
     // Load saved user info from localStorage (if available)
@@ -145,16 +195,18 @@ export default {
 
     // If the saved user's email matches the current email, load the saved data
     if (savedUser && savedUser.email === this.user.email) {
-      this.user = { ...this.user, ...savedUser }; // Merge saved data with current email
+      this.user = { ...this.user, ...savedUser }; // Merge saved data with current email and username
     } else {
       // If the email doesn't match, reset all fields to their initial state
       this.user = {
+        username: currentUsername || "",
+        password: currentPassword || "",
         firstName: "",
         lastName: "",
         address: "",
         postalCode: "",
         city: "",
-        email: currentEmail || "", // Keep the current email if available
+        email: currentEmail || "",
         phone: "",
       };
     }

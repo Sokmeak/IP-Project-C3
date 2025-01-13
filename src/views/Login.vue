@@ -104,37 +104,39 @@ export default {
         this.passwordFieldType === "password" ? "text" : "password";
     },
     handleLogin() {
-      const email = this.user.email.trim();
-      const password = this.user.password.trim();
+    const email = this.user.email.trim();
+    const password = this.user.password.trim();
 
-      const users = JSON.parse(localStorage.getItem("users")) || [];
-      const userData = users.find((user) => user.email === email);
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const userData = users.find(
+        (user) => user.email === email || user.username === email
+      );
 
-      if (userData && userData.password === password) {
-        // Save current user's email and username
-        localStorage.setItem("currentEmail", userData.email);
-        localStorage.setItem("currentUsername", userData.username);
+    if (userData && userData.password === password) {
+      // Save current user's email and username
+      localStorage.setItem("currentEmail", userData.email);
+      localStorage.setItem("currentUsername", userData.username);
 
-        if (this.rememberMe) {
-          Cookies.set("email", userData.email, { expires: 7, secure: true });
-          Cookies.set("username", userData.username, { expires: 7, secure: true });
-        }
+      if (this.rememberMe) {
+        Cookies.set("email", userData.email, { expires: 7, secure: true });
+        Cookies.set("username", userData.username, { expires: 7, secure: true });
+      }
 
-        Swal.fire({
-          title: "Success!",
-          text: "Login successful!",
-          icon: "success",
-          confirmButtonText: "OK",
-        }).then(() => {
-          this.$router.push("/product");
-        });
-      } else {
-        Swal.fire({
-          title: "Error!",
-          text: "Invalid email or password.",
-          icon: "error",
-          confirmButtonText: "Retry",
-        });
+      Swal.fire({
+        title: "Success!",
+        text: "Login successful!",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
+        this.$router.push("/product/home"); // Redirect to product/home after login
+      });
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: "Invalid email or password.",
+        icon: "error",
+        confirmButtonText: "Retry",
+      });
       }
     },
     handleLoginWithGoogle() {

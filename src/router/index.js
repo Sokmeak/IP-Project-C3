@@ -90,22 +90,9 @@ const routes = [
         component: () => import("@/views/UserPage/Account.vue"),
         beforeEnter: (to, from, next) => {
           if (!isAuthenticated()) {
-            Swal.fire({
-              title: "Login or Create an Account",
-              text: "You need to log in or create an account to access this page.",
-              icon: "info",
-              showCancelButton: true,
-              confirmButtonText: "Login",
-              cancelButtonText: "Create an account",
-              confirmButtonColor: "#007bff", // Blue color for Login button
-              cancelButtonColor: "#28a745", // Green color for Create account button
-            }).then((result) => {
-              if (result.isConfirmed) {
-                next("/login"); // Redirect to Login page
-              } else if (result.dismiss === Swal.DismissReason.cancel) {
-                next("/signup"); // Redirect to Signup page
-              }
-            });
+            // Use the popup component's method
+            const popup = new LoginSignupPopup();
+            popup.showPopup();
           } else {
             next(); // Proceed to Account page
           }
@@ -186,24 +173,17 @@ const routes = [
         name: "home",
         component: () => import("@/views/SubPages/Home.vue"),
         beforeEnter: (to, from, next) => {
-          import("@/stores/user").then(({ useStore }) => {
-            const store = useStore();
-            const isRegistered = store.isRegister;
-            if (!isRegistered) {
-              next("/signup"); // Redirect to signup if not registered
-            } else if (!isAuthenticated()) {
-              next("/login"); // Redirect to login if not authenticated
-            } else {
-              next(); // Proceed to home
-            }
-          });
+          if (!isAuthenticated()) {
+            next("/login"); // Redirect to login if not authenticated
+          } else {
+            next(); // Proceed to home
+          }
         },
       },
       {
         path: "men",
         name: "Men",
         component: () => import("@/views/SubPages/MenClothes.vue"),
-        // what if the differences in side subpage contains the any categories that can be classify
       },
       {
         path: "women",

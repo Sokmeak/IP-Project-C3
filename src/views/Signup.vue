@@ -160,6 +160,7 @@ export default {
         this.$router.push("/login");
       });
     },
+    
     validatePassword(password) {
       if (password.length < 6) {
         return {
