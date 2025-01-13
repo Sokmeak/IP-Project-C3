@@ -24,9 +24,9 @@
               <p>{{ item.description }}</p>
               <p class="price">
                 Price: ${{ item.price }}
-                <span class="discounted" v-if="item.discounted"
-                  >Discounted</span
-                >
+                <span class="discounted" v-if="item.discounted">
+                  Discounted
+                </span>
               </p>
               <p>Size: {{ item.size }}</p>
               <p>Qty: {{ item.quantity }}</p>
@@ -71,7 +71,7 @@
 
 <script>
 import { computed } from "vue";
-import { useRouter } from "vue-router"; // Import Vue Router
+import { useRouter } from "vue-router";
 import { useCartStore } from "@/stores/cart";
 import HeaderComponent from "@/components/Header/HeaderComponent.vue";
 import Footer from "@/components/Footer.vue";
@@ -83,7 +83,7 @@ export default {
   },
   setup() {
     const cartStore = useCartStore();
-    const router = useRouter(); // Router instance for navigation
+    const router = useRouter();
 
     // Computed properties for cart items and totals
     const cartItems = computed(() => cartStore.cartItems);
@@ -108,10 +108,9 @@ export default {
     };
 
     const goToShipping = () => {
-      // Pass subtotal to the Shipping Page via query parameters
       router.push({
         name: "ShippingPage",
-        query: { subtotal: totalPrice.value }, // Pass the final total as query
+        query: { subtotal: totalPrice.value },
       });
     };
 
@@ -300,5 +299,16 @@ export default {
 
 .cancel-btn:hover {
   background: #f1f1f1;
+}
+
+/* Footer Styling */
+footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background-color: #f8f8f8;
+  padding: 1rem;
+  text-align: center;
 }
 </style>
