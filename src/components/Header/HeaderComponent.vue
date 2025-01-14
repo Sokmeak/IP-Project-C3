@@ -26,7 +26,11 @@
     <!-- Actions -->
     <div class="actions">
       <div class="search-container">
-        <input type="text" placeholder="Search" class="search-bar" />
+        <input
+          type="text"
+          :placeholder="placeholderMessage"
+          class="search-bar"
+        />
       </div>
       <div class="iconWrapper">
         <RouterLink class="link" to="/userpage/1/account">
@@ -47,9 +51,21 @@ export default {
   components: {
     SecodaryBrand,
   },
+
+  // watch: {
+  //   $route: {
+  //     immediate: true, // Trigger on initial load
+  //     handler() {
+  //       this.updateSearchPlaceholder();
+  //     },
+  //   },
+  // },
+
   data() {
     return {
       // Define links dynamically
+      placeholderMessage: "Search type of Product", // Default placeholder
+
       links: [
         { name: "Men", path: "/men" },
         { name: "Women", path: "/women" },
@@ -58,6 +74,17 @@ export default {
       menuActive: false, // State to toggle mobile menu
     };
   },
+
+  watch: {
+    $route: {
+      immediate: true, // Trigger on initial load
+      handler() {
+        this.updateSearchPlaceholder();
+      },
+    },
+  },
+  
+
   methods: {
     GoToAccount() {
       alert("Redirecting to user account...");
@@ -78,18 +105,38 @@ export default {
     closeMenu() {
       this.menuActive = false;
     },
+
+    updateSearchPlaceholder() {
+      console.log(this.$route.name);
+
+      switch (this.$route.name) {
+        case "home":
+        case "LandingPage":
+          this.placeholderMessage = "Search type of Product";
+          break;
+        case "Men":
+          this.placeholderMessage = "Search men's Clothes";
+          break;
+        case "Women":
+          this.placeholderMessage = "Search women's Clothes";
+          break;
+        case "Children":
+          this.placeholderMessage = "Search children's Clothes";
+          break;
+        default:
+          this.placeholderMessage = "Search for items";
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
-/* Original Header Styles Preserved */
 .link {
   color: white;
-
 }
 
-.link.router-link-active{
+.link.router-link-active {
   border: none;
 }
 .link:hover {
@@ -225,7 +272,7 @@ export default {
   padding: 0.5rem 3rem;
   border-radius: 20px;
   border: none;
-  width: 250px;
+  width: 280px;
   font-size: 16px;
 }
 

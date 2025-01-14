@@ -8,19 +8,31 @@
         type="Children"
         title="Recommended Product"
       />
+      <GeneralProducts type="Children" title="Explore Men Pants" />
+      <GeneralProducts
+        title="Explore Children Shirt"
+        bgColor="#F0DFF5"
+        productType="Children"
+        group="Shirt"
+      />
+     
+
+     
+     
+      <!--
       <BestOffers title="Children's Trend Outfits" productType="Children" />
       <GeneralProducts
         bgColor="#F0DFF5"
         type="Children"
         title="Explore Men T-Shirt"
       />
-      <GeneralProducts type="Children" title="Explore Children Pants" />
-
+      <GeneralProducts bgColor ="#F0DFF5"  productType="Children" title="Explore Children Pants" /> -->
+      <!-- 
       <GeneralProducts
         bgColor="#F0DFF5"
         type="Children"
         title="Explore Men Hats"
-      />
+      /> -->
     </div>
   </div>
 </template>
@@ -31,8 +43,9 @@ import GeneralProducts from "@/components/GeneralProducts/GeneralProducts.vue";
 
 export default {
   components: {
-    GeneralProducts,
-    BestOffers : ListProducts,
+    // GeneralProducts,
+    BestOffers: ListProducts,
+    GeneralProducts: ListProducts,
   },
   data() {
     return {

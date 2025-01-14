@@ -22,7 +22,6 @@
             class="video-card"
             width="500px"
             height="400px"
-       
             autoplay
             loop
             muted
@@ -68,9 +67,36 @@ export default {
           id: 6,
           url: "https://videos.pexels.com/video-files/4715373/4715373-sd_960_506_25fps.mp4",
         },
-        { id: 7, url: "https://media.geeksforgeeks.org/wp-content/uploads/20231020155223/Full-Stack-Development-_-LIVE-Classes-_-GeeksforGeeks.mp4" },
-        { id: 8, url: "https://media.geeksforgeeks.org/wp-content/uploads/20231020155223/Full-Stack-Development-_-LIVE-Classes-_-GeeksforGeeks.mp4" },
-        { id: 9, url: "https://media.geeksforgeeks.org/wp-content/uploads/20231020155223/Full-Stack-Development-_-LIVE-Classes-_-GeeksforGeeks.mp4" },
+        {
+          id: 8,
+          url: "https://videos.pexels.com/video-files/6767033/6767033-sd_640_360_25fps.mp4",
+        },
+        {
+          id: 7,
+          url: "https://videos.pexels.com/video-files/4715373/4715373-sd_960_506_25fps.mp4",
+        },
+       
+
+        // {
+        //   id: 8,
+        //   url: "https://videos.pexels.com/video-files/7288127/7288127-sd_360_640_25fps.mp4",
+        // },
+        // {
+        //   id: 9,
+        //   url: "https://videos.pexels.com/video-files/8798158/8798158-sd_506_960_25fps.mp4",
+        // },
+        // {
+        //   id: 10,
+        //   url: "https://videos.pexels.com/video-files/7568637/7568637-sd_360_640_25fps.mp4",
+        // },
+        // {
+        //   id: 11,
+        //   url: "https://videos.pexels.com/video-files/8798158/8798158-sd_506_960_25fps.mp4",
+        // },
+        // {
+        //   id: 12,
+        //   url: "https://videos.pexels.com/video-files/7568637/7568637-sd_360_640_25fps.mp4",
+        // },
       ],
     };
   },
@@ -81,14 +107,13 @@ export default {
   },
   methods: {
     BackToPrevious() {
-      if (this.currentLength < this.videos.length) {
+      if (this.currentIndex > 0) {
         this.currentIndex--;
-        this.currentLength = this.currentLength - 3;
       }
     },
     GoToNext() {
-      if (this.currentLength + this.videosToShow < this.videos.length - 1) {
-        this.currentLength += 3;
+      const maxIndex = Math.ceil(this.videos.length / this.videosToShow) - 1;
+      if (this.currentIndex < maxIndex) {
         this.currentIndex++;
       }
     },
@@ -186,6 +211,8 @@ export default {
 
 .video-list {
   display: flex;
+  /* overflow-x: auto;
+  scroll-behavior: auto; */
   gap: 3rem;
   transition: transform 0.5s ease-in-out; /* Smooth transition */
 }

@@ -3,7 +3,7 @@
     <h2>Get Your Khmer Tranditonal Outfit</h2>
     <div class="category-list">
       <div class="category-card" v-for="outfit in outfits" :key="outfit.id">
-        <div class="category-image">
+        <div class="category-image" @click="GetCategory(outfit.type)">
           <img :src="outfit.image" :alt="outfit.name" />
         </div>
         <!-- <p>{{ outfit.name }}</p> -->
@@ -18,13 +18,38 @@ export default {
   data() {
     return {
       outfits: [
-        { id: 1, name: "Outfit 1", image: "/images/outfit1.jpg" },
-        { id: 2, name: "Outfit 2", image: "/images/outfit2.jpg" },
-        { id: 3, name: "Outfit 3", image: "/images/outfit3.jpg" },
-        { id: 4, name: "Outfit 4", image: "/images/outfit4.jpg" },
+        {
+          id: 1,
+          type: "women",
+          name: "Outfit 1",
+          image: "/images/outfit1.jpg",
+        },
+        { id: 2, type: "men", name: "Outfit 2", image: "/images/outfit2.jpg" },
+        { id: 3, type: "men", name: "Outfit 3", image: "/images/outfit3.jpg" },
+        {
+          id: 4,
+          type: "women",
+          name: "Outfit 4",
+          image: "/images/outfit4.jpg",
+        },
       ],
     };
+
   },
+  methods:{
+    GetCategory(type){
+      // alert("Categories Name : "+type)
+
+      if (this.$route.name === "home") {
+        this.$router.push(type);
+      } else {
+        this.$router.push(`product/${type}`);
+      }
+
+
+    
+    }
+  }
 };
 </script>
 

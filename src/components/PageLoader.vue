@@ -42,8 +42,8 @@ export default {
 
 /* Styling for all cubes */
 .cube {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
 
   position: absolute;
 }

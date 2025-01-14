@@ -1,7 +1,9 @@
 <template>
-  <div class="GenProductCard">
+  <!--Get the group of the product and navigate to its group in the type -->
+
+  <div class="GenProductCard" @click="handleClick">
     <div class="imageWrapper">
-      <img :src="'../../../public/images/'+imgSrc" alt="General product" />
+      <img :src="'../../../public/images/' + imgSrc" alt="General product" />
     </div>
 
     <div class="content">
@@ -11,7 +13,7 @@
       <!-- <p class="description">{{ description }}</p> -->
 
       <div class="description">
-       {{ description }}
+        {{ description }}
       </div>
 
       <!-- Should use the function for analyze the price and get discout -->
@@ -42,7 +44,27 @@ export default {
     imgSrc: String,
     name: String,
     description: String,
+    productType: String,
+    group: String,
     // need more props like color: ...
+  },
+  methods: {
+    // GetGroup(){
+    //   alert("Type of product and group: "+this.productType+" "+ this.group);
+    // }
+
+    // Go to the selected route
+
+    handleClick() {
+      // alert(this.$route.name);
+      const typeInLowerCase = this.productType.toLowerCase();
+
+      if (this.$route.name === "home") {
+        this.$router.push(typeInLowerCase);
+      } else {
+        this.$router.push(`product/${typeInLowerCase}`);
+      }
+    },
   },
 };
 </script>

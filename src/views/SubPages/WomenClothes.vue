@@ -8,10 +8,10 @@
 
       <GeneralProducts
         bgColor="#F0DFF5"
-        type="Women"
+        productType="Women"
         title="Recommended Product"
       />
-      <BestOffers title="Women's Trend Outfits" productType="Women" />
+      <GeneralProducts title="Women's Trend Outfits" productType="Women" />
 
       <GeneralProducts
         bgColor="#F0DFF5"
@@ -19,7 +19,6 @@
         group="Skirt"
         title="Explore Womnen Hole"
       />
-      <GeneralProducts type="Women" group="Skirt" title="Explore Women Skirt" />
     </div>
 
     <!-- Footer -->
@@ -27,13 +26,13 @@
 </template>
 
 <script>
+// import ListProducts from "@/components/ReadyToBuyProduct/ListProducts.vue";
+// import GeneralProducts from "@/components/GeneralProducts/GeneralProducts.vue";
 import ListProducts from "@/components/ReadyToBuyProduct/ListProducts.vue";
-import GeneralProducts from "@/components/GeneralProducts/GeneralProducts.vue";
 
 export default {
   components: {
-    GeneralProducts,
-
+    GeneralProducts: ListProducts,
     BestOffers : ListProducts,
   },
   data() {

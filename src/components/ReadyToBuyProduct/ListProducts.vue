@@ -5,14 +5,31 @@
         <h1>{{ title }}</h1>
         <!-- <div class="seemore">see more</div> -->
 
-        <div class="view-all-btn">View All</div>
+        <!-- <div class="view-all-btn">View All</div> -->
+
+        <PrimaryButton
+          v-if="showViewAll"
+          class="view-all-btn"
+          content="View All"
+          type="button"
+          @click="loadMore"
+        ></PrimaryButton>
+
+
+        <PrimaryButton
+          v-if="showViewFewer"
+          class="view-all-btn"
+          content="View Fewer "
+          type="button"
+          @click="loadFewer"
+        ></PrimaryButton>
       </div>
 
       <div class="container">
         <!-- We can use v-if here -->
 
         <RTBProduct
-          v-for="(item, index) in collections.slice(0, 6)"
+          v-for="(item, index) in collections.slice(0, displayedItems)"
           :key="index"
           :id="item.productId"
           :imgSrc="item.productImages[0]"
@@ -28,6 +45,7 @@
 </template>
 
 <script>
+import PrimaryButton from "../Buttons/PrimaryButton.vue";
 import RTBProduct from "./RTBProductCard.vue";
 import { useProductStore } from "@/stores/product";
 import { onMounted, computed } from "vue";
@@ -39,6 +57,7 @@ export default {
       type: String,
       default: "Best Offer for Today",
     },
+    group: String,
     bgColor: {
       type: String,
       default: "white",
@@ -47,6 +66,16 @@ export default {
 
   components: {
     RTBProduct,
+    PrimaryButton,
+  },
+
+  methods: {
+    loadMore() {
+      this.displayedItems += this.collections.length;
+    },
+    loadFewer() {
+      this.displayedItems = Math.min(6, this.collections.length);
+    },
   },
 
   setup(props) {
@@ -60,7 +89,8 @@ export default {
     // parse the parameter here
 
     const collections = computed(() =>
-      productStore.getBestOfferProducts(props.productType)
+      // productStore.getBestOfferProducts(props.productType)
+      productStore.getProductByTypeAndGroup(props.productType, props.group)
     );
 
     return {
@@ -68,8 +98,19 @@ export default {
     };
   },
 
+  computed: {
+    showViewAll() {
+      return this.displayedItems <= Math.min(6,this.collections.length);
+    },
+    showViewFewer() {
+      return this.displayedItems > Math.max(6,this.collections.length);
+    },
+  },
+
   data() {
     return {
+      displayedItems: 6,
+
       // collections: [
       //   {
       //     imgSrc: "../../public/images/Krama.png",
@@ -129,6 +170,7 @@ export default {
 <style scoped>
 .view-all-btn {
   border: 1px solid #000;
+  background-color: rgb(241, 241, 241);
   display: flex;
   justify-content: center;
   align-items: center;

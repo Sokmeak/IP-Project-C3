@@ -3,28 +3,17 @@
     <!-- Content Wrapper -->
     <div class="content-wrapper">
       <BestOffers title="Men's Best Offer" productType="Men" />
-      <GeneralProducts
-        bgColor="#F0DFF5"
-        type="Men"
-        title="Recommended Product"
-      />
-      <BestOffers title="Men's Best Offer" productType="Men" />
-      <GeneralProducts
-        bg-color="#F0DFF5"
-        type="Men"
-        group="T-shirt"
-        title="Explore Men Pants"
-      />
-      <BestOffers title="Men's Best Offer" productType="Men" />
 
-      <GeneralProducts
-        bgColor="#F0DFF5"
-        type="Men"
-        group="T-shirt"
-        title="Explore Men T-Shirt"
-      />
+      <GeneralProducts productType="Men" title="Explore Men T-shirt" bgColor="#F0DFF5"/>
 
-      <GeneralProducts type="Men" group="T-shirt" title="Explore Men Hats" />
+      <BestOffers title="Men's Jacket"  productType="Men" />
+      <section id="tshirt">
+        <GeneralProducts
+          bgColor="#F0DFF5"
+          productType="Men"
+          title="Recommended Product"
+        />
+      </section>
 
       <!-- Create a component that can generate the general product by passing type and group via props -->
     </div>
@@ -33,11 +22,11 @@
 
 <script>
 import ListProducts from "@/components/ReadyToBuyProduct/ListProducts.vue";
-import GeneralProducts from "@/components/GeneralProducts/GeneralProducts.vue";
+// import GeneralProducts from "@/components/GeneralProducts/GeneralProducts.vue";
 
 export default {
   components: {
-    GeneralProducts,
+    GeneralProducts: ListProducts,
     BestOffers: ListProducts,
   },
 

@@ -1,35 +1,33 @@
 <template>
-  <router-link class="link" :to="`/product/view/${id}`">
-    <div
-      class="bestofferCard"
-      @mouseenter="hover = true"
-      @mouseleave="hover = false"
-    >
-      <!-- Promotion Percentage Display -->
-      <div v-if="promotionPercentage > 0" class="promotionLabel">
-        - {{ promotionPercentage }}%
-      </div>
-      <i
-        v-if="hover"
-        @click="toggleFavorite"
-        :class="[
-          'fav',
-          isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart',
-        ]"
-      ></i>
-      <div class="imageWrapper">
+  <div
+    class="bestofferCard"
+    @mouseenter="hover = true"
+    @mouseleave="hover = false"
+  >
+    <!-- Promotion Percentage Display -->
+    <div v-if="promotionPercentage > 0" class="promotionLabel">
+      - {{ promotionPercentage }}%
+    </div>
+    <i
+      v-if="hover"
+      @click="toggleFavorite"
+      :class="['fav', isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart']"
+    ></i>
+    <div class="imageWrapper">
+      <router-link class="link" :to="`/product/view/${id}`">
         <img :src="'../../../public/images/' + imgSrc" alt="Khmer Collection" />
-      </div>
+      </router-link>
+    </div>
 
-      <div class="content">
-        <h4 class="name">
-          {{ name }}
-        </h4>
-        <p class="description">{{ description }}</p>
+    <div class="content">
+      <h4 class="name">
+        {{ name }}
+      </h4>
+      <p class="description">{{ description }}</p>
 
-        <!-- Use a function for generating star base on #rating  -->
+      <!-- Use a function for generating star base on #rating  -->
 
-        <!-- <div class="rating">
+      <!-- <div class="rating">
         <i class="fa-solid fullStar fa-star"></i>
         <i class="fa-solid fullStar fa-star"></i>
         <i class="fa-solid fullStar fa-star"></i>
@@ -37,21 +35,22 @@
         <i class="fa-regular fa-star"></i>
       </div> -->
 
-        <div class="rating" v-html="generateStars(rating)"></div>
-        <div class="seemore">
-          <div class="Price">
-            <p class="actualPrice">
-              $
-              {{ calculateDiscountedPrice(originalPrice, promotionPercentage) }}
-            </p>
-            <p class="OriginalPrice">$ {{ originalPrice }}</p>
-          </div>
-
-          <PrimaryButton class="ShopNowBtn" content="Shop Now"></PrimaryButton>
+      <div class="rating" v-html="generateStars(rating)"></div>
+      <div class="seemore">
+        <div class="Price">
+          <p class="actualPrice">
+            $
+            {{ calculateDiscountedPrice(originalPrice, promotionPercentage) }}
+          </p>
+          <p class="OriginalPrice">$ {{ originalPrice }}</p>
         </div>
+
+        <router-link class="link" :to="`/product/view/${id}`">
+          <PrimaryButton class="ShopNowBtn" content="Shop Now"></PrimaryButton
+        ></router-link>
       </div>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script>
@@ -107,7 +106,11 @@ export default {
       for (let i = 1; i <= 5; i++) {
         if (i <= rating) {
           stars.push(
-            '<i class="fa-solid fullStar fa-star"  style="color: gold"</i>'
+            '<i class="fa-solid fullStar fa-star"  style="color: #FF8F00"</i>'
+          );
+        } else if (i - 0.5 <= rating) {
+          stars.push(
+            '<i class="fa-solid fa-star-half-alt" style="color: #FF8F00"></i>'
           );
         } else {
           stars.push('<i class="fa-regular fa-star" style="color: gray"></i>');

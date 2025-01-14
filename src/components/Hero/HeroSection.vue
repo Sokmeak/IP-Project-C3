@@ -70,6 +70,38 @@ export default {
       backDelay: 1200,
       loop: true,
     });
+
+    // const targetElement = document.getElementsByClassName("multiple-text");
+    // if (targetElement) {
+    //   new Typed(targetElement, {
+    //     strings: [
+    //       "Welcome to Angkor Apparel",
+    //       "You can sense the fashion.",
+    //       "Get your new Outfits.",
+    //       "Affordable Products.",
+    //       "Easy Shoppoing Website.",
+    //     ],
+
+    //     typeSpeed: 80,
+    //     backSpeed: 80,
+    //     backDelay: 1200,
+    //     loop: true,
+    //   });
+    // } else {
+    //   console.error("Target element not found");
+    // }
+
+    // this.$nextTick(() => {
+    //   const targetElement = document.getElementsByClassName("multiple-text");
+    //   if (!targetElement) {
+    //     console.error("Target element not found");
+    //     return;
+    //   }
+    //   new Typed(targetElement, {
+    //     strings: ["Welcome to the Hero Section!"],
+    //     typeSpeed: 50,
+    //   });
+    // });
   },
 };
 </script>

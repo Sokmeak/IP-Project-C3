@@ -240,6 +240,11 @@ export default {
 }
 .wishlist-container {
   padding: 5px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
   border: 2px solid gray;
 }
 .details-info {
