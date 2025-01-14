@@ -1,71 +1,61 @@
 <template>
-  <div>
-    <!-- Header -->
-    <HeaderComponent />
+  <!-- Cart Section -->
+  <div class="cart-section">
+    <h1>Shopping Cart</h1>
 
-    <!-- Cart Section -->
-    <div class="cart-section">
-      <h1>Shopping Cart</h1>
-
-      <div class="cart-content">
-        <!-- Left Section: Items List -->
-        <div class="cart-items">
-          <div class="cart-header">
-            <p>{{ cartItems.length }} items</p>
-          </div>
-
-          <div v-for="item in cartItems" :key="item.id" class="cart-item">
-            <img :src="item.image" :alt="item.name" class="item-image" />
-            <div class="item-details">
-              <h3>
-                {{ item.name }}
-                <span class="edit-link">Edit</span>
-              </h3>
-              <p>{{ item.description }}</p>
-              <p class="price">
-                Price: ${{ item.price }}
-                <span class="discounted" v-if="item.discounted">
-                  Discounted
-                </span>
-              </p>
-              <p>Size: {{ item.size }}</p>
-              <p>Qty: {{ item.quantity }}</p>
-            </div>
-            <!-- Remove Item Button -->
-            <button @click="removeItem(item.id)" class="remove-item-btn">
-              X
-            </button>
-          </div>
+    <div class="cart-content">
+      <!-- Left Section: Items List -->
+      <div class="cart-items">
+        <div class="cart-header">
+          <p>{{ cartItems.length }} items</p>
         </div>
 
-        <!-- Right Section: Order Summary -->
-        <div class="cart-summary">
-          <h3>Total checkout</h3>
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <span>${{ subtotal.toFixed(2) }}</span>
+        <div v-for="item in cartItems" :key="item.id" class="cart-item">
+          <img :src="item.image" :alt="item.name" class="item-image" />
+          <div class="item-details">
+            <h3>
+              {{ item.name }}
+              <span class="edit-link">Edit</span>
+            </h3>
+            <p>{{ item.description }}</p>
+            <p class="price">
+              Price: ${{ item.price }}
+              <span class="discounted" v-if="item.discounted">
+                Discounted
+              </span>
+            </p>
+            <p>Size: {{ item.size }}</p>
+            <p>Qty: {{ item.quantity }}</p>
           </div>
-          <div class="summary-row">
-            <span>Discount</span>
-            <span>-${{ discount.toFixed(2) }}</span>
-          </div>
-          <div class="summary-total">
-            <span>Total checkout</span>
-            <span>${{ totalPrice.toFixed(2) }}</span>
-          </div>
-          <div class="buttons">
-            <!-- Checkout Button -->
-            <button class="checkout-btn" @click="goToShipping">
-              Checkout →
-            </button>
-            <button class="cancel-btn" @click="clearCart">Cancel</button>
-          </div>
+          <!-- Remove Item Button -->
+          <button @click="removeItem(item.id)" class="remove-item-btn">
+            X
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Section: Order Summary -->
+      <div class="cart-summary">
+        <h3>Total checkout</h3>
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span>${{ subtotal.toFixed(2) }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Discount</span>
+          <span>-${{ discount.toFixed(2) }}</span>
+        </div>
+        <div class="summary-total">
+          <span>Total checkout</span>
+          <span>${{ totalPrice.toFixed(2) }}</span>
+        </div>
+        <div class="buttons">
+          <!-- Checkout Button -->
+          <button class="checkout-btn" @click="goToShipping">Checkout →</button>
+          <button class="cancel-btn" @click="clearCart">Cancel</button>
         </div>
       </div>
     </div>
-
-    <!-- Footer -->
-    <Footer />
   </div>
 </template>
 

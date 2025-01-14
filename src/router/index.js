@@ -19,6 +19,7 @@ import ProductCheckout from "@/views/ProductCheckout.vue"; // Import ProductChec
 
 // Import Product Details
 import ProductDeailsLayout from "@/components/ProductDetails/ProductDeailsLayout.vue";
+import { computed } from "vue";
 
 const routes = [
   {
@@ -29,12 +30,18 @@ const routes = [
   {
     path: "/product",
     name: "ProductLayout",
+    props: true,
     component: LayoutPage,
     children: [
       { path: "home", name: "Home", component: Home },
       { path: "men", name: "MenClothes", component: MenClothes },
       { path: "women", name: "WomenClothes", component: WomenClothes },
       { path: "children", name: "ChildrenClothes", component: ChildrenClothes },
+      {
+        path: "cart",
+        name: "ProductCart",
+        component: ProductCart,
+      },
       {
         path: "view/:id", // Dynamic route for product details
         name: "ProductDetails",
@@ -43,11 +50,7 @@ const routes = [
       },
     ],
   },
-  {
-    path: "/cart",
-    name: "ProductCart",
-    component: ProductCart, // Shopping Cart Page
-  },
+
   {
     path: "/shipping",
     name: "ShippingPage",

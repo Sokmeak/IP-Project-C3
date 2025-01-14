@@ -104,17 +104,17 @@ export default {
     selectedImage: String,
     id: Number,
   },
-  setup() {
-    const router = useRouter(); // Initialize Vue Router instance
+  // setup() {
+  //   const router = useRouter(); // Initialize Vue Router instance
 
-    const goToCart = () => {
-      router.push({ name: "ProductCart" }); // Navigate to ProductCart page
-    };
+  //   // const goToCart = () => {
+  //   //   router.({ name: "cart" }); // Navigate to ProductCart page
+  //   // };
 
-    return {
-      goToCart,
-    };
-  },
+  //   return {
+  //     goToCart,
+  //   };
+  // },
   data() {
     return {
       selectedSize: null,
@@ -143,6 +143,23 @@ export default {
     Back() {
       this.$router.go(-1);
     },
+    goToCart() {
+      this.$router.replace({
+        name: "ProductCart", // Refers to the child route
+        params: {}, // Add any route parameters here, if needed
+        props: true, // Pass props to the component
+      });
+    },
+
+    goToCart() {
+      this.$router.replace({
+        replace: true,
+        name: "ProductCart",
+        path: "/product/cart",
+        props: true,
+      });
+    },
+
     calculateDiscountedPrice(originalPrice, promotionPercentage) {
       if (!promotionPercentage || promotionPercentage <= 0)
         return originalPrice;
