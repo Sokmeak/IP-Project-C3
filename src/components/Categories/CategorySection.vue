@@ -39,8 +39,10 @@ export default {
   methods:{
     GetCategory(type){
       // alert("Categories Name : "+type)
+      console.log(this.$route.name);
+      
 
-      if (this.$route.name === "home") {
+      if (this.$route.name === "Home") {
         this.$router.push(type);
       } else {
         this.$router.push(`product/${type}`);

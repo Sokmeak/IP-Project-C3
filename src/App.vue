@@ -3,16 +3,13 @@
 
   <!-- Show the HomePage after loading is complete -->
   <!-- <template v-else> <RouterView /></template> -->
-  <RouterView/>
-<!-- <ProductDeailsLayout/> -->
-
-
-   
+  <RouterView />
+  <!-- <ProductDeailsLayout/> -->
 </template>
 
 <script>
 import PageLoader from "@/components/PageLoader.vue";
-import ProductDeailsLayout from "./components/ProductDetails/ProductDeailsLayout.vue";
+import ProductDeailsLayout from "./views/SubPages/ProductDeailsLayout.vue";
 
 export default {
   name: "App",
@@ -38,7 +35,9 @@ export default {
       // Restrict loading if navigating to the user page
       const userPagePath = `/userpage/`; // Adjust if necessary
       const productPath = `/product/`;
-      return !(to.path.startsWith(userPagePath)) && !(to.path.startsWith(productPath));
+      return (
+        !to.path.startsWith(userPagePath) && !to.path.startsWith(productPath)
+      );
     },
   },
   created() {

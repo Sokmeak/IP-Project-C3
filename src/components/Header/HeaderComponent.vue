@@ -60,19 +60,36 @@
         <RouterLink class="link" to="/userpage/1/account">
           <i class="fa fa-user fa-xl"></i>
         </RouterLink>
-        <i @click="goToCart" class="fa fa-shopping-cart fa-xl"></i>
+
+        <div class="shopping">
+          <div v-if="cartItems.length > 0" class="shoppingCount">
+            <p class="numOfItemContainer">
+              {{ cartItems.length }}
+            </p>
+          </div>
+          <i @click="goToCart" class="fa fa-shopping-cart fa-xl"></i>
+        </div>
       </div>
     </div>
   </header>
 </template>
 
 <script>
+import { computed } from "vue";
 import SecondaryBrand from "../Brands/SecondaryBrand.vue";
+import { useCartStore } from "@/stores/cart";
 
 export default {
   name: "HeaderComponent",
   components: {
     SecondaryBrand,
+  },
+
+  setup() {
+    const cartStore = useCartStore();
+
+    const cartItems = computed(() => cartStore.cartItems);
+    return { cartItems };
   },
 
   // watch: {
@@ -86,6 +103,7 @@ export default {
 
   data() {
     return {
+      numberOfItems: 1,
       categories: {
         Men: [
           "Shirt",
@@ -135,7 +153,6 @@ export default {
       },
     },
   },
-  
 
   methods: {
     toggleMenu() {
@@ -145,27 +162,32 @@ export default {
       this.menuActive = false;
     },
     goToCart() {
-      this.$router.push("/cart");
+      this.$router.replace({
+        replace: true,
+        name: "ProductCart",
+        path: "/product/cart",
+        props: true,
+      });
     },
     goToParentCategory(category) {
       this.$router.push(`/product/${category.toLowerCase()}`);
     },
 
     updateSearchPlaceholder() {
-      console.log(this.$route.name);
+      console.log("Router name: " + this.$route.name);
 
       switch (this.$route.name) {
         case "home":
         case "LandingPage":
           this.placeholderMessage = "Search type of Product";
           break;
-        case "Men":
+        case "MenClothes":
           this.placeholderMessage = "Search men's Clothes";
           break;
-        case "Women":
+        case "WomenClothes":
           this.placeholderMessage = "Search women's Clothes";
           break;
-        case "Children":
+        case "ChildrenClothes":
           this.placeholderMessage = "Search children's Clothes";
           break;
         default:
@@ -178,6 +200,24 @@ export default {
 
 <style scoped>
 /* Header */
+
+.shopping {
+  position: relative;
+}
+.shoppingCount {
+  position: absolute;
+  top: -20px;
+  right: -15px;
+  z-index: 99;
+}
+.numOfItemContainer {
+  width: 1.5rem;
+  height: 1.5rem;
+  text-align: center;
+
+  background-color: rgba(231, 8, 0);
+  border-radius: 50%;
+}
 .link {
   color: white;
 }

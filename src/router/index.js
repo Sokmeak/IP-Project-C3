@@ -5,7 +5,7 @@ import Home from "@/views/SubPages/Home.vue";
 import MenClothes from "@/views/SubPages/MenClothes.vue";
 import WomenClothes from "@/views/SubPages/WomenClothes.vue";
 import ChildrenClothes from "@/views/SubPages/ChildrenClothes.vue";
-import ProductCart from "@/views/ProductCart.vue"; // Shopping Cart Page
+import ProductCart from "@/views/SubPages/ProductCart.vue"; // Shopping Cart Page
 import UserPage from "@/views/UserPage/UserPage.vue";
 import Account from "@/views/UserPage/Account.vue";
 import Favorites from "@/views/UserPage/Favorites.vue";
@@ -17,9 +17,28 @@ import LandingPage from "@/views/LandingPage.vue";
 import ShippingPage from "@/views/ShippingPage.vue";
 import ProductCheckout from "@/views/ProductCheckout.vue"; // Import ProductCheckout Page
 
+import Login from "@/views/Login.vue"; // Login page component
+import Signup from "@/views/Signup.vue"; // Signup page component
+
 // Import Product Details
-import ProductDeailsLayout from "@/components/ProductDetails/ProductDeailsLayout.vue";
+import ProductDeailsLayout from "@/views/SubPages/ProductDeailsLayout.vue";
 import { computed } from "vue";
+
+export function isAuthenticated() {
+  const savedEmail = Cookies.get("email");
+  const savedPassword = Cookies.get("password");
+  const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+  let status = false;
+
+  if ((savedEmail && savedPassword) || loggedInUser) {
+    status = true;
+    return status;
+  }
+
+  const sessionEmail = sessionStorage.getItem("email");
+  const sessionPassword = sessionStorage.getItem("password");
+  return (savedEmail && savedPassword) || (sessionEmail && sessionPassword);
+}
 
 const routes = [
   {
@@ -80,6 +99,40 @@ const routes = [
         component: ChangePassword,
       },
     ],
+  },
+
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+    props: true,
+
+    // auto login section
+
+    //
+    // beforeEnter: (to, from, next) => {
+    //   if (isAuthenticated()) {
+    //     next("/home"); // Redirect to home if authenticated
+    //   } else {
+    //     next(); // Proceed to login
+    //   }
+    // },
+  },
+  {
+    path: "/signup",
+    name: "Signup",
+    component: Signup,
+    props: true,
+    // beforeEnter: (to, from, next) => {
+    //   import("@/stores/user").then(({ useStore }) => {
+    //     const store = useStore();
+    //     if (store.isRegister) {
+    //       next("/login"); // Redirect to login if already registered
+    //     } else {
+    //       next(); // Allow accessing the signup page
+    //     }
+    //   });
+    // },
   },
 ];
 

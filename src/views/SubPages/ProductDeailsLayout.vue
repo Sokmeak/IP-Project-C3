@@ -51,9 +51,9 @@
 </template>
 
 <script>
-import productImage from "./ProductImage.vue";
-import productReview from "./ProductReviewers.vue";
-import detailsInfo from "./DetailsInfo.vue";
+import productImage from "../../components/ProductDetails/ProductImage.vue";
+import productReview from "../../components/ProductDetails//ProductReviewers.vue";
+import detailsInfo from "../../components/ProductDetails//DetailsInfo.vue";
 import { mapState } from "pinia";
 import { useProductStore } from "@/stores/product";
 export default {

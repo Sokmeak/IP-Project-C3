@@ -109,7 +109,9 @@
 
     <!-- Buttons -->
     <div class="action-buttons">
-      <button @click="goToCart" class="shopping-cart">Shopping Cart →</button>
+      <button @click="goToCart" class="shopping-cart">
+        Shopping Cart <i class="fa-solid fa-arrow-right"></i>
+      </button>
       <button @click="Back" class="cancel">Cancel</button>
     </div>
   </div>
@@ -222,7 +224,6 @@ export default {
   },
 };
 </script>
->
 
 <style scoped>
 .in-stock {

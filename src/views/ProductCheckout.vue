@@ -8,7 +8,9 @@
       <div class="steps">
         <span class="step completed">Cart</span>
         <span class="step completed">Shipping</span>
-        <span class="step active">Checkout</span>
+        <span :class="['step', payStatus ? 'completed' : 'active']"
+          >Checkout</span
+        >
       </div>
     </div>
 
@@ -28,16 +30,13 @@
         </div>
 
         <!-- Debit Card -->
-        <div
-          class="method-selector clickable"
-          @click="selectPayment('debitCard')"
-        >
+        <div class="method-selector clickable" @click="toggleShowCard">
           <span>Debit Card</span>
           <span class="chevron">›</span>
         </div>
 
         <!-- Debit Card Details -->
-        <div v-if="selectedPayment === 'debitCard'" class="card-details">
+        <div v-if="displaycard" class="card-details">
           <h3>Debit Card</h3>
           <div class="card-option">
             <img src="/images/mastercard.png" alt="MasterCard" />
@@ -51,11 +50,15 @@
             <span>**** **** **** 1234</span>
             <input type="radio" name="card" />
           </div>
-          <button class="add-new-card">+ Add New Card</button>
+          <button class="add-new-card">
+            <i class="fa-solid fa-plus"></i> Add New Card
+          </button>
         </div>
 
         <!-- Add New Payment Method -->
-        <button class="add-new-method">+ Add New Method</button>
+        <button class="add-new-method">
+          <i class="fa-solid fa-plus"></i> Add New Method
+        </button>
       </div>
 
       <!-- Right Section: Order Summary -->
@@ -86,10 +89,12 @@
         </div>
 
         <!-- Pay Now Button -->
-        <button class="confirm-btn">Pay Now</button>
+        <button class="confirm-btn" @click="Pay">Pay Now</button>
 
         <!-- Back Button -->
-        <a class="back-link" @click="goBackToShipping">← Back</a>
+        <a class="back-link" @click="goBackToShipping"
+          ><i class="fa-solid fa-less-than"></i> Back</a
+        >
       </div>
     </div>
   </div>
@@ -139,11 +144,47 @@ export default {
       goBackToShipping,
     };
   },
+
+  methods: {
+    toggleShowCard() {
+      this.displaycard = !this.displaycard;
+    },
+    Pay() {
+      Swal.fire({
+        title: '<h2 style="color:#C77AE1;">Make Payment</h2>',
+        html: `
+    <div style="text-align: center; margin-top: 20px;">
+      <div style="background-color: #C77AE1; color: #ffffff; font-size: 40px; width: 60px; height: 60px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
+        <i class="fa fa-check" style="color: #fffff;font-size: 24px;"></i>
+      </div>
+      <h3 style="margin-top: 20px; color: #343a40;">Success</h3>
+    </div>
+  `,
+        showConfirmButton: true,
+        confirmButtonText: "Done",
+        confirmButtonColor: "#a768ff",
+        customClass: {
+          popup: "swal-custom-popup",
+        },
+      });
+      this.payStatus = true;
+    },
+  },
+
+  data() {
+    return {
+      displaycard: false,
+      payStatus: false,
+    };
+  },
 };
 </script>
 
 <style scoped>
 /* General Layout */
+.swal-custom-popup {
+  border-radius: 20px;
+}
 .checkout-page {
   display: flex;
   flex-direction: column;
@@ -238,7 +279,7 @@ export default {
 
 .add-new-card,
 .add-new-method {
-  background: #3f51b5;
+  background-color: #26355d;
   color: #ffffff;
   padding: 1rem;
   border: none;
@@ -250,6 +291,7 @@ export default {
 }
 
 .add-new-card:hover,
+.confirm-btn:hover,
 .add-new-method:hover {
   background: #303f9f;
 }
@@ -293,23 +335,26 @@ export default {
 }
 
 .confirm-btn {
-  background: #3f51b5;
+  /* background: #3f51b5; */
+
+  background-color: #26355d;
   color: #fff;
   padding: 15px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   width: 100%;
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-align: center;
 }
 
-.confirm-btn:hover {
+/* .confirm-btn:hover {
   background: #388e3c;
-}
+} */
 
 .back-link {
   display: inline-block;
+  gap: 1rem;
   margin-top: 2rem;
   color: #007bff;
   cursor: pointer;

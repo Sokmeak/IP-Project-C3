@@ -51,8 +51,8 @@
         </div>
         <div class="buttons">
           <!-- Checkout Button -->
-          <button class="checkout-btn" @click="goToShipping">Checkout →</button>
-          <button class="cancel-btn" @click="clearCart">Cancel</button>
+          <button class="checkout-btn" @click="goToShipping">Checkout <i class="fa-solid fa-arrow-right"></i></button>
+          <button class="cancel-btn" @click="backToCurrentRoute">Back</button>
         </div>
       </div>
     </div>
@@ -87,10 +87,10 @@ export default {
     const totalPrice = computed(() => subtotal.value - discount.value);
 
     // Methods
-    const clearCart = () => {
-      cartStore.clearCart();
-      alert("Cart has been cleared!");
-    };
+    // const clearCart = () => {
+    //   cartStore.clearCart();
+    //   alert("Cart has been cleared!");
+    // };
 
     const removeItem = (id) => {
       cartStore.removeFromCart(id);
@@ -109,10 +109,15 @@ export default {
       subtotal,
       discount,
       totalPrice,
-      clearCart,
       removeItem,
       goToShipping,
     };
+  },
+
+  methods: {
+    backToCurrentRoute() {
+      this.$router.go(-1);
+    },
   },
 };
 </script>
