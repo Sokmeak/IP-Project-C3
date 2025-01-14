@@ -137,7 +137,7 @@ export default {
     // parse the parameter here
 
     const results = computed(() => productStore.getAllProducts);
-    
+
     console.log(results);
 
     return {
@@ -154,12 +154,12 @@ export default {
     return {
       isLoaded: true, // Controls the loading spinner
       searchTerm: this.$route.query.term || "",
-    //   categories: ["Shirt", "T-shirt", "Pants", "Hats", "Shoes"],
-    //   selectedCategory: "",
+      //   categories: ["Shirt", "T-shirt", "Pants", "Hats", "Shoes"],
+      //   selectedCategory: "",
       selectedType: "", // Added filter for Type
       minPrice: null,
       maxPrice: null,
-    //   results: "",
+      //   results: "",
 
       //   fetch from store
       results2: [
@@ -396,7 +396,6 @@ export default {
     },
   },
   methods: {
-
     startLoading() {
       this.isLoaded = false;
     },
@@ -416,7 +415,6 @@ export default {
     applyFilters() {
       this.filteredResults = this.results.filter((item) => {
         return (
-         
           (!this.selectedType || item.productType === this.selectedType) &&
           (!this.minPrice || item.price >= this.minPrice) &&
           (!this.maxPrice || item.price <= this.maxPrice) &&
@@ -439,7 +437,6 @@ export default {
         this.applyFilters();
       },
     },
-
   },
   created() {
     this.$router.beforeEach((to, from, next) => {
@@ -450,7 +447,6 @@ export default {
       this.finishLoading();
     });
   },
-
 };
 </script>
 
@@ -523,7 +519,7 @@ export default {
 .pagination button {
   margin: 0 0.25rem;
   padding: 0.5rem 1rem;
-  background: #6200ea;
+  background: #af47d2;
   color: white;
   border: none;
   border-radius: 4px;

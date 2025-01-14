@@ -118,14 +118,14 @@ export default {
     return { cartItems, onSearchInput, searchTerm: searchStore.searchTerm };
   },
 
-  // watch: {
-  //   $route: {
-  //     immediate: true, // Trigger on initial load
-  //     handler() {
-  //       this.updateSearchPlaceholder();
-  //     },
-  //   },
-  // },
+  watch: {
+    $route: {
+      immediate: true, // Trigger on initial load
+      handler() {
+        this.updateSearchPlaceholder();
+      },
+    },
+  },
 
   data() {
     return {
@@ -160,7 +160,7 @@ export default {
       menuActive: false,
       hover: null,
       // Define links dynamically
-      placeholderMessage: "Search type of Product", // Default placeholder
+      placeholderMessage: "Search for item", // Default placeholder
 
       links: [
         { name: "Men", path: "/men" },
@@ -170,15 +170,6 @@ export default {
       menuActive: false, // State to toggle mobile menu
       showLoginSignupPopup: false, // State to control the visibility of the login/signup popup
     };
-  },
-
-  watch: {
-    $route: {
-      immediate: true, // Trigger on initial load
-      handler() {
-        this.updateSearchPlaceholder();
-      },
-    },
   },
 
   methods: {
