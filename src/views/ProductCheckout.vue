@@ -103,6 +103,7 @@
 <script>
 import DefaultBrand from "@/components/Brands/DefaultBrand.vue";
 import { computed, ref } from "vue";
+import { useCartStore } from "@/stores/cart";
 import { useRouter, useRoute } from "vue-router";
 
 export default {
@@ -112,6 +113,8 @@ export default {
   setup() {
     const router = useRouter();
     const route = useRoute();
+    const cartStore  = useCartStore();
+    
 
     // Retrieve the order total and address passed from ShippingPage
     const orderTotal = ref(parseFloat(route.query.orderTotal) || 0);
@@ -128,6 +131,10 @@ export default {
     const selectPayment = (method) => {
       selectedPayment.value = method;
     };
+    const clearCart = () => {
+      cartStore.clearCart();
+     
+    };
 
     // Navigate back to ShippingPage
     const goBackToShipping = () => {
@@ -141,11 +148,13 @@ export default {
       address,
       selectedPayment,
       selectPayment,
+      clearCart,
       goBackToShipping,
     };
   },
 
   methods: {
+    
     toggleShowCard() {
       this.displaycard = !this.displaycard;
     },
@@ -168,6 +177,7 @@ export default {
         },
       });
       this.payStatus = true;
+      this.clearCart();
     },
   },
 
