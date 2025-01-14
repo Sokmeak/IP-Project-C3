@@ -503,7 +503,7 @@ export default {
 }
 
 .result-list {
-  width: 70rem;
+  width: 90vw;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
