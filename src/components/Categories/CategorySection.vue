@@ -18,10 +18,12 @@ export default {
   data() {
     return {
       outfits: [
-        { id: 1, name: "Outfit 1", image: "/images/outfit1.jpg" },
-        { id: 2, name: "Outfit 2", image: "/images/outfit2.jpg" },
-        { id: 3, name: "Outfit 3", image: "/images/outfit3.jpg" },
-        { id: 4, name: "Outfit 4", image: "/images/outfit4.jpg" },
+
+      
+        { id: 1, name: "Outfit 1", image: "../../../Public/images/outfit1.jpg" },
+        { id: 2, name: "Outfit 2", image: "../../../Public/images/outfit2.jpg" },
+        { id: 3, name: "Outfit 3", image: "../../../Public/images/outfit3.jpg" },
+        { id: 4, name: "Outfit 4", image: "../../../Public/images/outfit4.jpg" },
       ],
     };
   },

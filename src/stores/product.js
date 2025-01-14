@@ -74,7 +74,7 @@ export const useProductStore = defineStore("products", {
               productType: "Men",
               productGroup: "Shirt",
               productImages: [
-                "Men/angkorWatT-shirt.jpg",
+                "Men/tradEle.jpg",
                 "Men/men2_image2.jpg",
               ],
               description: "Formal white shirt Formal white shirt",
@@ -104,7 +104,7 @@ export const useProductStore = defineStore("products", {
               productType: "Men",
               productGroup: "Towel",
               productImages: [
-                "Men/angkorWatT-shirt.jpg",
+                "Men/Angkor-BlackTshirt.png",
                 "Men/men4_image2.jpg",
               ],
               description: "Soft bath towel",
