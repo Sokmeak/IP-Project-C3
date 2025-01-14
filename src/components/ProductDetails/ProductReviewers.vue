@@ -8,7 +8,7 @@
       <div>
         <!-- A function for printing start -->
 
-        <div v-html="generateStars(rating)"></div>
+        <div v-html="generateStars(averageRating)"></div>
         <div class="numRate">from {{ reviews.length }} reviews</div>
       </div>
     </div>

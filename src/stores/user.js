@@ -1,23 +1,26 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import Cookies from "js-cookie";
+import { isAuthenticated } from "@/router";
 
-export function isAuthenticated() {
-  const savedEmail = Cookies.get("email");
-  const savedPassword = Cookies.get("password");
-  const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
-  console.log(loggedInUser);
+// export function isAuthenticated() {
+//   const savedEmail = Cookies.get("email");
+//   const savedPassword = Cookies.get("password");
+//   const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+//   console.log(loggedInUser);
 
-  // const sessionEmail = sessionStorage.getItem("email"); // Temporary session storage
-  // const sessionPassword = sessionStorage.getItem("password");
-  let status = false;
+//   // const sessionEmail = sessionStorage.getItem("email"); // Temporary session storage
+//   // const sessionPassword = sessionStorage.getItem("password");
+//   let status = false;
 
-  if ((savedEmail && savedPassword) || loggedInUser) {
-    status = true;
-  }
+//   if ((savedEmail && savedPassword) || loggedInUser) {
+//     status = true;
+//   }
 
-  return status;
-}
+//   return status;
+// }
+
+
 
 export const useStore = defineStore("counter", () => {
   const result = isAuthenticated();

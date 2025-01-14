@@ -74,22 +74,14 @@
 
 <script>
 import Cookies from "js-cookie";
-
 import { useRouter } from "vue-router";
 import DefaultBrand from "@/components/Brands/DefaultBrand.vue";
 import InputField from "@/components/InputField.vue";
 import IconButton from "@/components/Buttons/IconButton.vue";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
-import { useStore } from "@/stores/user";
+import Swal from "sweetalert2";
 
 export default {
-  setup() {
-    const myStore = useStore();
-
-    return {
-      myStore,
-    };
-  },
   components: {
     DefaultBrand,
     InputField,
@@ -98,123 +90,71 @@ export default {
   },
   data() {
     return {
-      password: "", // bind the password input value
-      rememberMe: false,
       user: {
         email: "",
-        username: "",
+
         password: "",
       },
+      rememberMe: false,
       passwordFieldType: "password",
     };
   },
-
-  // },
   methods: {
     togglePasswordVisibility() {
       this.passwordFieldType =
         this.passwordFieldType === "password" ? "text" : "password";
     },
-
     handleLogin() {
-      const email = this.user.email.trim();
-      const username = this.user.email.trim();
+    const email = this.user.email.trim();
+    const password = this.user.password.trim();
 
-      // just in case user input username
-      const password = this.user.password.trim();
-
-      // Retrieve users from local storage
-      const users = JSON.parse(localStorage.getItem("users")) || []; // Ensure users is an array
-      console.log(users);
-
-      // Find the user with matching email and password
-
-      const validUserInfo = users.find(
-        (user) =>
-          (String(user.email) === email &&
-            String(user.password) === password) ||
-          (String(user.username) === username && String(user.password))
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const userData = users.find(
+        (user) => user.email === email || user.username === email
       );
 
-      console.log(validUserInfo);
+    if (userData && userData.password === password) {
+      // Save current user's email and username
+      localStorage.setItem("currentEmail", userData.email);
+      localStorage.setItem("currentUsername", userData.username);
 
-      // Simulate checking credentials (replace with actual logic)
-      if (validUserInfo) {
-        console.log("Login successful!");
-        this.myStore.isRegister = true;
+      if (this.rememberMe) {
+        Cookies.set("email", userData.email, { expires: 7, secure: true });
+        Cookies.set("username", userData.username, { expires: 7, secure: true });
+      }
 
-        Swal.fire({
-          title: "Success!",
-          text: "Login successful!",
-          icon: "success",
-          confirmButtonText: "OK",
-        });
-
-        // If "Remember Me" is checked, store credentials in cookies
-        if (this.rememberMe) {
-          Cookies.set("email", email, { expires: 1 }); // Expire in 7 days
-          Cookies.set("password", password, { expires: 1 }); // Expire in 7 days
-        } else {
-          sessionStorage.setItem("loggedInUser", JSON.stringify(this.user));
-        }
-
-        // Redirect to home page
-        // this.$router.push("/home");
-        this.$router.push("/product/home");
-      } else {
-        Swal.fire({
-          title: "Error!",
-          text: "Invalid email or password. Please try again.",
-          icon: "error",
-          confirmButtonText: "Retry",
-        });
+      Swal.fire({
+        title: "Success!",
+        text: "Login successful!",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
+        this.$router.push("/product/home"); // Redirect to product/home after login
+      });
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: "Invalid email or password.",
+        icon: "error",
+        confirmButtonText: "Retry",
+      });
       }
     },
-    goBackToSignUp() {
-      console.log("go back.....");
-      this.myStore.isRegister = false;
-      this.$router.push("/signup");
-    },
-
     handleLoginWithGoogle() {
-      console.log("The login with google button is clicked");
+      alert("Login with Google clicked...");
     },
     forgotPass() {
-      console.log("Someone forgot him/her password!");
+      alert("Forgot password clicked...");
     },
   },
   mounted() {
-    // Check if user credentials exist in cookies
     const savedEmail = Cookies.get("email");
-    const savedPassword = Cookies.get("password");
+    const savedUsername = Cookies.get("username");
 
-    if (savedEmail && savedPassword) {
-      // Simulate automatic login
+    if (savedEmail && savedUsername) {
       this.user.email = savedEmail;
-      this.user.password = savedPassword;
-      this.autoLogin();
+      this.rememberMe = true;
     }
-  },
-  autoLogin() {
-    // automatically login using stored credentials
-
-    console.log("Auto-login successfully!");
-
-    Swal.fire({
-      title: "Welcome Back!",
-      text: "You are logged in automatically.",
-      icon: "success",
-      confirmButtonText: "OK",
-    });
-
-    // Redirect to home page.
-    this.$router.push("/home");
-  },
-  handleLoginWithGoogle() {
-    alert("Login with google clicked...");
-  },
-  forgotPass() {
-    alert("Forgot password clicked...");
   },
 };
 </script>

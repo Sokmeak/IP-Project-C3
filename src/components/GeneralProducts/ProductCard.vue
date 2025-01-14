@@ -59,7 +59,7 @@ export default {
       // alert(this.$route.name);
       const typeInLowerCase = this.productType.toLowerCase();
 
-      if (this.$route.name === "home") {
+      if (this.$route.name === "Home") {
         this.$router.push(typeInLowerCase);
       } else {
         this.$router.push(`product/${typeInLowerCase}`);

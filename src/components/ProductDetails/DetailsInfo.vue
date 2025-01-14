@@ -120,7 +120,7 @@
 <script>
 import { useCartStore } from "@/stores/cart"; // Importing the cart store
 import { useRouter } from "vue-router"; // Vue Router for navigation
-
+import { useFavoriteStore } from "@/stores/favorite";
 export default {
   props: {
     originalPrice: Number,
@@ -130,6 +130,8 @@ export default {
     qty: Number,
     selectedImage: String,
     id: Number,
+    image:String,
+    name:String
   },
   // setup() {
   //   const router = useRouter(); // Initialize Vue Router instance
@@ -159,6 +161,11 @@ export default {
         return "In Stock";
       }
     },
+
+    isFavorite() {
+      const favoriteStore = useFavoriteStore();
+      return favoriteStore.isFavorite(this.id);
+    },
   },
   methods: {
     selectSize(size) {
@@ -170,13 +177,13 @@ export default {
     Back() {
       this.$router.go(-1);
     },
-    goToCart() {
-      this.$router.replace({
-        name: "ProductCart", // Refers to the child route
-        params: {}, // Add any route parameters here, if needed
-        props: true, // Pass props to the component
-      });
-    },
+    // goToCart() {
+    //   this.$router.replace({
+    //     name: "ProductCart", // Refers to the child route
+    //     params: {}, // Add any route parameters here, if needed
+    //     props: true, // Pass props to the component
+    //   });
+    // },
 
     goToCart() {
       this.$router.replace({
@@ -195,9 +202,31 @@ export default {
         (originalPrice * promotionPercentage) / 100
       ).toFixed(2);
     },
+    toggleFavorite() {
+      const favoriteStore = useFavoriteStore();
+      if (this.isFavorite) {
+        favoriteStore.removeFavorite(this.id); // Remove from favorites
+      } else {
+        const product = {
+          id: this.id,
+          name: this.name,
+          description: this.description,
+          imgSrc: this.image,
+          rating: this.rating,
+          originalPrice: this.originalPrice,
+          promotionPercentage: this.promotionPercentage,
+        };
+        favoriteStore.addFavorite(product); // Add to favorites
+      }
+    },
     HandleAddToCart() {
       if (!this.selectedSize) {
         alert("Please select a size before adding to cart.");
+        return;
+      }
+
+      if(this.qty == 0){
+        alert("Sorry the product is out of Stock, Thank for your understanding!")
         return;
       }
 
@@ -219,7 +248,7 @@ export default {
       };
 
       cartStore.addToCart(cartItem); // Add item to cart store
-      alert("Item added to cart!");
+      // alert("Item added to cart!");
     },
   },
 };

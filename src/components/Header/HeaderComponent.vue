@@ -50,16 +50,28 @@
     <!-- Actions -->
     <div class="actions">
       <div class="search-container">
-        <input
+        <!-- <input
           type="text"
           :placeholder="placeholderMessage"
+          class="search-bar"
+        /> -->
+
+        <input
+          type="text"
+          v-model="searchTerm"
+          @focus="redirectToSearchPage"
+          @input="onSearchInput"
+          :placeholder="placeholderMessage"
+          @keydown.enter="performSearch"
           class="search-bar"
         />
       </div>
       <div class="iconWrapper">
-        <RouterLink class="link" to="/userpage/1/account">
+        <!-- <RouterLink class="link" to="/userpage/1/account">
           <i class="fa fa-user fa-xl"></i>
-        </RouterLink>
+        </RouterLink> -->
+
+        <i @click="GoToAccount" class="fa fa-user fa-xl"></i>
 
         <div class="shopping">
           <div v-if="cartItems.length > 0" class="shoppingCount">
@@ -71,6 +83,12 @@
         </div>
       </div>
     </div>
+
+    <!-- Login or Signup Popup -->
+    <LoginSignupPopup
+      v-if="showLoginSignupPopup"
+      @close="showLoginSignupPopup = false"
+    />
   </header>
 </template>
 
@@ -78,18 +96,26 @@
 import { computed } from "vue";
 import SecondaryBrand from "../Brands/SecondaryBrand.vue";
 import { useCartStore } from "@/stores/cart";
+import { isAuthenticated } from "@/router";
+import LoginSignupPopup from "../LoginSignupPopup.vue";
+import { useSearchStore } from "@/stores/search";
 
 export default {
   name: "HeaderComponent",
   components: {
     SecondaryBrand,
+    LoginSignupPopup,
   },
 
   setup() {
     const cartStore = useCartStore();
+    const searchStore = useSearchStore();
+    const onSearchInput = (event) => {
+      searchStore.setSearchTerm(event.target.value);
+    };
 
     const cartItems = computed(() => cartStore.cartItems);
-    return { cartItems };
+    return { cartItems, onSearchInput, searchTerm: searchStore.searchTerm };
   },
 
   // watch: {
@@ -142,6 +168,7 @@ export default {
         { name: "Children", path: "/children" },
       ],
       menuActive: false, // State to toggle mobile menu
+      showLoginSignupPopup: false, // State to control the visibility of the login/signup popup
     };
   },
 
@@ -155,6 +182,20 @@ export default {
   },
 
   methods: {
+    redirectToSearchPage() {
+      if (this.$route.name !== "SearchResults") {
+        this.$router.push({
+          name: "SearchResults",
+          query: { term: this.searchTerm || "" }, // Pass the current search term if any
+        });
+      }
+    },
+    performSearch() {
+      this.$router.push({
+        name: "SearchResults",
+        query: { term: this.searchTerm },
+      });
+    },
     toggleMenu() {
       this.menuActive = !this.menuActive;
     },
@@ -168,6 +209,17 @@ export default {
         path: "/product/cart",
         props: true,
       });
+    },
+
+    GoToAccount() {
+      const status = isAuthenticated();
+      console.log("Status = " + status);
+
+      if (!isAuthenticated()) {
+        this.showLoginSignupPopup = true; // Show the login/signup popup
+      } else {
+        this.$router.push("/userpage/1/account"); // Redirect to Account page
+      }
     },
     goToParentCategory(category) {
       this.$router.push(`/product/${category.toLowerCase()}`);

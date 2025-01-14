@@ -9,22 +9,19 @@
             <h1 class="title">Create new Account</h1>
             <p>See what is going on with your business</p>
           </div>
-
           <div class="basic-info">
             <div class="email-field">
               <label for="email">Email</label>
               <InputField
-                id=" email"
+                id="email"
                 type="email"
                 v-model="userSignUP.email"
                 required
                 place-holder="johnsmith123@gmail.com"
               ></InputField>
-              <!-- input -->
             </div>
             <div class="username-field">
               <label for="username">Username</label>
-              <!-- input -->
               <InputField
                 id="username"
                 type="text"
@@ -36,8 +33,6 @@
           </div>
           <div class="password">
             <label for="password">Password</label>
-
-            <!-- input -->
             <div class="password-wrapper">
               <InputField
                 id="password"
@@ -55,18 +50,13 @@
             </div>
           </div>
 
-          <!-- button -primary -->
-          <PrimaryButton type="submit " content="Signup"></PrimaryButton>
+          <PrimaryButton type="submit" content="Signup"></PrimaryButton>
 
           <div class="divider">
             <hr />
             <span>Or</span>
             <hr />
           </div>
-
-          <!-- or -->
-
-          <!-- Google button -->
 
           <IconButton @click="handleSignUpWithGoogle"></IconButton>
 
@@ -76,7 +66,6 @@
           </div>
           <div class="back">
             <i class="fa-solid fa-angle-left"></i>
-            <!-- back to the landing page -->
             <a href="#">Back</a>
           </div>
         </div>
@@ -84,29 +73,21 @@
     </form>
   </div>
 </template>
+
 <script>
 import DefaultBranch from "@/components/Brands/DefaultBrand.vue";
 import InputField from "@/components/InputField.vue";
 import IconButton from "@/components/Buttons/IconButton.vue";
 import PrimaryButton from "@/components/Buttons/PrimaryButton.vue";
-import { useStore } from "@/stores/user"; // Adjust the path as needed
-// use database to store data
+import Swal from "sweetalert2";
 
 export default {
-  setup() {
-    const myStore = useStore();
-
-    return {
-      myStore,
-    };
-  },
   components: {
     DefaultBranch,
     InputField,
     PrimaryButton,
     IconButton,
   },
-
   data() {
     return {
       userSignUP: {
@@ -123,21 +104,13 @@ export default {
         this.passwordFieldType === "password" ? "text" : "password";
     },
     goToLogin() {
-      console.log("Go to login.....");
-      // check if not exist?
-      this.myStore.isRegister = true;
       this.$router.push("/login");
     },
-
     handleSignUp() {
-      // get and remove whitespace
       const email = this.userSignUP.email.trim();
       const username = this.userSignUP.username.trim();
       const password = this.userSignUP.password.trim();
 
-      let isValidSignUp = false;
-
-      // Validation for email, username, and password
       if (!email || !username || !password) {
         Swal.fire({
           title: "Error!",
@@ -148,72 +121,57 @@ export default {
         return;
       }
 
-      if (email && username && password) {
-        // retrieve the existing users from local storage
-        const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+      const userKey = `user_${email}`;
+      const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-        // check if the user has registered
-        if (existingUsers.some((user) => user.email === email)) {
-          alert("Email is already registered!");
-          this.myStore.isRegister = true;
-          this.$router.push("/login");
-          return;
-        }
-
-        // check the validation here
-
-        const isValidPassword = this.validatePassword(password);
-
-        if (!isValidPassword.isValid) {
-          Swal.fire({
-            title: "Invalid Password!",
-            text: isValidPassword.message,
-            icon: "error",
-            confirmButtonText: "Retry",
-          });
-          return;
-        }
-
-        existingUsers.push({ email, username, password });
-        this.myStore.isRegister = true;
-        isValidSignUp = true;
-
-        // save to local storage
-
-        localStorage.setItem("users", JSON.stringify(existingUsers));
-
+      if (existingUsers.some((user) => user.email === email)) {
         Swal.fire({
-          title: "Good Job!",
-          text: "You are signup successfully!.",
-          icon: "success",
+          title: "Error!",
+          text: "Email is already registered!",
+          icon: "error",
           confirmButtonText: "OK",
         });
+        return;
       }
 
-      // check validation password
+      const isValidPassword = this.validatePassword(password);
 
-      //  store them in databse
+      if (!isValidPassword.isValid) {
+        Swal.fire({
+          title: "Invalid Password!",
+          text: isValidPassword.message,
+          icon: "error",
+          confirmButtonText: "Retry",
+        });
+        return;
+      }
 
-      // update store here
+      // Store user data (plain text password - not recommended for production)
+      const userData = { email, username, password };
+      existingUsers.push(userData);
+      localStorage.setItem("users", JSON.stringify(existingUsers));
 
-      if (isValidSignUp) {
+      Swal.fire({
+        title: "Success!",
+        text: "You have signed up successfully!",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
         this.$router.push("/login");
-      } else {
-        this.$router.redirect();
-      }
-    },
+      });
 
+      console.log("Stored users: ", localStorage.getItem("users"));
+    },
+    
     validatePassword(password) {
       if (password.length < 6) {
         return {
           isValid: false,
-          massage: "Password must be at least 6 characters long.",
+          message: "Password must be at least 6 characters long.",
         };
       }
 
-      // check for characters and numbers
-
-      const hasLetter = /[a-aA-z]/.test(password);
+      const hasLetter = /[a-zA-Z]/.test(password);
       const hasNumber = /\d/.test(password);
 
       if (!hasLetter || !hasNumber) {
@@ -228,6 +186,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .password {
   width: 100%;

@@ -24,5 +24,12 @@ export const useCartStore = defineStore("cart", {
     clearCart() {
       this.cartItems = [];
     },
+
+    // updateQuantity(productId, newQuantity) {
+    //   const item = this.cartItems.find((item) => item.id === productId);
+    //   if (item) {
+    //     item.quantity = Math.max(newQuantity, 1); // Ensure quantity is at least 1
+    //   }
+    // },
   },
 });

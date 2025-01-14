@@ -2,7 +2,7 @@
   <div class="sidebar">
     <div class="header">
       <h3>Hi,</h3>
-      <h2>Somebody</h2>
+      <h2>{{ username }}</h2>
     </div>
     <ul class="menu">
       <li
@@ -21,32 +21,30 @@
         <i class="fa-solid fa-arrow-left"></i> Back
       </button>
 
-      <RouterLink to = "/login">
-        <button class="logout-button" >
+      <button class="logout-button" @click="confirmLogout">
         <i class="fa-solid fa-right-from-bracket"></i> Logout
       </button>
-
-      </RouterLink>
-     
     </div>
   </div>
 </template>
 
 <script>
+import Swal from "sweetalert2";
+import Cookies from "js-cookie";
 
-import { RouterLink,RouterView } from 'vue-router';
 export default {
   name: "SidebarMenu",
   props: {
-    // userId: {
-    //   type: String,
-    //   required: true,
-    // },
-    userId: Number,
+    userId: {
+      type: Number,
+      required: true, // Ensure userId is required
+    },
   },
+
+  setup() {},
   data() {
     return {
-      userId: 1,
+      username: "", // Add a username field
       menuItems: [
         {
           label: "My Orders",
@@ -76,6 +74,10 @@ export default {
       ],
     };
   },
+  created() {
+    // Retrieve the username from local storage
+    this.username = localStorage.getItem("currentUsername") || "Guest";
+  },
   methods: {
     isActive(path) {
       const currentPath = this.$route.path;
@@ -83,11 +85,52 @@ export default {
       return currentPath === fullPath;
     },
     goBack() {
-      this.$router.go(-1);
+      this.$router.replace({
+        name: "Home", // Refers to the child route
+        params: {}, // Add any route parameters here, if needed
+        props: true, // Pass props to the component
+      });
     },
-    logout() {
-      console.log("Logging out...");
-      // Add your logout logic here
+    confirmLogout() {
+      // Show a confirmation dialog
+      Swal.fire({
+        title: "Logout Confirmation",
+        text: "Are you sure you want to logout?",
+        showCancelButton: true,
+        confirmButtonText: "Logout",
+        cancelButtonText: "Cancel",
+        confirmButtonColor: "#dc3545", // Red color for the logout button
+        cancelButtonColor: "#6c757d", // Gray color for the cancel button
+        customClass: {
+          popup: "custom-swal-popup", // Custom class for the popup
+          title: "custom-swal-title", // Custom class for the title
+          content: "custom-swal-content", // Custom class for the content
+          confirmButton: "custom-swal-confirm-button", // Custom class for the confirm button
+          cancelButton: "custom-swal-cancel-button", // Custom class for the cancel button
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.handleLogout(); // Proceed with logout if confirmed
+        }
+      });
+    },
+    handleLogout() {
+      // Clear user-related data from local storage and cookies
+      localStorage.removeItem("currentEmail");
+      localStorage.removeItem("currentUsername");
+      Cookies.remove("email");
+      Cookies.remove("username");
+
+      // Show a success message
+      Swal.fire({
+        title: "Logged Out!",
+        text: "You have been logged out successfully.",
+        icon: "success",
+        confirmButtonText: "OK",
+      }).then(() => {
+        // Redirect to the login page
+        this.$router.push("/login");
+      });
     },
   },
 };
@@ -136,7 +179,6 @@ export default {
 }
 .menu li.active {
   border-left: 4px solid #9b51e0; /* Purple active indicator */
-  /* color:yellow; */
 }
 .menu li a {
   display: flex;
@@ -162,7 +204,6 @@ export default {
 .menu li.active a,
 .menu li.active .iconImage {
   color: #6c63ff;
-  /* color: #171363; */
 }
 
 .menu li a .label {
@@ -172,7 +213,6 @@ export default {
 
 .menu li.active a .label {
   font-weight: bold;
-
   border-radius: 5px;
 }
 
@@ -218,6 +258,47 @@ export default {
   color: white;
 }
 
+.custom-swal-popup {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.custom-swal-title {
+  color: #343a40;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.custom-swal-content {
+  color: #495057;
+  font-size: 1rem;
+}
+
+.custom-swal-confirm-button {
+  background-color: #dc3545;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.custom-swal-confirm-button:hover {
+  background-color: #c82333;
+}
+
+.custom-swal-cancel-button {
+  background-color: #6c757d;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.custom-swal-cancel-button:hover {
+  background-color: #5a6268;
+}
 @media (max-width: 768px) {
   .sidebar {
     width: 100%;

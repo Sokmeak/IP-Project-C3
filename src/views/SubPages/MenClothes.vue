@@ -4,9 +4,13 @@
     <div class="content-wrapper">
       <BestOffers title="Men's Best Offer" productType="Men" />
 
-      <GeneralProducts productType="Men" title="Explore Men T-shirt" bgColor="#F0DFF5"/>
+      <GeneralProducts
+        productType="Men"
+        title="Explore Men T-shirt"
+        bgColor="#F0DFF5"
+      />
 
-      <BestOffers title="Men's Jacket"  productType="Men" />
+      <BestOffers title="Men's Jacket" productType="Men" />
       <section id="tshirt">
         <GeneralProducts
           bgColor="#F0DFF5"
@@ -22,6 +26,8 @@
 
 <script>
 import ListProducts from "@/components/ReadyToBuyProduct/ListProducts.vue";
+
+import { computed } from "vue";
 // import GeneralProducts from "@/components/GeneralProducts/GeneralProducts.vue";
 
 export default {

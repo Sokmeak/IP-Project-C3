@@ -15,7 +15,7 @@
           <div class="item-details">
             <h3>
               {{ item.name }}
-              <span class="edit-link">Edit</span>
+              <!-- <span class="edit-link">Edit</span> -->
             </h3>
             <p>{{ item.description }}</p>
             <p class="price">
@@ -25,7 +25,14 @@
               </span>
             </p>
             <p>Size: {{ item.size }}</p>
-            <p>Qty: {{ item.quantity }}</p>
+            <!-- <p>Qty: {{ item.quantity }}</p> -->
+            <input
+              class="updateQty"
+              type="number"
+              v-model="item.quantity"
+              @change="updateQuantity(item)"
+              min="1"
+            />
           </div>
           <!-- Remove Item Button -->
           <button @click="removeItem(item.id)" class="remove-item-btn">
@@ -51,8 +58,10 @@
         </div>
         <div class="buttons">
           <!-- Checkout Button -->
-          <button class="checkout-btn" @click="goToShipping">Checkout <i class="fa-solid fa-arrow-right"></i></button>
-          <button class="cancel-btn" @click="backToCurrentRoute">Back</button>
+          <button class="checkout-btn" @click="goToShipping">
+            Checkout <i class="fa-solid fa-arrow-right"></i>
+          </button>
+          <button class="cancel-btn" @click="backToCurrentRoute">Back to Shopping</button>
         </div>
       </div>
     </div>
@@ -118,12 +127,30 @@ export default {
     backToCurrentRoute() {
       this.$router.go(-1);
     },
+
+    updateQuantity(item) {
+      // Ensure the quantity is valid (e.g., greater than 0)
+      if (item.quantity < 1) {
+        item.quantity = 1;
+      }
+
+      // Update the cart's subtotal and other related calculations if needed
+      const updatedCart = this.cartItems.map((cartItem) =>
+        cartItem.id === item.id
+          ? { ...cartItem, quantity: item.quantity }
+          : cartItem
+      );
+    },
   },
 };
 </script>
 
 <style scoped>
 /* General Cart Section Styling */
+.updateQty{
+  width: 4rem;
+  text-align: center;
+}
 .cart-section {
   padding: 2rem;
   max-width: 1200px;

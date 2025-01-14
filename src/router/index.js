@@ -23,14 +23,17 @@ import Signup from "@/views/Signup.vue"; // Signup page component
 // Import Product Details
 import ProductDeailsLayout from "@/views/SubPages/ProductDeailsLayout.vue";
 import { computed } from "vue";
-
+import Cookies from "js-cookie";
 export function isAuthenticated() {
   const savedEmail = Cookies.get("email");
   const savedPassword = Cookies.get("password");
   const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
+   const users= localStorage.getItem("currentEmail");
+   console.log(users);
+   
   let status = false;
 
-  if ((savedEmail && savedPassword) || loggedInUser) {
+  if ((savedEmail && savedPassword) || loggedInUser ||users) {
     status = true;
     return status;
   }
@@ -81,9 +84,15 @@ const routes = [
     component: ProductCheckout,
   },
   {
+    path:"/searchResults",
+    name:"SearchResults",
+    component:() =>import("@/views/searchResults.vue")
+  },
+  {
     path: "/userpage/:id",
-    name: "UserPage",
+    // redirect: "/userpage/:id/account",
     component: UserPage,
+    props: true,
     children: [
       { path: "account", name: "Account", component: Account },
       { path: "favorites", name: "Favorites", component: Favorites },
@@ -136,6 +145,14 @@ const routes = [
   },
 ];
 
+// {
+//   path: "/",
+//   name: "Test product details",
+//   component: () =>
+//     import("@/components/ProductDetails/ProductDeailsLayout.vue"),
+// },
+
+// Create and export the router
 const router = createRouter({
   history: createWebHistory(),
   routes,

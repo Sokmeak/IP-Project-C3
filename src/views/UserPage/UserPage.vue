@@ -1,7 +1,7 @@
 <template>
   <div class="userpage">
     <div class="sidebar-container">
-      <SidebarMenu class="sidebar-menu" />
+      <SidebarMenu class="sidebar-menu" :user-id="1" />
     </div>
     <div class="main-content">
       <h2 class="content-heading">{{ pageTitle }}</h2>
@@ -15,10 +15,14 @@
 <script>
 import SidebarMenu from "@/components/SidebarMenu.vue";
 export default {
+
+ 
   name: "UserPage",
   components: {
     SidebarMenu,
   },
+
+  
   computed: {
     pageTitle() {
       const routeName = this.$route.name || "Home";
