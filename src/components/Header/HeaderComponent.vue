@@ -1,8 +1,8 @@
 <template>
   <header class="header">
-    <!-- Updated Brand Section -->
+    <!-- Brand Section -->
     <RouterLink class="link" to="/product/home">
-      <SecodaryBrand />
+      <SecondaryBrand />
     </RouterLink>
 
     <!-- Hamburger Menu for Mobile -->
@@ -12,14 +12,38 @@
 
     <!-- Navigation Menu -->
     <div :class="['classify-wrapper nav', { active: menuActive }]">
-      <li v-for="link in links" :key="link.name">
+      <li
+        v-for="(items, category) in categories"
+        :key="category"
+        class="nav-item"
+        @mouseover="hover = category"
+        @mouseleave="hover = null"
+      >
         <router-link
-          :to="`/product` + link.path"
+          :to="`/product/${category.toLowerCase()}`"
           class="nav-link"
           @click="closeMenu"
         >
-          {{ link.name }}
+          {{ category }}
         </router-link>
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown-menu" v-if="hover === category">
+          <div class="dropdown-content">
+            <h3>{{ category }}</h3>
+            <ul>
+              <li v-for="item in items" :key="item">
+                <a
+                  href="#"
+                  class="dropdown-link"
+                  @click.prevent="goToParentCategory(category)"
+                >
+                  {{ item }}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </li>
     </div>
 
@@ -36,20 +60,19 @@
         <RouterLink class="link" to="/userpage/1/account">
           <i class="fa fa-user fa-xl"></i>
         </RouterLink>
-        <i @click="GoToshoppingCards" class="fa fa-shopping-cart fa-xl"></i>
+        <i @click="goToCart" class="fa fa-shopping-cart fa-xl"></i>
       </div>
     </div>
   </header>
 </template>
 
 <script>
-import SecodaryBrand from "../Brands/SecondaryBrand.vue";
+import SecondaryBrand from "../Brands/SecondaryBrand.vue";
 
-import { RouterLink, RouterView } from "vue-router";
 export default {
   name: "HeaderComponent",
   components: {
-    SecodaryBrand,
+    SecondaryBrand,
   },
 
   // watch: {
@@ -63,6 +86,35 @@ export default {
 
   data() {
     return {
+      categories: {
+        Men: [
+          "Shirt",
+          "T-shirt",
+          "Pants",
+          "Hats",
+          "Krama",
+          "Short-pants",
+          "Shoes",
+        ],
+        Women: [
+          "Blouse",
+          "Sampot (Skirt)",
+          "Dress",
+          "Scarf (Krama)",
+          "Accessories",
+          "Shoes",
+        ],
+        Children: [
+          "Shirt",
+          "Pants",
+          "Dresses",
+          "Krama",
+          "Shoes",
+          "Accessories",
+        ],
+      },
+      menuActive: false,
+      hover: null,
       // Define links dynamically
       placeholderMessage: "Search type of Product", // Default placeholder
 
@@ -86,24 +138,17 @@ export default {
   
 
   methods: {
-    GoToAccount() {
-      alert("Redirecting to user account...");
-    },
-    GoToshoppingCards() {
-      alert("Redirecting to shopping cards...");
-    },
-    // Check if the current route matches the link path
-    isActive(path) {
-      let fullPath = `/product` + path;
-      return this.$route.path === fullPath;
-    },
-    // Toggle menu for mobile view
     toggleMenu() {
       this.menuActive = !this.menuActive;
     },
-    // Close menu on link click (mobile view)
     closeMenu() {
       this.menuActive = false;
+    },
+    goToCart() {
+      this.$router.push("/cart");
+    },
+    goToParentCategory(category) {
+      this.$router.push(`/product/${category.toLowerCase()}`);
     },
 
     updateSearchPlaceholder() {
@@ -132,6 +177,7 @@ export default {
 </script>
 
 <style scoped>
+/* Header */
 .link {
   color: white;
 }
@@ -171,6 +217,7 @@ export default {
   width: 100%;
 }
 
+/* Hamburger Menu */
 .hamburger {
   display: none;
   cursor: pointer;
@@ -187,18 +234,6 @@ export default {
   font-weight: 500;
 }
 
-.classify-wrapper.active {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #a240de;
-  width: 100%;
-  padding: 1rem 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
 .nav-link {
   color: #ffdb00;
   text-decoration: none;
@@ -207,12 +242,12 @@ export default {
   transition: border-color 0.3s ease-in-out;
   position: relative;
 }
-.nav-link.active {
+
+.nav-link:hover {
   color: white;
-  font-weight: bold;
-  border-bottom: 2px solid white;
 }
-.nav-link.active::after {
+
+.nav-link:hover::after {
   width: 100%;
 }
 
@@ -220,37 +255,71 @@ export default {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -2px; /* Adjust the position of the underline */
+  bottom: -2px;
   width: 0;
   height: 2px;
   background-color: white;
-  transition: width 0.3s ease-in-out; /* Smoothly animate the width */
-}
-.nav-link:hover {
-  color: white;
-}
-.nav-link:hover::after {
-  /* text-decoration: underline; */
-  /* Add underline on hover */
-  color: #ffffff;
-  width: 100%;
+  transition: width 0.3s ease-in-out;
 }
 
-/* Active Link Style */
-/* .nav-link.active {
-  color: white;
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  width: 300px; /* Adjusted size for better usability */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999; /* Ensure dropdown is on top */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto; /* Enable click events */
+}
+
+.dropdown-content h3 {
+  font-size: 1.2rem;
   font-weight: bold;
-  text-decoration: none; /* Remove underline for active state */
-/* border-bottom: 2px solid white;  */
-/* Add bottom border for active link */
-/*
-} 
-*/
-.router-link-active {
-  color: white;
-  font-weight: bold;
+  color: #a240de;
+}
+
+.dropdown-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Align directly below the parent */
+  left: 0;
+  background-color: white;
+  width: 200px; /* Adjust width as needed */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999; /* Ensure dropdown is on top */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  pointer-events: auto; /* Enable click events */
+}
+
+.nav-item {
+  position: relative; /* Ensure dropdown aligns with the parent */
+}
+
+.dropdown-link {
   text-decoration: none;
-  border-bottom: 2px solid white;
+  color: black;
+  font-size: 1rem;
+  display: block;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.dropdown-link:hover {
+  background-color: #f0f0f0;
+  color: #a240de;
 }
 
 /* Actions */
@@ -258,25 +327,33 @@ export default {
   display: flex;
   align-items: center;
   gap: 2rem;
-  position: relative;
 }
 
-/* Search Bar */
 .search-container {
   position: relative;
+  display: inline-block;
+}
+
+.search-container::before {
+  content: "\f002";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 600;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #aaa;
 }
 
 .search-bar {
-  /* padding: 8px 40px; */
-  /* Adjust padding to make space for the icon */
-  padding: 0.5rem 3rem;
+  padding: 0.5rem 2.5rem;
   border-radius: 20px;
   border: none;
   width: 280px;
   font-size: 16px;
 }
 
-/* Icons */
 .iconWrapper {
   display: flex;
   gap: 1.5rem;
@@ -303,13 +380,6 @@ export default {
 
   .actions {
     display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .search-bar {
-    width: 150px;
-    font-size: 14px;
   }
 }
 </style>

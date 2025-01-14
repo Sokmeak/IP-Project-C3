@@ -1,215 +1,88 @@
 import { createRouter, createWebHistory } from "vue-router";
-import LandingPage from "@/views/LandingPage.vue"; // Import LandingPage component
-import Login from "@/views/Login.vue"; // Login page component
-import Signup from "@/views/Signup.vue"; // Signup page component
-import Home from "@/views/SubPages/Home.vue"; // Home page component
-import MenClothes from "@/views/SubPages/MenClothes.vue"; // Men page component
-import WomenClothes from "@/views/SubPages/WomenClothes.vue"; // Women page component
-import ChildrenClothes from "@/views/SubPages/ChildrenClothes.vue"; // Children page component
-import Cookies from "js-cookie";
+
+// Import views
+import Home from "@/views/SubPages/Home.vue";
+import MenClothes from "@/views/SubPages/MenClothes.vue";
+import WomenClothes from "@/views/SubPages/WomenClothes.vue";
+import ChildrenClothes from "@/views/SubPages/ChildrenClothes.vue";
+import ProductCart from "@/views/ProductCart.vue"; // Shopping Cart Page
 import UserPage from "@/views/UserPage/UserPage.vue";
+import Account from "@/views/UserPage/Account.vue";
+import Favorites from "@/views/UserPage/Favorites.vue";
+import Orders from "@/views/UserPage/Orders.vue";
+import PaymentMethods from "@/views/UserPage/PaymentMethods.vue";
+import ChangePassword from "@/views/UserPage/ChangePassword.vue";
+import LayoutPage from "@/views/LayoutPage.vue";
+import LandingPage from "@/views/LandingPage.vue";
+import ShippingPage from "@/views/ShippingPage.vue";
+import ProductCheckout from "@/views/ProductCheckout.vue"; // Import ProductCheckout Page
 
-// Authentication check function
-export function isAuthenticated() {
-  const savedEmail = Cookies.get("email");
-  const savedPassword = Cookies.get("password");
-  const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
-  let status = false;
-
-  if ((savedEmail && savedPassword) || loggedInUser) {
-    status = true;
-    return status;
-  }
-
-  const sessionEmail = sessionStorage.getItem("email");
-  const sessionPassword = sessionStorage.getItem("password");
-  return (savedEmail && savedPassword) || (sessionEmail && sessionPassword);
-}
-const id = 1;
-
-// Define routes
+// Import Product Details
+import ProductDeailsLayout from "@/components/ProductDetails/ProductDeailsLayout.vue";
+import { computed } from "vue";
 
 const routes = [
   {
     path: "/",
-    redirect: "landing", // Redirect to landing page
-    props: true,
-  },
-
-  {
-    path: "/landing",
     name: "LandingPage",
-    component: LandingPage, // Default to LandingPage
+    component: LandingPage,
+  },
+  {
+    path: "/product",
+    name: "ProductLayout",
     props: true,
+    component: LayoutPage,
+    children: [
+      { path: "home", name: "Home", component: Home },
+      { path: "men", name: "MenClothes", component: MenClothes },
+      { path: "women", name: "WomenClothes", component: WomenClothes },
+      { path: "children", name: "ChildrenClothes", component: ChildrenClothes },
+      {
+        path: "cart",
+        name: "ProductCart",
+        component: ProductCart,
+      },
+      {
+        path: "view/:id", // Dynamic route for product details
+        name: "ProductDetails",
+        component: ProductDeailsLayout,
+        props: true, // Pass route params as props
+      },
+    ],
   },
 
   {
-    path: "/login",
-    name: "Login",
-    component: Login,
-    props: true,
-
-    // auto login section
-
-    //
-    // beforeEnter: (to, from, next) => {
-    //   if (isAuthenticated()) {
-    //     next("/home"); // Redirect to home if authenticated
-    //   } else {
-    //     next(); // Proceed to login
-    //   }
-    // },
+    path: "/shipping",
+    name: "ShippingPage",
+    component: ShippingPage,
   },
   {
-    path: "/signup",
-    name: "Signup",
-    component: Signup,
-    props: true,
-    // beforeEnter: (to, from, next) => {
-    //   import("@/stores/user").then(({ useStore }) => {
-    //     const store = useStore();
-    //     if (store.isRegister) {
-    //       next("/login"); // Redirect to login if already registered
-    //     } else {
-    //       next(); // Allow accessing the signup page
-    //     }
-    //   });
-    // },
+    path: "/checkout",
+    name: "ProductCheckout", // Checkout Page
+    component: ProductCheckout,
   },
-
   {
     path: "/userpage/:id",
-    redirect: "/userpage/:id/account",
+    name: "UserPage",
     component: UserPage,
-    props: true,
     children: [
+      { path: "account", name: "Account", component: Account },
+      { path: "favorites", name: "Favorites", component: Favorites },
+      { path: "orders", name: "Orders", component: Orders },
       {
-        path: "account",
-        name: "Account",
-        component: () => import("@/views/UserPage/Account.vue"),
+        path: "payment-methods",
+        name: "PaymentMethods",
+        component: PaymentMethods,
       },
       {
         path: "change-password",
         name: "ChangePassword",
-        component: () => import("@/views/UserPage/ChangePassword.vue"),
-      },
-      {
-        path: "favorites",
-        name: "Favorites",
-        component: () => import("@/views/UserPage/Favorites.vue"),
-      },
-      {
-        path: "orders",
-        name: "Orders",
-        component: () => import("@/views/UserPage/Orders.vue"),
-      },
-      {
-        path: "payment-methods",
-        name: "PaymentMethods",
-        component: () => import("@/views/UserPage/PaymentMethods.vue"),
+        component: ChangePassword,
       },
     ],
   },
-
-  // home, men, women, children use the same have nav bar and footer.
-
-  // Some the parent should be the layout page
-
-  {
-    path: "/home",
-    name: "Home",
-    props: true,
-    component: () => import("@/views/LayoutPage.vue"),
-    beforeEnter: (to, from, next) => {
-      import("@/stores/user").then(({ useStore }) => {
-        const store = useStore();
-        const isRegistered = store.isRegister;
-        if (!isRegistered) {
-          next("/signup"); // Redirect to signup if not registered
-        } else if (!isAuthenticated()) {
-          next("/login"); // Redirect to login if not authenticated
-        } else {
-          next(); // Proceed to home
-        }
-      });
-    },
-  },
-
-  {
-    path: "/men",
-    name: "MenClothes",
-    component: MenClothes,
-  },
-  {
-    path: "/women",
-    name: "WomenClothes",
-    component: WomenClothes,
-  },
-  {
-    path: "/children",
-    name: "ChildrenClothes",
-    component: ChildrenClothes,
-  },
-
-  {
-    path: "/product",
-    redirect: "product/home", // default page in layout is home
-    name: "product",
-    component: () => import("@/views/LayoutPage.vue"),
-    props: true,
-    children: [
-      {
-        path: "home",
-        name: "home",
-        component: () => import("@/views/SubPages/Home.vue"),
-        beforeEnter: (to, from, next) => {
-          import("@/stores/user").then(({ useStore }) => {
-            const store = useStore();
-            const isRegistered = store.isRegister;
-            if (!isRegistered) {
-              next("/signup"); // Redirect to signup if not registered
-            } else if (!isAuthenticated()) {
-              next("/login"); // Redirect to login if not authenticated
-            } else {
-              next(); // Proceed to home
-            }
-          });
-        },
-      },
-      {
-        path: "men",
-        name: "Men",
-        component: () => import("@/views/SubPages/MenClothes.vue"),
-        // what if the differences in side subpage contains the any categories that can be classify
-      },
-      {
-        path: "women",
-        name: "Women",
-        component: () => import("@/views/SubPages/WomenClothes.vue"),
-      },
-      {
-        path: "children",
-        name: "Children",
-        component: () => import("@/views/SubPages/ChildrenClothes.vue"),
-      },
-      {
-        path: "view/:id",
-        name: "ViewDetails",
-        component: () =>
-          import("@/components/ProductDetails/ProductDeailsLayout.vue"),
-      },
-    ],
-  },
-
-  // {
-  //   path: "/",
-  //   name: "Test product details",
-  //   component: () =>
-  //     import("@/components/ProductDetails/ProductDeailsLayout.vue"),
-  // },
 ];
 
-// Create and export the router
 const router = createRouter({
   history: createWebHistory(),
   routes,
