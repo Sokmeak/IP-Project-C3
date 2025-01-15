@@ -9,7 +9,7 @@
 
 <script>
 import PageLoader from "@/components/PageLoader.vue";
-import ProductDeailsLayout from "./views/SubPages/ProductDeailsLayout.vue";
+import ProductDeailsLayout from "./views/SubPages/ProductDetailsLayout.vue";
 
 export default {
   name: "App",

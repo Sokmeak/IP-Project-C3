@@ -108,6 +108,7 @@
     </div>
 
     <!-- Buttons -->
+
     <div class="action-buttons">
       <button @click="goToCart" class="shopping-cart">
         Shopping Cart <i class="fa-solid fa-arrow-right"></i>
@@ -115,12 +116,18 @@
       <button @click="Back" class="cancel">Cancel</button>
     </div>
   </div>
+  <LoginSignupPopup
+    id="login-signup-popup"
+    v-if="showLoginSignupPopup"
+    @close="showLoginSignupPopup = false"
+  />
 </template>
 
 <script>
 import { useCartStore } from "@/stores/cart"; // Importing the cart store
-import { useRouter } from "vue-router"; // Vue Router for navigation
 import { useFavoriteStore } from "@/stores/favorite";
+import { isAuthenticated } from "@/router";
+import LoginSignupPopup from "../LoginSignupPopup.vue";
 export default {
   props: {
     originalPrice: Number,
@@ -130,8 +137,12 @@ export default {
     qty: Number,
     selectedImage: String,
     id: Number,
-    image:String,
-    name:String
+    image: String,
+    name: String,
+  },
+
+  components: {
+    LoginSignupPopup,
   },
   // setup() {
   //   const router = useRouter(); // Initialize Vue Router instance
@@ -149,6 +160,7 @@ export default {
       selectedSize: null,
       quantity: 1,
       isFavorite: false,
+      showLoginSignupPopup: false,
     };
   },
   computed: {
@@ -225,11 +237,33 @@ export default {
         return;
       }
 
-      if(this.qty == 0){
-        alert("Sorry the product is out of Stock, Thank for your understanding!")
+      if (this.qty == 0) {
+        alert(
+          "Sorry the product is out of Stock, Thank for your understanding!"
+        );
         return;
       }
 
+      console.log(isAuthenticated());
+
+      if (!isAuthenticated()) {
+        // show pop up for login or sigu up first
+
+        // const loginPopup = document.getElementById("login-signup-popup");
+        // if (loginPopup) {
+        //   loginPopup.style.display = "block"; // Example to show the popup
+        // }
+
+        // Swal.fire({
+        //   title: "Error!",
+        //   text: "Account is Authorized",
+        //   icon: "error",
+        //   confirmButtonText: "Retry",
+        // });
+        console.log("Show Login or Logout");
+        this.showLoginSignupPopup = true;
+        return;
+      }
       const cartStore = useCartStore();
 
       const cartItem = {
@@ -246,6 +280,29 @@ export default {
         quantity: this.quantity,
         description: this.description,
       };
+
+      Swal.fire({
+        title: '<h2 style="color:#C77AE1;">Added Product to Cart</h2>',
+        html: `
+    <div style="text-align: center; margin-top: 20px;">
+      <div style="background-color: #C77AE1; color: #ffffff; font-size: 40px; width: 60px; height: 60px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
+        <i class="fa fa-check" style="color: #fffff;font-size: 24px;"></i>
+      </div>
+      <h3 style="margin-top: 20px; color: #343a40;">Success</h3>
+    </div>
+  `,
+        showConfirmButton: true,
+        confirmButtonText: "Comfirm",
+        cancelButtonText: "Cancel",
+
+        confirmButtonColor: "#a768ff",
+        customClass: {
+          popup: "swal-custom-popup",
+          title: "custom-swal-title", // Custom class for the title
+          confirmButton: "custom-swal-confirm-button", // Custom class for the confirm button
+          cancelButton: "custom-swal-cancel-button", // Custom class for the cancel button
+        },
+      });
 
       cartStore.addToCart(cartItem); // Add item to cart store
       // alert("Item added to cart!");

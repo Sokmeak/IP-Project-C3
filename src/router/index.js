@@ -21,26 +21,33 @@ import Login from "@/views/Login.vue"; // Login page component
 import Signup from "@/views/Signup.vue"; // Signup page component
 
 // Import Product Details
-import ProductDeailsLayout from "@/views/SubPages/ProductDeailsLayout.vue";
+
 import { computed } from "vue";
 import Cookies from "js-cookie";
 export function isAuthenticated() {
   const savedEmail = Cookies.get("email");
   const savedPassword = Cookies.get("password");
   const loggedInUser = JSON.parse(sessionStorage.getItem("loggedInUser"));
-   const users= localStorage.getItem("currentEmail");
-   console.log(users);
-   
+  const users = localStorage.getItem("currentEmail");
+  console.log(users);
+
   let status = false;
 
-  if ((savedEmail && savedPassword) || loggedInUser ||users) {
+  if ((savedEmail && savedPassword) || loggedInUser || users) {
     status = true;
     return status;
   }
 
   const sessionEmail = sessionStorage.getItem("email");
   const sessionPassword = sessionStorage.getItem("password");
-  return (savedEmail && savedPassword) || (sessionEmail && sessionPassword);
+
+  if((savedEmail && savedPassword) || (sessionEmail && sessionPassword)){
+   status = true;
+  }
+
+
+
+  return status;
 }
 
 const routes = [
@@ -67,7 +74,7 @@ const routes = [
       {
         path: "view/:id", // Dynamic route for product details
         name: "ProductDetails",
-        component: ProductDeailsLayout,
+        component: () => import("@/views/SubPages/ProductDetailsLayout.vue"),
         props: true, // Pass route params as props
       },
     ],
@@ -84,9 +91,9 @@ const routes = [
     component: ProductCheckout,
   },
   {
-    path:"/searchResults",
-    name:"SearchResults",
-    component:() =>import("@/views/searchResults.vue")
+    path: "/searchResults",
+    name: "SearchResults",
+    component: () => import("@/views/searchResults.vue"),
   },
   {
     path: "/userpage/:id",

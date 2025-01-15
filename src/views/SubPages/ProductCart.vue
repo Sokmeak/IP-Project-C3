@@ -61,7 +61,9 @@
           <button class="checkout-btn" @click="goToShipping">
             Checkout <i class="fa-solid fa-arrow-right"></i>
           </button>
-          <button class="cancel-btn" @click="backToCurrentRoute">Back to Shopping</button>
+          <button class="cancel-btn" @click="backToCurrentRoute">
+            Back to Shopping
+          </button>
         </div>
       </div>
     </div>
@@ -103,7 +105,6 @@ export default {
 
     const removeItem = (id) => {
       cartStore.removeFromCart(id);
-      alert("Item removed!");
     };
 
     const goToShipping = () => {
@@ -147,7 +148,7 @@ export default {
 
 <style scoped>
 /* General Cart Section Styling */
-.updateQty{
+.updateQty {
   width: 4rem;
   text-align: center;
 }
