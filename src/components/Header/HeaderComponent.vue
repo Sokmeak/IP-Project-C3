@@ -34,7 +34,7 @@
             <ul>
               <li v-for="item in items" :key="item">
                 <a
-                  href="#"
+                :href="`/product/${category.toLowerCase()}/${item.toLowerCase()}`"
                   class="dropdown-link"
                   @click.prevent="goToParentCategory(category)"
                 >
@@ -74,9 +74,9 @@
         <i @click="GoToAccount" class="fa fa-user fa-xl"></i>
 
         <div class="shopping">
-          <div v-if="cartItems.length > 0" class="shoppingCount">
+          <div v-if="countItem > 0" class="shoppingCount">
             <p class="numOfItemContainer">
-              {{ cartItems.length }}
+              {{ countItem}}
             </p>
           </div>
           <i @click="goToCart" class="fa fa-shopping-cart fa-xl"></i>
@@ -114,8 +114,12 @@ export default {
       searchStore.setSearchTerm(event.target.value);
     };
 
+    const countItem = computed(() =>
+      cartStore.cartItems.reduce((sum, item) => sum + item.quantity, 0)
+    );
+
     const cartItems = computed(() => cartStore.cartItems);
-    return { cartItems, onSearchInput, searchTerm: searchStore.searchTerm };
+    return { cartItems, onSearchInput, searchTerm: searchStore.searchTerm, countItem};
   },
 
   watch: {

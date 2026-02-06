@@ -93,7 +93,7 @@
 
         <!-- Back Button -->
         <a class="back-link" @click="goBackToShipping"
-          ><i class="fa-solid fa-less-than"></i> Back</a
+          >← Back</a
         >
       </div>
     </div>

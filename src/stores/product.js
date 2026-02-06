@@ -5,6 +5,9 @@ export const useProductStore = defineStore("products", {
     products: [],
   }),
   getters: {
+    getAllProducts: (state) => {
+      return state.products;
+    },
     //get product by types
     // Men
     // Get products by type
@@ -68,9 +71,7 @@ export const useProductStore = defineStore("products", {
         product.productGroup.startsWith("Tradi")
       );
     },
-    getAllProducts: (state) => {
-      return state.products;
-    },
+   
     //  Trending banner
 
     // only id, name, image
@@ -80,6 +81,7 @@ export const useProductStore = defineStore("products", {
   },
 
   // fake fetchProducts action
+
   actions: {
     async fetchProducts() {
       await new Promise((resolve) => {
@@ -237,7 +239,7 @@ export const useProductStore = defineStore("products", {
               productName: "Shirt Men 12",
               productType: "Men",
               productGroup: "Shirt",
-              productImages: ["Men/AngkorWatT-shirt.jpg", "men12_image2.jpg"],
+              productImages: ["Men/angkorWatT-shirt.jpg", "men12_image2.jpg"],
               description: "Plaid casual shirt",
               quantity: 25,
               rating: 4,
@@ -1312,7 +1314,7 @@ export const useProductStore = defineStore("products", {
               price: 10,
             },
           ]);
-        }, 30);
+        }, 300);
       }).then((products) => (this.products = products));
     },
   },

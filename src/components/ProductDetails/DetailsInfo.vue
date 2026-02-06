@@ -236,36 +236,18 @@ export default {
         alert("Please select a size before adding to cart.");
         return;
       }
-
       if (this.qty == 0) {
         alert(
           "Sorry the product is out of Stock, Thank for your understanding!"
         );
         return;
       }
-
-      console.log(isAuthenticated());
-
       if (!isAuthenticated()) {
-        // show pop up for login or sigu up first
-
-        // const loginPopup = document.getElementById("login-signup-popup");
-        // if (loginPopup) {
-        //   loginPopup.style.display = "block"; // Example to show the popup
-        // }
-
-        // Swal.fire({
-        //   title: "Error!",
-        //   text: "Account is Authorized",
-        //   icon: "error",
-        //   confirmButtonText: "Retry",
-        // });
         console.log("Show Login or Logout");
         this.showLoginSignupPopup = true;
         return;
       }
       const cartStore = useCartStore();
-
       const cartItem = {
         id: this.id,
         name: `Product ${this.id}`, // Example product name
@@ -294,7 +276,6 @@ export default {
         showConfirmButton: true,
         confirmButtonText: "Comfirm",
         cancelButtonText: "Cancel",
-
         confirmButtonColor: "#a768ff",
         customClass: {
           popup: "swal-custom-popup",
@@ -304,7 +285,7 @@ export default {
         },
       });
 
-      cartStore.addToCart(cartItem); // Add item to cart store
+      cartStore.addToCart(cartItem,this.selectedSize); // Add item to cart store
       // alert("Item added to cart!");
     },
   },

@@ -7,7 +7,13 @@
       <!-- Left Section: Items List -->
       <div class="cart-items">
         <div class="cart-header">
-          <p>{{ cartItems.length }} items</p>
+          <!-- use v-if here -->
+          <!-- count  the  quantity of each cartItems instead -->
+          <!-- <p v-if="cartItems.length <= 1">{{ cartItems.length }} item</p>
+          <p v-else>{{ cartItems.length }} items</p> -->
+
+          <p v-if="countItem <= 1">{{ countItem}} item</p>
+          <p v-else>{{ countItem }} items</p>
         </div>
 
         <div v-for="item in cartItems" :key="item.id" class="cart-item">
@@ -26,6 +32,7 @@
             </p>
             <p>Size: {{ item.size }}</p>
             <!-- <p>Qty: {{ item.quantity }}</p> -->
+            <label for="quantity">Quantity: </label>
             <input
               class="updateQty"
               type="number"
@@ -94,6 +101,9 @@ export default {
         0
       )
     );
+    const countItem = computed(() =>
+      cartStore.cartItems.reduce((sum, item) => sum + item.quantity, 0)
+    );
     const discount = computed(() => subtotal.value * 0.1); // Example: 10% discount
     const totalPrice = computed(() => subtotal.value - discount.value);
 
@@ -115,6 +125,7 @@ export default {
     };
 
     return {
+      countItem,
       cartItems,
       subtotal,
       discount,

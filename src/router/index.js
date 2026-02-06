@@ -123,32 +123,12 @@ const routes = [
     component: Login,
     props: true,
 
-    // auto login section
-
-    //
-    // beforeEnter: (to, from, next) => {
-    //   if (isAuthenticated()) {
-    //     next("/home"); // Redirect to home if authenticated
-    //   } else {
-    //     next(); // Proceed to login
-    //   }
-    // },
   },
   {
     path: "/signup",
     name: "Signup",
     component: Signup,
     props: true,
-    // beforeEnter: (to, from, next) => {
-    //   import("@/stores/user").then(({ useStore }) => {
-    //     const store = useStore();
-    //     if (store.isRegister) {
-    //       next("/login"); // Redirect to login if already registered
-    //     } else {
-    //       next(); // Allow accessing the signup page
-    //     }
-    //   });
-    // },
   },
 ];
 

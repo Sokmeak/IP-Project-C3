@@ -151,12 +151,19 @@ export default {
     ...mapState(useProductStore, {
       products: "products",
     }),
+
+
     product() {
       const productId = this.$route.params.id;
       console.log(productId);
-
       return this.products.find((product) => product.productId == productId);
     },
+
+
+
+    
+    // pass id first  and filter in the product details page itsetf.
+    // get in the product details page.
 
     mergedImages() {
       // Combine the single image prop with the array of product images

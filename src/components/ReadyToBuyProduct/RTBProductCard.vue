@@ -95,6 +95,8 @@ export default {
       return favoriteStore.isFavorite(this.id);
     },
   },
+
+  
   methods: {
     toggleFavorite() {
       const favoriteStore = useFavoriteStore();

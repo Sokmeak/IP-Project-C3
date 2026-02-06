@@ -5,12 +5,19 @@ export const useCartStore = defineStore("cart", {
     cartItems: [],
   }),
   actions: {
-    addToCart(product) {
+    addToCart(product, selectedSize) {
       // Check if the product already exists in the cart
+      // const existingItem = this.cartItems.find(
+      //   (item) =>
+      //     item.id === product.id && item.selectedSize === product.selectedSize
+      // );
+
+      console.log(selectedSize);
+
       const existingItem = this.cartItems.find(
-        (item) =>
-          item.id === product.id && item.selectedSize === product.selectedSize
+        (item) => item.id === product.id && item.size === selectedSize
       );
+      console.log(existingItem);
 
       if (existingItem) {
         // Increment the quantity if it already exists
